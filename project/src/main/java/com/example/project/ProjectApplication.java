@@ -15,8 +15,7 @@ public class ProjectApplication {
         // ASDASD
     }
 
-    public static void lalal () {
-        System.out.println("lalala");
-    }
+
+
 }
 
