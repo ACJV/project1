@@ -16,12 +16,12 @@ public class AddressRepository {
 
     public List<Address> fetchAll() {
 
-        // Uncomment this text to test data retrieval
+        // Comment back once we finish testing data retrieval
 
-        //String sql = "SELECT * FROM address";
-        //RowMapper<Address> rowMapper = new BeanPropertyRowMapper<>(Address.class);
-        //return template.query(sql, rowMapper);
-        return null;
+        String sql = "SELECT * FROM address";
+        RowMapper<Address> rowMapper = new BeanPropertyRowMapper<>(Address.class);
+        return template.query(sql, rowMapper);
+        //return null;
     }
 
     public Address addAddress(Address a) {
