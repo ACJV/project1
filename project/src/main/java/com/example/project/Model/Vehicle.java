@@ -7,10 +7,9 @@ import javax.persistence.Id;
 public class Vehicle {
     @Id
     private String regNumber;
-                                            // DCD - Take modelID Out in DCD
+    private int categoryID;                                        
     private String model;
     private String brand;
-    private int categoryID;
     private String category;
     private int year;
     private int odometer;
@@ -18,20 +17,20 @@ public class Vehicle {
     private String fuelType;
     private int price;
     private String description;
-    private boolean operational;            // DCD - Change name in DCD
-    private String oComment;                // DCD - Change name in DCD
+    private boolean operational;
+    private String oComment;
 
     public Vehicle() {
     }
 
     // Constructor for everything
-    public Vehicle(String regNumber, String model, String brand, int categoryID, String category, int year,
+    public Vehicle(String regNumber, int categoryID, String model, String brand, String category, int year,
                    int odometer, String transmission, String fuelType, int price, String description,
                    boolean operational, String oComment) {
         this.regNumber = regNumber;
+        this.categoryID = categoryID;
         this.model = model;
         this.brand = brand;
-        this.categoryID = categoryID;
         this.category = category;
         this.year = year;
         this.odometer = odometer;
@@ -51,6 +50,14 @@ public class Vehicle {
         this.regNumber = regNumber;
     }
 
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
     public String getModel() {
         return model;
     }
@@ -65,14 +72,6 @@ public class Vehicle {
 
     public void setBrand(String brand) {
         this.brand = brand;
-    }
-
-    public int getCategoryID() {
-        return categoryID;
-    }
-
-    public void setCategoryID(int categoryID) {
-        this.categoryID = categoryID;
     }
 
     public String getCategory() {
