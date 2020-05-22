@@ -22,7 +22,7 @@ public class AddressRepository {
 
     public Address addAddress(Address a) {
         String sql = "INSERT INTO address (id, address, zip, city, country, distance) VALUES (?, ?, ?, ?, ?, ?)";
-        template.update(sql,a.getID(), a.getAddress(), a.getZip(), a.getCity(), a.getCountry(),a.getDistance());
+        template.update(sql,a.getAddressID(), a.getAddress(), a.getZip(), a.getCity(), a.getCountry(),a.getDistance());
         return null;
     }
     public Address findAddress(int id) {
