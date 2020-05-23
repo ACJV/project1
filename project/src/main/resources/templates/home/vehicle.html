@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Page</title>
+    <link rel="stylesheet" type="text/css" href="styler.css">
+</head>
+<body>
+<h1>Vehicle List</h1>h1>
+<a href="/create">
+    <button class="btn-create" id="btn-create">
+        Create New Vehicle
+    </button>
+</a>
+<table>
+    <thead>
+    <tr>
+        <th>regNumber</th>
+        <th>categoryID</th>
+        <th>year_stmp</th>
+        <th>odometer</th>
+        <th>transmission</th>
+        <th>fuelType</th>
+        <th>description</th>
+        <th>availability</th>
+        <th>aComments</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vehicle: ${vehicles}">
+        <td th:text="${vehicle.regNumber}"/>
+        <td th:text="${vehicle.categoryID}"/>
+        <td th:text="${vehicle.year_stmp}"/>
+        <td th:text="${vehicle.odometer}"/>
+        <td th:text="${vehicle.fuelType}"/>
+        <td th:text="${vehicle.description}"/>
+        <td th:text="${vehicle.availability}"/>
+        <td th:text="${vehicle.aComments}"/>
+        <td>
+            <a th:href="@{'/viewVehicle/+${vehicle.regNumber}'}">
+                <button class="btn-viewVehicle" , id="btn-viewVehicle">
+                    Select Car
+                </button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
