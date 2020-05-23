@@ -7,20 +7,17 @@ import javax.persistence.Id;
 public class Vehicle {
     @Id
     private String regNumber;
-    private int categoryID;                                        
-    private String model;
-    private String brand;
-    private String category;
-    private int year;
+    private int categoryID;
+    private int year_stmp;
     private int odometer;
     private String transmission;
     private String fuelType;
-    private int price;
     private String description;
-    private boolean operational;
-    private String oComment;
+    private boolean availability;
+    private String aComment;
 
-    public Vehicle() {
+    public Vehicle()
+    {
     }
 
     // Constructor for everything
@@ -29,17 +26,13 @@ public class Vehicle {
                    boolean operational, String oComment) {
         this.regNumber = regNumber;
         this.categoryID = categoryID;
-        this.model = model;
-        this.brand = brand;
-        this.category = category;
-        this.year = year;
+        this.year_stmp = year_stmp;
         this.odometer = odometer;
         this.transmission = transmission;
         this.fuelType = fuelType;
-        this.price = price;
         this.description = description;
-        this.operational = operational;
-        this.oComment = oComment;
+        this.availability = availability;
+        this.aComment = aComment;
     }
 
     public String getRegNumber() {
@@ -58,36 +51,12 @@ public class Vehicle {
         this.categoryID = categoryID;
     }
 
-    public String getModel() {
-        return model;
+    public int getYear_stmp() {
+        return year_stmp;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
+    public void setYear_stmp(int year_stmp) {
+        this.year_stmp = year_stmp;
     }
 
     public int getOdometer() {
@@ -114,14 +83,6 @@ public class Vehicle {
         this.fuelType = fuelType;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -130,19 +91,19 @@ public class Vehicle {
         this.description = description;
     }
 
-    public boolean isOperational() {
-        return operational;
+    public boolean isAvailability() {
+        return availability;
     }
 
-    public void setOperational(boolean operational) {
-        this.operational = operational;
+    public void setavailability(boolean availability) {
+        this.availability = availability;
     }
 
-    public String getoComment() {
-        return oComment;
+    public String getaComment() {
+        return aComment;
     }
 
-    public void setoComment(String oComment) {
-        this.oComment = oComment;
+    public void setaComment(String aComment) {
+        this.aComment = aComment;
     }
 }

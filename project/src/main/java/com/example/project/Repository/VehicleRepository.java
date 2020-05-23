@@ -8,27 +8,41 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class VehicleRepository {
+public class VehicleRepository
+{
     @Autowired
     JdbcTemplate template;
 
-    public List<Vehicle> fetchAll(){
-        return null;
+    public List<Vehicle> fetchAll()
+    {
+        String sql = "SELECT * FROM vehicle";
+        RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
+        return template.query(sql, rowMapper);
     }
-    public Vehicle addVehicle(Vehicle v){
+
+    public Vehicle addVehicle(Vehicle v)
+    {
+        String sql = "INSERT INTO vehicle (reg_number, cat_id, year_stmp, odometer, transmission, fuel_type, availability, a_comments) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        template.update(sql, v.getRegNumber(), v.getCatID(), v.getYearStmp(), v.getOdometer(), v.getTransmission(), v.getFuelType(), v.getAvailability(), v.getAComments());
         return null;
     }
 
-    // Note - I'm not sure but I think the "regNumber" might have to be the same as in the database.
-    // - It doesn't make any sense but I had problems with this when following Cay's videos because I didn't name
-    // - Them the same... - Just a note in case that something goes wrong - And to test it asap.
-    public Vehicle findVehicle(int regNumber){
+    public findVehicle(String regNumber)
+    {
+        String sql = "SELECT * FROM vehicle WHERE reg_number = ?";
+        RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
+        Vehicle v = template.queryForObject(sql, rowMapper, regNumber);
+        return v;
+    }
+
+    public Boolean deleteVehicle(String regNumber)
+    {
         return null;
     }
-    public Boolean deleteVehicle(int regNumber){
-        return null;
-    }
-    public Vehicle updateVehicle(int regNumber, Vehicle v){
+
+    public Vehicle updateVehicle(String regNumber, Vehicle v)
+    {
+        //string sql = ""
         return null;
     }
 }
