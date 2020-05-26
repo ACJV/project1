@@ -7,13 +7,14 @@
 </head>
 <body>
 <h1>Vehicle List</h1>
+
 <a href="/create">
     <button class="btn-create" id="btn-create">
         Create New Vehicle
     </button>
 </a>
-<table>
-    <thead>
+<table border="1" style="width: auto">
+    <thead >
     <tr>
         <th>Registration Number</th>
         <th>Category</th>
@@ -24,20 +25,22 @@
         <th>Description</th>
         <th>Availability</th>
         <th>Comments</th>
+
     </tr>
     </thead>
     <tbody>
     <tr th:each="vehicle: ${vehicles}">
-        <td th:text="${vehicle.regNumber}"/>
-        <td th:text="${vehicle.categoryID}"/>
+        <input type="text" value="Search by Reg No" th:value="$Value" td th:text="${vehicle.regNumber}"/>
+        <td th:field="{something}" th:text="${vehicle.categoryID}"/>
         <td th:text="${vehicle.year_stmp}"/>
-        <td th:text="${vehicle.odometer}"/>
+        <input type="text" th:field="*{username}" td th:text="${vehicle.odometer}"/>
         <td th:text="${vehicle.fuelType}"/>
         <td th:text="${vehicle.description}"/>
         <td th:text="${vehicle.availability}"/>
         <td th:text="${vehicle.aComments}"/>
         <td th:text="${}"/>
         <td>
+    </div>
             <a th:href="@{'/viewVehicle/+${vehicle.regNumber}'}">
                 <button class="btn-viewVehicle" , id="btn-viewVehicle">
                     Select Car
