@@ -16,20 +16,29 @@ public class VehicleService {
     {
         return vehicleRepository.fetchAll();
     }
+
     public Vehicle addVehicle(Vehicle v)
     {
         return vehicleRepository.addVehicle(v);
     }
-    public Vehicle findVehicle(int regNumber)
+
+    public Vehicle findVehicle(String regNumber)
     {
         return vehicleRepository.findVehicle(regNumber);
     }
-    public Boolean deleteVehicle(int regNumber)
+
+    public Boolean deleteVehicle(String regNumber)
     {
         return vehicleRepository.deleteVehicle(regNumber);
     }
-    public Vehicle updateVehicle(int regNumber, Vehicle v)
+
+    public Vehicle updateVehicle(String regNumber, Vehicle v)
     {
         return vehicleRepository.updateVehicle(regNumber, v);
+    }
+
+    public List<Vehicle> findByKeyword(String keyword)
+    {
+        return vehicleRepository.findByKeyword(keyword);
     }
 }

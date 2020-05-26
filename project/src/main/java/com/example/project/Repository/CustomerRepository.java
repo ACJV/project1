@@ -12,19 +12,23 @@ public class CustomerRepository {
     @Autowired
     JdbcTemplate template;
 
-    public List<Customer> fetchAll(){
+    public List<Customer> fetchAll() {
         return null;
     }
-    public Customer addCustomer(Customer c){
+
+    public Customer addCustomer(Customer c) {
         return null;
     }
-    public Customer findCustomer(int customerID){
+
+    public Customer findCustomer(int customerID) {
         return null;
     }
-    public Boolean deleteCustomer(int customerID){
+
+    public Boolean deleteCustomer(int customerID) {
         return null;
     }
-    public Customer updateCustomer(int customerID, Customer c){
+
+    public Customer updateCustomer(int customerID, Customer c) {
         return null;
     }
 

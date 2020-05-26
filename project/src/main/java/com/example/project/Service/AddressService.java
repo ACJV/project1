@@ -12,23 +12,23 @@ public class AddressService {
     @Autowired
     AddressRepository addressRepository;
 
-    public List<Address> fetchAll(){
+    public List<Address> fetchAll() {
         return addressRepository.fetchAll();
     }
 
-    public Address addAddress(Address a){
+    public Address addAddress(Address a) {
         return addressRepository.addAddress(a);
     }
 
-    public Address findAddress(int id){
+    public Address findAddress(int id) {
         return addressRepository.findAddress(id);
     }
 
-    public Boolean deleteAddress(int id){
+    public Boolean deleteAddress(int id) {
         return addressRepository.deleteAddress(id);
     }
 
-    public Address updateAddress(int id, Address a){
+    public Address updateAddress(int id, Address a) {
         return addressRepository.updateAddress(id, a);
     }
 }

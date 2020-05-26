@@ -29,16 +29,19 @@ public class AddressRepository {
         //template.update(sql,...)
         return null;
     }
+
     public Address findAddress(int id) {
         //String sql = "SELECT * FROM address WHERE ,, = ?";
         //RowMapper<Address> rowMapper = new BeanPropertyRowMapper<>(Address.class);
         //Address a = template.queryForObject(sql, rowMapper, ...);
         return null;
     }
-    public Boolean deleteAddress(int id){
+
+    public Boolean deleteAddress(int id) {
         return null;
     }
-    public Address updateAddress(int id, Address a){
+
+    public Address updateAddress(int id, Address a) {
         return null;
     }
 

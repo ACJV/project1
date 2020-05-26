@@ -10,5 +10,4 @@ public class BookingController {
     BookingService bookingService;
 
 
-
 }

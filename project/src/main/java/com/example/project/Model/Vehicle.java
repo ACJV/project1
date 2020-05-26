@@ -16,14 +16,13 @@ public class Vehicle {
     private boolean availability;
     private String aComment;
 
-    public Vehicle()
-    {
+    public Vehicle() {
     }
 
     // Constructor for everything
-    public Vehicle(String regNumber, int categoryID, String model, String brand, String category, int year,
+    public Vehicle(String regNumber, int categoryID, String model, int year_stmp,
                    int odometer, String transmission, String fuelType, int price, String description,
-                   boolean operational, String oComment) {
+                   boolean availability, String aComment) {
         this.regNumber = regNumber;
         this.categoryID = categoryID;
         this.year_stmp = year_stmp;

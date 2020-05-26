@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="styler.css">
 </head>
 <body>
-<h1>Vehicle List</h1>h1>
+<h1>Vehicle List</h1>
 <a href="/create">
     <button class="btn-create" id="btn-create">
         Create New Vehicle
@@ -15,15 +15,15 @@
 <table>
     <thead>
     <tr>
-        <th>regNumber</th>
-        <th>categoryID</th>
-        <th>year_stmp</th>
-        <th>odometer</th>
-        <th>transmission</th>
-        <th>fuelType</th>
-        <th>description</th>
-        <th>availability</th>
-        <th>aComments</th>
+        <th>Registration Number</th>
+        <th>Category</th>
+        <th>Year</th>
+        <th>Odometer</th>
+        <th>Transmission</th>
+        <th>Fuel</th>
+        <th>Description</th>
+        <th>Availability</th>
+        <th>Comments</th>
     </tr>
     </thead>
     <tbody>
@@ -36,6 +36,7 @@
         <td th:text="${vehicle.description}"/>
         <td th:text="${vehicle.availability}"/>
         <td th:text="${vehicle.aComments}"/>
+        <td th:text="${}"/>
         <td>
             <a th:href="@{'/viewVehicle/+${vehicle.regNumber}'}">
                 <button class="btn-viewVehicle" , id="btn-viewVehicle">

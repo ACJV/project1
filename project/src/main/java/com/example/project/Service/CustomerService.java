@@ -12,19 +12,23 @@ public class CustomerService {
     @Autowired
     CustomerRepository customerRepository;
 
-    public List<Customer> fetchAll(){
+    public List<Customer> fetchAll() {
         return customerRepository.fetchAll();
     }
-    public Customer addCustomer(Customer c){
+
+    public Customer addCustomer(Customer c) {
         return customerRepository.addCustomer(c);
     }
-    public Customer findCustomer(int customerID){
+
+    public Customer findCustomer(int customerID) {
         return customerRepository.findCustomer(customerID);
     }
-    public Boolean deleteCustomer(int customerID){
+
+    public Boolean deleteCustomer(int customerID) {
         return customerRepository.deleteCustomer(customerID);
     }
-    public Customer updateCustomer(int customerID, Customer c){
+
+    public Customer updateCustomer(int customerID, Customer c) {
         return customerRepository.updateCustomer(customerID, c);
     }
 }

@@ -6,32 +6,32 @@
 
 </head>
 <body>
-    <h1>Address List</h1>
+<h1>Address List</h1>
 
-    <!-- Testing data retrieval from temporary MySQL address table-->
-    <table>
-        <thead>
-        <tr>
-            <th>addressID</th>
-            <th>address</th>
-            <th>zip</th>
-            <th>city</th>
-            <th>country</th>
-            <th>distance</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="address: ${addressL}">
-            <td th:text="${address.addressID}"/>
-            <td th:text="${address.address}"/>
-            <td th:text="${address.zip}"/>
-            <td th:text="${address.city}"/>
-            <td th:text="${address.country}"/>
-            <td th:text="${address.distance}"/>
-        </tr>
-        </tbody>
-    </table>
+<!-- Testing data retrieval from temporary MySQL address table-->
+<table>
+    <thead>
+    <tr>
+        <th>addressID</th>
+        <th>address</th>
+        <th>zip</th>
+        <th>city</th>
+        <th>country</th>
+        <th>distance</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="address: ${addressL}">
+        <td th:text="${address.addressID}"/>
+        <td th:text="${address.address}"/>
+        <td th:text="${address.zip}"/>
+        <td th:text="${address.city}"/>
+        <td th:text="${address.country}"/>
+        <td th:text="${address.distance}"/>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>
