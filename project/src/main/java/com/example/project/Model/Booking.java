@@ -22,7 +22,7 @@ public class Booking {
     public Booking() {
     }
 
-    // Kept ID's as part of constructor
+    // Kept ID's as part of constructor - //
     // Considering whether we should keep the total price in the constructor -> Since we will most likely be using
     // the constructor to create the object, and then use JAVA to calculate the total price.
     public Booking(int bookingNo, String vehicleRegNumber, Date pickUpDate, Date dropOffDate, String bookingStatus,

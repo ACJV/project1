@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Page</title>
+    <link rel="stylesheet" type="text/css" href="styler.css">
+</head>
+<body>
+<h1>Customer list</h1>
+<a href="/create">
+    <button class="btn-create" id="btn-create">
+        Create New Customer
+    </button>
+</a>
+<table>
+    <thead>
+    <tr>
+        <th>customerID</th>
+        <th>fullName</th>
+        <th>driverLicNumber</th>
+        <th>dob</th>
+        <th>phoneNo</th>
+        <th>email</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer: ${customers}">
+        <td th:text="${customer.customerID}"/>
+        <td th:text="${customer.fullName}"/>
+        <td th:text="${customer.driverLicNo}"/>
+        <td th:text="${customer.dob}"/>
+        <td th:text="${customer.phoneNo}"/>
+        <td th:text="${customer.email}"/>
+        <td>
+            <a th:href="@{'/viewCustomer/+${customer.customerID}'}">
+                <button class="btn-viewCustomer" , id="btn-viewCustomer">
+                    Select
+                </button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

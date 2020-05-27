@@ -7,7 +7,7 @@ import javax.persistence.Id;
 public class Vehicle {
     @Id
     private String regNumber;
-    private int categoryID;                                        
+    private int categoryID;
     private String model;
     private String brand;
     private String category;
