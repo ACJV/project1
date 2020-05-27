@@ -1,10 +1,12 @@
 package com.example.project.Repository;
 
+import com.example.project.Model.Booking;
 import com.example.project.Model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -31,4 +33,9 @@ public class VehicleRepository {
     public Vehicle updateVehicle(int regNumber, Vehicle v){
         return null;
     }
+
+
+
+
+
 }

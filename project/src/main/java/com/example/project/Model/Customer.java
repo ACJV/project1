@@ -1,31 +1,43 @@
 package com.example.project.Model;
 
+
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 public class Customer {
     @Id
     private int customerID; // NOT IN CONSTRUCTOR
-    private String name;
+    private String fullName;
     private String driverLicNo;
-    private Date dob;
+    private String dob;
     private String phoneNo;
     private String email;
     private int addressID; // NOT IN CONSTRUCTOR
 
-    public Customer() {
-    }
 
-    // Constructor for all except for ID's - Since at first creation, we don't have the SQL ID
-    public Customer(String name, String driverLicNo, Date dob, String phoneNo, String email) {
+
+
+    /*
+    public Customer(int customerID, String name, String driverLicNo, String dob, String phoneNo, String email) {
+        this.customerID = customerID;
         this.name = name;
         this.driverLicNo = driverLicNo;
         this.dob = dob;
         this.phoneNo = phoneNo;
         this.email = email;
-    }
+        //this.addressID = 500;
+        //this.addressID = addressID;
+    }*/
+
 
     public int getCustomerID() {
         return customerID;
@@ -35,12 +47,12 @@ public class Customer {
         this.customerID = customerID;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getDriverLicNo() {
@@ -51,11 +63,15 @@ public class Customer {
         this.driverLicNo = driverLicNo;
     }
 
-    public Date getDob() {
+
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) throws ParseException {
+        //String d = dob;
+        //Date date = new SimpleDateFormat("yyyy-MM-dd").parse(d);
+        //System.out.println(dob);
         this.dob = dob;
     }
 

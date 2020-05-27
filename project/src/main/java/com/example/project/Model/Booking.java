@@ -8,8 +8,8 @@ public class Booking {
     @Id
     private int bookingNo;
     private String vehicleRegNumber; // Added - Missing in DCD
-    private Date pickUpDate;
-    private Date dropOffDate;
+    private String pickUpDate;
+    private String dropOffDate;
     private String bookingStatus;
     private int customerID;
     private int pickUpLocID;
@@ -25,7 +25,7 @@ public class Booking {
     // Kept ID's as part of constructor - //
     // Considering whether we should keep the total price in the constructor -> Since we will most likely be using
     // the constructor to create the object, and then use JAVA to calculate the total price.
-    public Booking(int bookingNo, String vehicleRegNumber, Date pickUpDate, Date dropOffDate, String bookingStatus,
+    public Booking(int bookingNo, String vehicleRegNumber, String pickUpDate, String dropOffDate, String bookingStatus,
                    int customerID, int pickUpLocID, int dropOffLocID, boolean bikeRack, int bedLinen,
                    int childSeat, double totalPrice) {
         this.bookingNo = bookingNo;                     // CHECK
@@ -58,19 +58,19 @@ public class Booking {
         this.vehicleRegNumber = vehicleRegNumber;
     }
 
-    public Date getPickUpDate() {
+    public String getPickUpDate() {
         return pickUpDate;
     }
 
-    public void setPickUpDate(Date pickUpDate) {
+    public void setPickUpDate(String pickUpDate) {
         this.pickUpDate = pickUpDate;
     }
 
-    public Date getDropOffDate() {
+    public String getDropOffDate() {
         return dropOffDate;
     }
 
-    public void setDropOffDate(Date dropOffDate) {
+    public void setDropOffDate(String dropOffDate) {
         this.dropOffDate = dropOffDate;
     }
 

@@ -27,4 +27,7 @@ public class CustomerService {
     public Customer updateCustomer(int customerID, Customer c){
         return customerRepository.updateCustomer(customerID, c);
     }
+    public List<Customer> findByKeyword(String keyword){
+        return customerRepository.findByKeyword(keyword);
+    }
 }
