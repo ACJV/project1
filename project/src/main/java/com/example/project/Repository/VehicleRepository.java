@@ -17,6 +17,7 @@ public class VehicleRepository {
     public List<Vehicle> fetchAll(){
         return null;
     }
+
     public Vehicle addVehicle(Vehicle v){
         return null;
     }
