@@ -1,7 +1,6 @@
 package com.example.project.Service;
 
 import com.example.project.Model.BookingAvailability;
-import com.example.project.Model.SearchingDates;
 import com.example.project.Repository.AvailabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

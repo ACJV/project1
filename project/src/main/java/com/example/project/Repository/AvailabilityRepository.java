@@ -2,7 +2,6 @@ package com.example.project.Repository;
 
 
 import com.example.project.Model.BookingAvailability;
-import com.example.project.Model.SearchingDates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
