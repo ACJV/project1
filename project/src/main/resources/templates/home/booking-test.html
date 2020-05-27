@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>It Fucking Works!</title>
+</head>
+<body>
+
+<h1>Bookings List</h1>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Booking Number</th>
+            <th>Vehicle Registration Number</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Booking Status</th>
+            <th>Customer ID</th>
+            <th>Pick Up Location ID</th>
+            <th>Drop Off Location ID</th>
+            <th>Bike Rack</th>
+            <th>Bed Linen</th>
+            <th>Child Seat</th>
+            <th>Total Price</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="booking: ${bookingL}">
+            <td th:text="${booking.bookingNo}" />
+            <td th:text="${booking.vehicleRegNumber}" />
+            <td th:text="${booking.pickUpDate}"/>
+            <td th:text="${booking.dropOffDate}"/>
+            <td th:text="${booking.bookingStatus}"/>
+            <td th:text="${booking.customerID}"/>
+            <td th:text="${booking.pickUpLocID}"/>
+            <td th:text="${booking.dropOffLocID}"/>
+            <td th:text="${booking.bikeRack}"/>
+            <td th:text="${booking.bedLinen}"/>
+            <td th:text="${booking.childSeat}"/>
+            <td th:text="${booking.totalPrice}"/>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+
+    <div>
+    <h1>Add New Booking</h1>
+
+    <form action="/booking/" method="post">
+        <p><label>Please enter Vehicle's Registration Number</label></p>
+        <input type="text" name="vehicleRegNumber">
+
+        <p><label>Please select the Pick Up Date</label></p>
+        <input type="date" min="2020-05-21" name="pickUpDate">
+
+        <p><label>Please select the Drop Off Date</label></p>
+        <input type="date" min="pickUpDate" name="dropOffDate">
+
+        <p><label>Please select the Customer ID</label></p>
+        <input type="number" name="customerID">
+
+        <p><label>Please select the Pick Up Location ID</label></p>
+        <input type="number" name="pickUpLocID">
+
+        <p><label>Please select the Drp Off Location ID</label></p>
+        <input type="number" name="dropOffLocID">
+
+        <p><label>Would you like to include Bike Rack?</label></p>
+        <input type="radio" id="true" name="bikeRack" value="1">
+        <label for="true">Yes</label>
+        <input type="radio" id="false" name="bikeRack" value="0">
+        <label for="false">No</label>
+
+        <p><label>How many Bed Linen would you like to add?</label></p>
+        <input type="number" name="bedLinen">
+
+        <p><label>How many Child Seats would you like to add?</label></p>
+        <input type="number" name="childSeat">
+
+        <p><input type="submit" value="ADD NEW BOOKING"></p>
+    </form>
+    </div>
+
+</body>
+</html>

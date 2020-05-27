@@ -17,7 +17,8 @@ public class Address {
     }
 
     // Without addressID ----> Constructor with below
-    public Address(String address, String zip, String city, String country, int distance) {
+    public Address(int addressID, String address, String zip, String city, String country, int distance) {
+        this.addressID = addressID;
         this.address = address;
         this.zip = zip;
         this.city = city;

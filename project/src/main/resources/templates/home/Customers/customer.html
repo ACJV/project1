@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Page</title>
+    <link rel="stylesheet" type="text/css" href="styler.css">
+</head>
+<body style="font-family: Helvetica; margin-left: 100px;">
+<h1>Customer list</h1>
+<a href="/create">
+    <button class="btn-create" id="btn-create">
+        Create New Customer
+    </button>
+</a>
+
+<form th:action="@{/customer}" method="get">
+    <input id="Search" type="text" name="keyword" placeholder="Search">
+    <button type="submit">Go</button>
+</form>
+
+<table style="font-size: small">
+    <thead >
+    <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>Driver Licence Number</th>
+        <th>Date Of Birth</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="customer: ${customers}">
+        <td th:text="${customer.customerID}"/>
+        <td th:text="${customer.fullName}"/>
+        <td th:text="${customer.driverLicNo}"/>
+        <td th:text="${customer.dob}"/>
+        <td th:text="${customer.phoneNo}"/>
+        <td th:text="${customer.email}"/>
+        <td>
+            <a th:href="@{'/viewCustomer/'+${customer.customerID}}">
+                <button class="btn-viewCustomer" , id="btn-viewCustomer">
+                    Select
+                </button>
+            </a>
+            <!--
+            <a th:href="@{'/deleteCustomer/'+${customer.customerID}}">
+                <button class="btn-deleteCustomer" , id="btn-deleteCustomer">
+                    Delete
+                </button>
+            </a>
+            <a th:href="@{'/updateCustomer/'+${customer.customerID}}">
+                <button class="btn-updateCustomer" , id="btn-updateCustomer">
+                    Update
+                </button>
+            </a>
+            -->
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

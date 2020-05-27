@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Customer Details</h1>
+
+    <form action="/saveCustomer" method="post">
+        <div>
+            <strong>
+            Customer ID:
+            <input type="text" name="customerID" id="testCSS" th:value="${customer.customerID}" readonly style="display: none;">
+            <span th:text="${customer.customerID}"/>
+            </strong>
+            <br/>
+        </div>
+        <br>
+        <fieldset>
+            <legend>Enter details: </legend>
+            <br>
+            <label for="name">Name: </label>
+            <input type="text" name="fullName" th:value="${customer.fullName}" id="name"> <br><br>
+            <label for="driverLic">Driver Licence Number: </label>
+            <input type="text" name="driverLicNo" th:value="${customer.driverLicNo}" id="driverLic"><br><br>
+            <label for="dob">Date Of Birth: </label>
+            <input type="date" name="dob" th:value="${customer.dob}" id="dob"><br><br>
+            <label for="phone">Phone Number: </label>
+            <input type="text" name="phoneNo" th:value="${customer.phoneNo}" id="phone"><br><br>
+            <label for="mail">Email: </label>
+            <input type="text" name="email" th:value="${customer.email}" id="mail"><br><br>
+        </fieldset>
+        <!--
+        <fieldset>
+            <legend>Driver Licence Number:</legend>
+            <input type="text" name="driverLicNo" th:value="${customer.driverLicNo}">
+        </fieldset>
+        <fieldset>
+            <legend>Date Of Birth:</legend>
+            <input type="date" name="dob" th:value="${customer.dob}">
+        </fieldset>
+        <fieldset>
+            <legend>Phone Number</legend>
+            <input type="text" name="phoneNo" th:value="${customer.phoneNo}">
+        </fieldset>
+        <fieldset>
+            <legend>Email:</legend>
+            <input type="text" name="email" th:value="${customer.email}">
+        </fieldset>
+        -->
+        <input type="submit" value="Save Changes">
+    </form>
+    <a th:href="@{'/deleteCustomer/'+${customer.customerID}}">
+        <button class="btn-deleteCustomer" , id="btn-deleteCustomer">
+            Delete
+        </button>
+    </a>
+
+</body>
+</html>
+
+<!--
+<span th:text="${customer.customerID}"/>
+<span th:text="${customer.fullName}"/>
+<span th:text="${customer.driverLicNo}"/>
+<span th:text="${customer.dob}"/>
+<span th:text="${customer.phoneNo}"/>
+<span th:text="${customer.email}"/>
+-->
+        <!--
+        <fieldset>
+            <legend></legend>
+        </fieldset>
+        <input type="text" name="fullName" th:value="${customer.fullName}">
+        <input type="text" name="driverLicNo" th:value="${customer.driverLicNo}">
+        <input type="date" name="dob" th:value="${customer.dob}">
+        <input type="text" name="phoneNo" th:value="${customer.phoneNo}">
+        <input type="text" name="email" th:value="${customer.email}">
+        -->

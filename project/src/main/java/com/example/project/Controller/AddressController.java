@@ -14,12 +14,15 @@ public class AddressController {
     @Autowired
     AddressService addressService;
 
+
     @GetMapping("/")
     public String index(Model model) {
         List<Address> addressList = addressService.fetchAll();
         model.addAttribute("addressL", addressList);
         return "home/index";
     }
+
+
 
 }
 */
