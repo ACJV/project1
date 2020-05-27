@@ -63,13 +63,6 @@ public class VehicleController
         }
     }
 
-  /*  @GetMapping("updateVehicle/{regNumber}")
-    public String updateVehicle(@PathVariable("regNumber") String regNumber, Model model)
-    {
-        model.addAttribute("vehicle", vehicleService.findVehicle(regNumber));
-        return "home/Vehicle/updateVehicle";
-    }*/
-
     @PostMapping("/saveVehicle")
     public String saveVehicle(@ModelAttribute Vehicle vehicle)
     {

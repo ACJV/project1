@@ -62,13 +62,7 @@ public class CustomerController {
             return "redirect:/customer";
         }
     }
-
-
-    @GetMapping("/updateCustomer/{customerID}")
-    public String updateCustomer(@PathVariable("customerID") int customerID, Model model) {
-        model.addAttribute("customer", customerService.findCustomer(customerID));
-        return "home/Customers/updateCustomer";
-    }
+    
 
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute Customer customer){
