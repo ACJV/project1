@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Page</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/styler.css">
+</head>
+<body style="margin-left: 300px">
+<h1>Vehicle List</h1>
+
+<form th:action="@{/vehicle}" method="get">
+    <input id="Search" type="text" name="keyword" placeholder="XX12345" style="margin-left: 300px">
+    <button type="submit">Search</button>
+</form>
+
+<a href="/create">
+    <button class="btn-create" id="btn-create">
+        Create New Vehicle
+    </button>
+</a>
+<table border="1" style="width: auto">
+    <thead >
+    <tr>
+        <th>Registration Number</th>
+        <th>Category</th>
+        <th>Year</th>
+        <th>Odometer</th>
+        <th>Transmission</th>
+        <th>Fuel</th>
+        <th>Description</th>
+        <th>Operational</th>
+        <th>Comments</th>
+        <th></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vehicle: ${vehicles}">
+        <td th:text="${vehicle.regNumber}"/>
+        <td th:text="${vehicle.categoryID}"/>
+        <td th:text="${vehicle.yearStmp}"/>
+        <td th:text="${vehicle.odometer}"/>
+        <td th:text="${vehicle.transmission}"/>
+        <td th:text="${vehicle.fuelType}"/>
+        <td th:text="${vehicle.descriptionX}"/>
+        <td th:text="${vehicle.operational}"/>
+        <td th:text="${vehicle.oComment}"/>
+        <td></td>
+        <td>
+            <a th:href="@{'/viewVehicle/'+${vehicle.regNumber}}">
+                <button class="btn-viewVehicle" , id="btn-viewVehicle">
+                    Select Car
+                </button>
+            </a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

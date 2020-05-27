@@ -19,19 +19,20 @@ public class VehicleRepository {
     {
         String sql = "SELECT * FROM vehicle";
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
+        // the template is a "spring-thing" mapping the results from the db into an arraylist
         return template.query(sql, rowMapper);
     }
 
     public Vehicle addVehicle(Vehicle v)
     {
-        String sql = "INSERT INTO vehicle (reg_number, cat_id, year_stmp, odometer, transmission, fuel_type, description, availability, a_comments) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql, v.getRegNumber(), v.getCategoryID(), v.getYear_stmp(), v.getOdometer(), v.getTransmission(), v.getFuelType(), v.getDescription(), v.isAvailability(), v.getaComment());
+        String sql = "INSERT INTO vehicle (regNumber, categoryID, yearStmp, odometer, transmission, fuelType, descriptionX, operational, oComment) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        template.update(sql, v.getRegNumber(), v.getCategoryID(), v.getYearStmp(), v.getOdometer(), v.getTransmission(), v.getFuelType(), v.getDescriptionX(), v.getOperational(), v.getoComment());
         return null;
     }
 
     public Vehicle findVehicle(String regNumber)
     {
-        String sql = "SELECT * FROM vehicle WHERE reg_number = ?";
+        String sql = "SELECT * FROM vehicle WHERE regNumber = ?";
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
         Vehicle v = template.queryForObject(sql, rowMapper, regNumber);
         return v;
@@ -39,20 +40,20 @@ public class VehicleRepository {
 
     public Boolean deleteVehicle(String regNumber)
     {
-        String sql = "SELECT * FORM vehicle WHERE reg_number = ?";
+        String sql = "DELETE FROM vehicle WHERE regNumber = ?";
         return template.update(sql, regNumber) < 0;
     }
 
     public Vehicle updateVehicle(String regNumber, Vehicle vehicle)
     {
-        String sql = "UPDATE vehicle SET year_stmp = ?, odometer = ?, transmission = ?, fuel_type = ?, availability = ?, a_comments = ? WHERE reg_number = ?";
-        template.update(sql, vehicle.getYear_stmp(), vehicle.getOdometer(), vehicle.getTransmission(), vehicle.getFuelType(), vehicle.isAvailability(), vehicle.getaComment());
+        String sql = "UPDATE vehicle SET yearStmp = ?, odometer = ?, transmission = ?, fuelType = ?, descriptionX = ?, operational = ?, oComment = ? WHERE regNumber = ?";
+        template.update(sql, vehicle.getYearStmp(), vehicle.getOdometer(), vehicle.getTransmission(), vehicle.getFuelType(), vehicle.getDescriptionX(), vehicle.getOperational(), vehicle.getoComment(), vehicle.getRegNumber());
         return null;
     }
 
     public List<Vehicle> findByKeyword(@Param("keyword") String keyword)
     {
-        String sql = "SELECT * FROM vehicle WHERE reg_number LIKE '%' ? '%'";
+        String sql = "SELECT * FROM vehicle WHERE regNumber LIKE '%' ? '%'";
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
         return template.query(sql, rowMapper, keyword);
     }

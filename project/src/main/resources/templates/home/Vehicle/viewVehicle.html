@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Customer Details</h1>
+
+<form action="/saveVehicle" method="post">
+   <!-- <div>
+        <strong>
+            Vehicle Registration Number:
+            <input type="text" name="regNumber" th:value="${vehicle.regNumber}" readonly style="display: none;">
+            <span th:text="${vehicle.regNumber}"/>
+        </strong>
+        <br/>
+    </div>-->
+    <br>
+    <fieldset>
+        <legend>Enter details </legend>
+        <br>
+        <<label for="regnum">Registration Number </label>
+        <input type="text" name="regNumber" th:value="${vehicle.regNumber}" id="regnum"> <br><br>
+        <label for="catid">Category </label>
+        <input type="number" name="categoryID" th:value="${vehicle.categoryID}" id="catid"><br><br>
+        <label for="year">Year of Fabrication </label>
+        <input type="number" name="yearStmp" th:value="${vehicle.yearStmp}" id="year"><br><br>
+        <label for="odo">Odometer </label>
+        <input type="number" name="odometer" th:value="${vehicle.odometer}" id="odo"><br><br>
+        <label for="trans">Transmission </label>
+        <input type="text" name="transmission" th:value="${vehicle.transmission}" id="trans"><br><br>
+        <label for="fuel"> Fuel Type </label>
+        <input type="text" name="fuelType" th:value="${vehicle.fuelType}" id="fuel"><br><br>
+        <label for="desc">Description </label>
+        <input type="text" name="descriptionX" th:value="${vehicle.descriptionX}" id="desc"><br><br>
+        <label for="op">Operational </label>
+        <input type="number" name="operational" th:value="${vehicle.operational}" id="op"><br><br>
+        <label for="comm">Comments </label>
+        <input type="text" name="oComment" th:value="${vehicle.oComment}" id="comm"><br><br>
+    </fieldset>
+
+    <input type="submit" value="Save Changes">
+</form>
+<a th:href="@{'/deleteVehicle/'+${vehicle.regNumber}}">
+    <button class="btn-deleteCustomer" , id="btn-deleteCustomer">
+        Delete
+    </button>
+</a>
+
+</body>
+</html>

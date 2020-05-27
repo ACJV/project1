@@ -8,30 +8,30 @@ public class Vehicle {
     @Id
     private String regNumber;
     private int categoryID;
-    private int year_stmp;
+    private int yearStmp;
     private int odometer;
     private String transmission;
     private String fuelType;
-    private String description;
-    private boolean availability;
-    private String aComment;
+    private String descriptionX;
+    private boolean operational;
+    private String oComment;
 
     public Vehicle() {
     }
 
     // Constructor for everything
-    public Vehicle(String regNumber, int categoryID, String model, int year_stmp,
-                   int odometer, String transmission, String fuelType, int price, String description,
-                   boolean availability, String aComment) {
+    public Vehicle(String regNumber, int categoryID, int yearStmp,
+                   int odometer, String transmission, String fuelType, String descriptionX,
+                   boolean operational, String oComment) {
         this.regNumber = regNumber;
         this.categoryID = categoryID;
-        this.year_stmp = year_stmp;
+        this.yearStmp = yearStmp;
         this.odometer = odometer;
         this.transmission = transmission;
         this.fuelType = fuelType;
-        this.description = description;
-        this.availability = availability;
-        this.aComment = aComment;
+        this.descriptionX = descriptionX;
+        this.operational = operational;
+        this.oComment = oComment;
     }
 
     public String getRegNumber() {
@@ -50,12 +50,12 @@ public class Vehicle {
         this.categoryID = categoryID;
     }
 
-    public int getYear_stmp() {
-        return year_stmp;
+    public int getYearStmp() {
+        return yearStmp;
     }
 
-    public void setYear_stmp(int year_stmp) {
-        this.year_stmp = year_stmp;
+    public void setYearStmp(int yearStmp) {
+        this.yearStmp = yearStmp;
     }
 
     public int getOdometer() {
@@ -82,27 +82,27 @@ public class Vehicle {
         this.fuelType = fuelType;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionX() {
+        return descriptionX;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescriptionX(String descriptionX) {
+        this.descriptionX = descriptionX;
     }
 
-    public boolean isAvailability() {
-        return availability;
+    public boolean getOperational() {
+        return operational;
     }
 
-    public void setavailability(boolean availability) {
-        this.availability = availability;
+    public void setOperational(boolean operational) {
+        this.operational = operational;
     }
 
-    public String getaComment() {
-        return aComment;
+    public String getoComment() {
+        return oComment;
     }
 
-    public void setaComment(String aComment) {
-        this.aComment = aComment;
+    public void setoComment(String oComment) {
+        this.oComment = oComment;
     }
 }

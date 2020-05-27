@@ -22,23 +22,23 @@ public class VehicleController
     public String vehicle(Model model, String keyword)
     {
         List<Vehicle> vehicleList = vehicleService.fetchAll();
-
-        if (keyword != null) {
+        if (keyword != null)
+        {
             model.addAttribute("vehicles", vehicleService.findByKeyword(keyword));
         } else
             {
             model.addAttribute("vehicles", vehicleList);
             }
 
-        return "home/Vehicles/vehicle";
+        return "home/Vehicle/vehicle";
     }
 
     @GetMapping("/create")
     public String create() {
-        return "home/Vehicle/create";
+        return "home/Vehicle/createVehicle";
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public String create(@ModelAttribute Vehicle vehicle)
     {
         vehicleService.addVehicle(vehicle);
@@ -49,7 +49,7 @@ public class VehicleController
     public String viewVehicle(@PathVariable("regNumber") String regNumber, Model model)
     {
         model.addAttribute("vehicle", vehicleService.findVehicle(regNumber));
-        return "home/Vehicles/viewVehicle";
+        return "home/Vehicle/viewVehicle";
     }
 
     @GetMapping("/deleteVehicle/{regNumber}")
@@ -63,12 +63,12 @@ public class VehicleController
         }
     }
 
-    @GetMapping("updateVehicle/{regNumber}")
+  /*  @GetMapping("updateVehicle/{regNumber}")
     public String updateVehicle(@PathVariable("regNumber") String regNumber, Model model)
     {
         model.addAttribute("vehicle", vehicleService.findVehicle(regNumber));
-        return "home/Vehicles/updateVehicle";
-    }
+        return "home/Vehicle/updateVehicle";
+    }*/
 
     @PostMapping("/saveVehicle")
     public String saveVehicle(@ModelAttribute Vehicle vehicle)
@@ -76,5 +76,6 @@ public class VehicleController
         vehicleService.updateVehicle(vehicle.getRegNumber(), vehicle);
         return "redirect:/vehicle";
     }
+
 }
 
