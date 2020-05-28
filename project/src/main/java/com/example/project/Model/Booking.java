@@ -23,7 +23,8 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(int bookingNo, String vehicleRegNumber, String pickUpDate, String dropOffDate, String bookingStatus, int customerID, int pickUpId, int dropOffId, boolean bikeRack, int bedLinen, int childSeat, double totalPrice) {
+    public Booking(int bookingNo, String vehicleRegNumber, String pickUpDate, String dropOffDate, String bookingStatus,
+                   int customerID, int pickUpId, int dropOffId, boolean bikeRack, int bedLinen, int childSeat, double totalPrice) {
         this.bookingNo = bookingNo;
         this.regNumber = vehicleRegNumber;
         this.pickUpDate = pickUpDate;

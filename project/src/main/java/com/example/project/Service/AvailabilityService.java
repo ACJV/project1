@@ -1,6 +1,8 @@
 package com.example.project.Service;
 
+import com.example.project.Model.Booking;
 import com.example.project.Model.BookingAvailability;
+import com.example.project.Model.Vehicle;
 import com.example.project.Repository.AvailabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,8 +14,8 @@ public class AvailabilityService {
     @Autowired
     AvailabilityRepository availabilityRepository;
 
-    public List<BookingAvailability> fetchUnavailableVehicles (String startDate, String endDate) {
-        return availabilityRepository.fetchUnavailableVehicles(startDate, endDate);
+    public List<Vehicle> fetchAvailabilityVehicles (String startDate, String endDate, String sort) {
+        return availabilityRepository.fetchAvailabilityVehicles(startDate, endDate, sort);
     }
 
 

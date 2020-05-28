@@ -45,6 +45,10 @@ public class BookingController {
         bookingService.updateBooking(booking.getBookingNo(), booking);
         return "redirect:/booking";
     }
+    @GetMapping("/newBooking")
+    public String newBooking(){
+        return "home/Bookings/newBooking";
+    }
 
     @GetMapping("deleteBooking/{bookingNo}")
     public String deleteBooking(@PathVariable("bookingNo") int bookingNo){
@@ -55,8 +59,9 @@ public class BookingController {
 
     @PostMapping("/createBooking")
     public String createBooking(@ModelAttribute Booking b) {
-        bookingService.addBooking(b);
-        return "redirect:/booking";
+        //bookingService.addBooking(b);
+        //return "redirect:/booking";
+        return "home/Bookings/createBooking";
     }
 
 

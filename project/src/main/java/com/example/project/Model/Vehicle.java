@@ -7,7 +7,7 @@ import javax.persistence.Id;
 public class Vehicle {
     @Id
     private String regNumber;
-    private int categoryID;
+    private int categoryId;
     private int yearStmp;
     private int odometer;
     private String transmission;
@@ -24,7 +24,7 @@ public class Vehicle {
                    int odometer, String transmission, String fuelType, String descriptionX,
                    boolean operational, String oComment) {
         this.regNumber = regNumber;
-        this.categoryID = categoryID;
+        this.categoryId = categoryID;
         this.yearStmp = yearStmp;
         this.odometer = odometer;
         this.transmission = transmission;
@@ -42,12 +42,12 @@ public class Vehicle {
         this.regNumber = regNumber;
     }
 
-    public int getCategoryID() {
-        return categoryID;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategoryID(int categoryID) {
-        this.categoryID = categoryID;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
     public int getYearStmp() {
