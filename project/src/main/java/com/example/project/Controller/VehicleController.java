@@ -33,13 +33,13 @@ public class VehicleController
         return "home/Vehicle/vehicle";
     }
 
-    @GetMapping("/create")
-    public String create() {
+    @GetMapping("/createVehicle")
+    public String createVehicle() {
         return "home/Vehicle/createVehicle";
     }
 
-    @PostMapping("/create")
-    public String create(@ModelAttribute Vehicle vehicle)
+    @PostMapping("/createVehicle")
+    public String createVehicle(@ModelAttribute Vehicle vehicle)
     {
         vehicleService.addVehicle(vehicle);
         return "redirect:/vehicle";

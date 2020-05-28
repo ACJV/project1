@@ -21,20 +21,28 @@ public class BookingRepository {
     }
 
     public Booking addBooking(Booking b) {
-        String sql = "INSERT INTO nmr_db.booking (vehicle_reg_number, pick_up_date, drop_off_date, customer_id, pick_up_loc_id, drop_off_loc_id, bike_rack, bed_linen, child_seat, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql, b.getVehicleRegNumber(), b.getPickUpDate(), b.getDropOffDate(), b.getCustomerID(), b.getPickUpLocID(), b.getDropOffLocID(), b.isBikeRack(), b.getBedLinen(), b.getChildSeat(), b.getTotalPrice());
+        String sql = "INSERT INTO nmr_db.booking (reg_number, pick_up_date, drop_off_date, booking_status, customer_id, pick_up_id, drop_off_id, bike_rack, bed_linen, child_seat, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        template.update(sql, b.getRegNumber(), b.getPickUpDate(), b.getDropOffDate(), b.getBookingStatus(), b.getCustomerId(), b.getPickUpId(), b.getDropOffId(), b.isBikeRack(), b.getBedLinen(), b.getChildSeat(), b.getTotalPrice());
         return null;
     }
 
     public Booking findBooking(int bookingNo){
-        return null;
+        String sql = "SELECT * FROM booking WHERE booking_no = ?";
+        RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
+        Booking booking = template.queryForObject(sql, rowMapper, bookingNo);
+        return booking;
     }
 
     public Boolean deleteBooking(int bookingNo) {
-        return null;
+        String sql = "DELETE FROM booking WHERE booking_no = ?";
+        return template.update(sql, bookingNo) < 0;
     }
 
     public Booking updateBooking(int bookingNo, Booking b){
+        String sql = "UPDATE booking SET pick_up_date = ?, drop_off_date = ?, booking_status = ?, customer_id = ?, pick_up_id = ?, drop_off_id = ?, " +
+                "bike_rack = ?, bed_linen = ?, child_seat = ?, total_price = ? WHERE booking_no = ?";
+        template.update(sql, b.getPickUpDate(), b.getDropOffDate(), b.getBookingStatus(), b.getCustomerId(), b.getPickUpId(), b.getDropOffId(),
+                b.isBikeRack(), b.getBedLinen(), b.getChildSeat(), b.getTotalPrice(), b.getBookingNo());
         return null;
     }
 }

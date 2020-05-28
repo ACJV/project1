@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>It Fucking Works!</title>
+</head>
+<body>
+
+<h1>Bookings List</h1>
+<a href="/createBooking">
+    <button>
+        Create New Booking
+    </button>
+</a>
+<form th:action="@{/booking}" method="get">
+    <input id="searchBooking" type="text" placeholder="BookingNumber">
+    <button type="submit">Search</button>
+</form>
+<!--
+    @Justé
+-->
+
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Booking Number</th>
+            <th>Vehicle Registration Number</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Booking Status</th>
+            <th>Customer ID</th>
+            <th>Pick Up Location ID</th>
+            <th>Drop Off Location ID</th>
+            <th>Bike Rack</th>
+            <th>Bed Linen</th>
+            <th>Child Seat</th>
+            <th>Total Price</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="booking: ${bookingL}">
+            <td th:text="${booking.bookingNo}" />
+            <td th:text="${booking.regNumber}" />
+            <td th:text="${booking.pickUpDate}"/>
+            <td th:text="${booking.dropOffDate}"/>
+            <td th:text="${booking.bookingStatus}"/>
+            <td th:text="${booking.customerId}"/>
+            <td th:text="${booking.pickUpId}"/>
+            <td th:text="${booking.dropOffId}"/>
+            <td th:text="${booking.bikeRack}"/>
+            <td th:text="${booking.bedLinen}"/>
+            <td th:text="${booking.childSeat}"/>
+            <td th:text="${booking.totalPrice}"/>
+            <td>
+                <a th:href="@{'/viewBooking/'+${booking.bookingNo}}">
+                    <button>
+                        Select
+                    </button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</body>
+</html>

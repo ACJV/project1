@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TestingAvailability {
 
-
+/*
     public static void checkDate(String startD, String endD, ArrayList<Booking> bookings){ //Assuming we'll have dates as strings - Otherwise, same methodology.
         LocalDate startDate = LocalDate.parse(startD);
         LocalDate endDate = LocalDate.parse(endD);
@@ -52,7 +52,7 @@ public class TestingAvailability {
                 available.add(allve.get(i));
             }
         }
-    }
+    }*/
 }
 
 //Sources - Code inspiration and methods used in the code for LocalDate:

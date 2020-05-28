@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>View Booking</title>
+</head>
+<body>
+<!--
+    @Ástþór Arnar
+-->
+    <form action="/saveBooking" method="post">
+        <div>
+            <strong>
+                Booking ID:
+                <input type="text" name="bookingNo" th:value="${booking.bookingNo}" readonly>
+            </strong>
+        </div>
+        <br>
+        <fieldset>
+            <legend>Booking Details</legend>
+            <br>
+            <label>regNumber</label>
+            <input type="text" name="regNumber" th:value="${booking.regNumber}"><br><br>
+
+            <label>pickUpDate</label>
+            <input type="date" name="pickUpDate" th:value="${booking.pickUpDate}"><br><br>
+
+            <label>dropOffDate</label>
+            <input type="date" name="dropOffDate" th:value="${booking.dropOffDate}"><br><br>
+
+            <label>bookingStatus</label>
+            <input type="text" name="bookingStatus" th:value="${booking.bookingStatus}"><br><br>
+
+            <label>customerId</label>
+            <input type="text" name="customerId" th:value="${booking.customerId}"><br><br>
+
+            <label>pickUpId</label>
+            <input type="number" name="pickUpId" th:value="${booking.pickUpId}"><br><br>
+
+            <label>dropOffId</label>
+            <input type="number" name="dropOffId" th:value="${booking.dropOffId}"><br><br>
+
+            <label>bikeRack</label>
+            <input type="radio" id="true" name="bikeRack" value="1">
+            <label for="true">Yes</label>
+            <input type="radio" id="false" name="bikeRack" value="0">
+            <label for="false">No</label><br><br>
+
+            <label>bedLinen</label>
+            <input type="number" name="bedLinen" th:value="${booking.bedLinen}"><br><br>
+
+            <label>childSeat</label>
+            <input type="number" name="childSeat" th:value="${booking.childSeat}"><br><br>
+
+            <LABEL>Total Price</LABEL>
+            <input type="number" name="totalPrice" th:value="${booking.totalPrice}" readonly><br><br>
+            <input type="submit" value="Save Changes">
+
+        </fieldset>
+    </form>
+</body>
+</html>

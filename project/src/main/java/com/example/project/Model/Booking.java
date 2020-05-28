@@ -8,13 +8,13 @@ import java.util.Date;
 public class Booking {
     @Id
     private int bookingNo;
-    private String vehicleRegNumber;
+    private String regNumber;
     private String pickUpDate;
     private String dropOffDate;
     private String bookingStatus;
-    private int customerID;
-    private int pickUpLocID;
-    private int dropOffLocID;
+    private int customerId;
+    private int pickUpId;
+    private int dropOffId;
     private boolean bikeRack;
     private int bedLinen;
     private int childSeat;
@@ -23,15 +23,15 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(int bookingNo, String vehicleRegNumber, String pickUpDate, String dropOffDate, String bookingStatus, int customerID, int pickUpLocID, int dropOffLocID, boolean bikeRack, int bedLinen, int childSeat, double totalPrice) {
+    public Booking(int bookingNo, String vehicleRegNumber, String pickUpDate, String dropOffDate, String bookingStatus, int customerID, int pickUpId, int dropOffId, boolean bikeRack, int bedLinen, int childSeat, double totalPrice) {
         this.bookingNo = bookingNo;
-        this.vehicleRegNumber = vehicleRegNumber;
+        this.regNumber = vehicleRegNumber;
         this.pickUpDate = pickUpDate;
         this.dropOffDate = dropOffDate;
         this.bookingStatus = bookingStatus;
-        this.customerID = customerID;
-        this.pickUpLocID = pickUpLocID;
-        this.dropOffLocID = dropOffLocID;
+        this.customerId = customerID;
+        this.pickUpId = pickUpId;
+        this.dropOffId = dropOffId;
         this.bikeRack = bikeRack;
         this.bedLinen = bedLinen;
         this.childSeat = childSeat;
@@ -46,12 +46,12 @@ public class Booking {
         this.bookingNo = bookingNo;
     }
 
-    public String getVehicleRegNumber() {
-        return vehicleRegNumber;
+    public String getRegNumber() {
+        return regNumber;
     }
 
-    public void setVehicleRegNumber(String vehicleRegNumber) {
-        this.vehicleRegNumber = vehicleRegNumber;
+    public void setRegNumber(String regNumber) {
+        this.regNumber = regNumber;
     }
 
     public String getPickUpDate() {
@@ -78,28 +78,28 @@ public class Booking {
         this.bookingStatus = bookingStatus;
     }
 
-    public int getCustomerID() {
-        return customerID;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public int getPickUpLocID() {
-        return pickUpLocID;
+    public int getPickUpId() {
+        return pickUpId;
     }
 
-    public void setPickUpLocID(int pickUpLocID) {
-        this.pickUpLocID = pickUpLocID;
+    public void setPickUpId(int pickUpId) {
+        this.pickUpId = pickUpId;
     }
 
-    public int getDropOffLocID() {
-        return dropOffLocID;
+    public int getDropOffId() {
+        return dropOffId;
     }
 
-    public void setDropOffLocID(int dropOffLocID) {
-        this.dropOffLocID = dropOffLocID;
+    public void setDropOffId(int dropOffId) {
+        this.dropOffId = dropOffId;
     }
 
     public boolean isBikeRack() {

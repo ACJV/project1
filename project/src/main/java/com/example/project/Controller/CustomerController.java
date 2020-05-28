@@ -62,7 +62,7 @@ public class CustomerController {
             return "redirect:/customer";
         }
     }
-    
+
 
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute Customer customer){
