@@ -18,6 +18,10 @@ public class VehicleController
     @Autowired
     VehicleService vehicleService;
 
+//----------------------------------------------------------------------------------------------------------------------
+    // @Christian
+//----------------------------------------------------------------------------------------------------------------------
+
     @GetMapping("/vehicle")
     public String vehicle(Model model, String keyword)
     {
@@ -66,9 +70,10 @@ public class VehicleController
     @PostMapping("/saveVehicle")
     public String saveVehicle(@ModelAttribute Vehicle vehicle)
     {
-        vehicleService.updateVehicle(vehicle.getRegNumber(), vehicle);
+        vehicleService.updateVehicle(vehicle);
         return "redirect:/vehicle";
     }
+
 
 }
 

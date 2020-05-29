@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="basicStyling.css">
+</head>
+<body>
+
+<h1>Vehicles Dropped Off Today:</h1>
+
+<div th:if="${not #lists.isEmpty(vehiclesToday)}">
+    <table>
+        <thead>
+        <tr>
+            <th>Vehicle Registration Number</th>
+            <th>Year</th>
+            <th>Odometer</th>
+            <th>Transmission</th>
+            <th>Fuel</th>
+            <th>Status</th>
+            <th>Additional Comments (if not available for rental)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="vehicleT: ${vehiclesToday}">
+            <form th:action="@{'/mechanic'}" method="post">
+                <td th:text="${vehicleT.regNumber}" th:value="${vehicleT.regNumber}" name="regNumber"/>
+                <td th:text="${vehicleT.yearStmp}" />
+                <td th:text="${vehicleT.odometer}"/>
+                <td th:text="${vehicleT.transmission}"/>
+                <td th:text="${vehicleT.fuelType}"/>
+                <td>
+                    <select th:placeholder="${vehicleT.operational}" name="operational">
+                        <option value="true">Available for rental</option>
+                        <option value="false">Not available for rental</option>
+                    </select>
+                </td>
+                <td>
+                    <span th:if="${vehicleT.oComment == null}"><input type="text" th:value="${vehicleT.oComment}" name="oComment" th:placeholder="${vehicleT.oComment}"/></span>
+                    <span th:unless="${vehicleT.oComment == null}"><input type="text" th:value="${vehicleT.oComment}" name="oComment" placeholder="No Comments Added"/></span>
+                </td>
+                <td>
+                    <input type="submit" value="SUBMIT">
+                </td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:unless="${not #lists.isEmpty(vehiclesToday)}">
+    <p>There are no vehicles to be dropped off today</p>
+</div>
+
+
+<h1>Other Vehicles:</h1>
+
+<div th:if="${not #lists.isEmpty(vehiclesOther)}">
+    <table>
+        <thead>
+        <tr>
+            <th>Vehicle Registration Number</th>
+            <th>Year</th>
+            <th>Odometer</th>
+            <th>Transmission</th>
+            <th>Fuel</th>
+            <th>Status</th>
+            <th>Additional Comments (if not available for rental)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="vehicleO: ${vehiclesOther}">
+            <form th:action="@{'/mechanic'}" method="post">
+                <td th:text="${vehicleO.regNumber}" th:value="${vehicleO.regNumber}" name="regNumber"/>
+                <td th:text="${vehicleO.yearStmp}" />
+                <td th:text="${vehicleO.odometer}"/>
+                <td th:text="${vehicleO.transmission}"/>
+                <td th:text="${vehicleO.fuelType}"/>
+                <td>
+                    <select th:placeholder="${vehicleO.operational}" name="operational">
+                        <option value="true">Available for rental</option>
+                        <option value="false">Not available for rental</option>
+                    </select>
+                </td>
+                <td>
+                    <span th:if="${vehicleO.oComment == null}"><input type="text" th:value="${vehicleO.oComment}" name="oComment" th:placeholder="${vehicleO.oComment}"/></span>
+                    <span th:unless="${vehicleO.oComment == null}"><input type="text" th:value="${vehicleO.oComment}" name="oComment" placeholder="No Comments Added"/></span>
+                </td>
+                <td>
+                    <input type="submit" value="SUBMIT">
+                </td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:unless="${not #lists.isEmpty(vehiclesOther)}">
+    <p>There are no vehicles to be displayed</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Please select your position:</h1>
+<form th:action="@{'/'}" method="get">
+    <input type="radio" value="owner" name="position"/>
+    <label>Owner</label><br></br>
+    <input type="radio" value="staff" name="position"/>
+    <label>Staff Member</label><br></br>
+    <input type="radio" value="mechanic" name="position"/>
+    <label>Mechanic</label><br></br>
+
+    <input type="submit" name="SUBMIT">
+</form>
+
+
+</body>
+</html>

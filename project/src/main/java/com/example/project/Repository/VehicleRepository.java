@@ -15,6 +15,10 @@ public class VehicleRepository {
     @Autowired
     JdbcTemplate template;
 
+//----------------------------------------------------------------------------------------------------------------------
+    // @Christian
+//----------------------------------------------------------------------------------------------------------------------
+
     public List<Vehicle> fetchAll()
     {
         String sql = "SELECT * FROM vehicle";
@@ -25,14 +29,14 @@ public class VehicleRepository {
 
     public Vehicle addVehicle(Vehicle v)
     {
-        String sql = "INSERT INTO vehicle (regNumber, categoryID, yearStmp, odometer, transmission, fuelType, descriptionX, operational, oComment) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql, v.getRegNumber(), v.getCategoryID(), v.getYearStmp(), v.getOdometer(), v.getTransmission(), v.getFuelType(), v.getDescriptionX(), v.getOperational(), v.getoComment());
+        String sql = "INSERT INTO vehicle (reg_number, cat_id, year_stmp, odometer, transmission, fuel_type, operational, o_comment) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        template.update(sql, v.getRegNumber(), v.getCatId(), v.getYearStmp(), v.getOdometer(), v.getTransmission(), v.getFuelType(), v.isOperational(), v.getoComment());
         return null;
     }
 
     public Vehicle findVehicle(String regNumber)
     {
-        String sql = "SELECT * FROM vehicle WHERE regNumber = ?";
+        String sql = "SELECT * FROM vehicle WHERE reg_number = ?";
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
         Vehicle v = template.queryForObject(sql, rowMapper, regNumber);
         return v;
@@ -40,21 +44,31 @@ public class VehicleRepository {
 
     public Boolean deleteVehicle(String regNumber)
     {
-        String sql = "DELETE FROM vehicle WHERE regNumber = ?";
+        String sql = "DELETE FROM vehicle WHERE reg_number = ?";
         return template.update(sql, regNumber) < 0;
     }
 
-    public Vehicle updateVehicle(String regNumber, Vehicle vehicle)
+    public Vehicle updateVehicle(Vehicle vehicle)
     {
-        String sql = "UPDATE vehicle SET yearStmp = ?, odometer = ?, transmission = ?, fuelType = ?, descriptionX = ?, operational = ?, oComment = ? WHERE regNumber = ?";
-        template.update(sql, vehicle.getYearStmp(), vehicle.getOdometer(), vehicle.getTransmission(), vehicle.getFuelType(), vehicle.getDescriptionX(), vehicle.getOperational(), vehicle.getoComment(), vehicle.getRegNumber());
+        String sql = "UPDATE vehicle SET year_stmp = ?, odometer = ?, transmission = ?, fuel_type = ?, operational = ?, o_comment = ? WHERE reg_number = ?";
+        template.update(sql, vehicle.getYearStmp(), vehicle.getOdometer(), vehicle.getTransmission(), vehicle.getFuelType(), vehicle.isOperational(), vehicle.getoComment(), vehicle.getRegNumber());
         return null;
     }
 
     public List<Vehicle> findByKeyword(@Param("keyword") String keyword)
     {
-        String sql = "SELECT * FROM vehicle WHERE regNumber LIKE '%' ? '%'";
+        String sql = "SELECT * FROM vehicle WHERE reg_number LIKE '%' ? '%'";
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
         return template.query(sql, rowMapper, keyword);
+    }
+
+
+//----------------------------------------------------------------------------------------------------------------------
+    // @Justé
+//----------------------------------------------------------------------------------------------------------------------
+
+    public void updateVehicleMechanic(@Param("regNumber") String regNumber, @Param("operational") String operational, @Param("oComment") String oComment) {
+        String sql = "UPDATE vehicle SET operational = ?, o_comment = ? WHERE reg_number = ?";
+        template.update(sql, operational, oComment, regNumber);
     }
 }

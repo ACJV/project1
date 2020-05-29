@@ -15,13 +15,13 @@ public class BookingRepository {
     JdbcTemplate template;
 
     public List<Booking> fetchAll(){
-        String sql = "SELECT * FROM nmr_db.booking";
+        String sql = "SELECT * FROM booking";
         RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
         return template.query(sql, rowMapper);
     }
 
     public Booking addBooking(Booking b) {
-        String sql = "INSERT INTO nmr_db.booking (reg_number, pick_up_date, drop_off_date, booking_status, customer_id, pick_up_id, drop_off_id, bike_rack, bed_linen, child_seat, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO booking (reg_number, pick_up_date, drop_off_date, booking_status, customer_id, pick_up_id, drop_off_id, bike_rack, bed_linen, child_seat, total_price) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         template.update(sql, b.getRegNumber(), b.getPickUpDate(), b.getDropOffDate(), b.getBookingStatus(), b.getCustomerId(), b.getPickUpId(), b.getDropOffId(), b.isBikeRack(), b.getBedLinen(), b.getChildSeat(), b.getTotalPrice());
         return null;
     }
