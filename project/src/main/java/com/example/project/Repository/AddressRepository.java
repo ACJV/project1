@@ -1,7 +1,9 @@
 package com.example.project.Repository;
 
 import com.example.project.Model.Address;
+import com.example.project.Model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -39,6 +41,13 @@ public class AddressRepository {
         String sql = "UPDATE address SET address =?, zip =?, city=?, country=?, distance=? WHERE id = ?";
         template.update(sql, a.getAddress(), a.getZip(), a.getCity(), a.getCountry(),a.getDistance());
         return null;
+    }
+
+    public List<Address> findByKeyword(@Param("keyword") String keyword)
+    {
+        String sql = "SELECT * FROM address WHERE address LIKE '%' ? '%'";
+        RowMapper<Address> rowMapper = new BeanPropertyRowMapper<>(Address.class);
+        return template.query(sql, rowMapper, keyword);
     }
 
 }
