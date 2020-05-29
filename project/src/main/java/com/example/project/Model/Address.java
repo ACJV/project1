@@ -16,7 +16,14 @@ public class Address {
     public Address() {
     }
 
-    // Without addressID ----> Constructor with below
+    public Address(String address, String zip, String city, String country, int distance) {
+        this.address = address;
+        this.zip = zip;
+        this.city = city;
+        this.country = country;
+        this.distance = distance;
+    }
+
     public Address(int addressID, String address, String zip, String city, String country, int distance) {
         this.addressID = addressID;
         this.address = address;
@@ -25,16 +32,6 @@ public class Address {
         this.country = country;
         this.distance = distance;
     }
-
-    /* With addressID -----> Depending on whether we're going set the ID in Java or let SQL do it.
-    public Address(int addressID, String address, String zip, String city, String country, int distance) {
-        this.addressID = addressID;
-        this.address = address;
-        this.zip = zip;
-        this.city = city;
-        this.country = country;
-        this.distance = distance;
-    } */
 
     public int getAddressID() {
         return addressID;

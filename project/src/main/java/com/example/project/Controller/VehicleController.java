@@ -33,12 +33,12 @@ public class VehicleController
         return "home/Vehicle/vehicle";
     }
 
-    @GetMapping("/create")
+    @GetMapping("/createVehicle")
     public String create() {
         return "home/Vehicle/createVehicle";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createVehicle")
     public String create(@ModelAttribute Vehicle vehicle)
     {
         vehicleService.addVehicle(vehicle);
