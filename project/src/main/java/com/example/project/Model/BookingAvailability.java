@@ -2,20 +2,13 @@ package com.example.project.Model;
 
 public class BookingAvailability {
 
-    private int bookingNumber;
+
     private String pickUpDate;
     private String dropOffDate;
     private String vehicleRegNumber;
 
     public BookingAvailability(){}
 
-    public int getBookingNumber() {
-        return bookingNumber;
-    }
-
-    public void setBookingNumber(int bookingNumber) {
-        this.bookingNumber = bookingNumber;
-    }
 
     public String getPickUpDate() {
         return pickUpDate;

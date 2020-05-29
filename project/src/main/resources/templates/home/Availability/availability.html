@@ -5,73 +5,104 @@
     <title>Title</title>
 </head>
 <body>
+
+
     <h1>Check Availability</h1>
+
     <form th:action="@{/availability}" method="get">
         <input id="SearchStart" type="date" name="startDate" placeholder="Start Date">
         <input id="SearchEnd" type="date" name="endDate" placeholder="End Date">
         <button type="submit">Search</button>
     </form>
 
-    <table border="1" style="width: auto">
-        <thead>
-        <tr>
-            <h4>Available Vehicles</h4>
-            <th>Registration Number</th>
-            <th>Category</th>
-            <th>Year</th>
-            <th>Odometer</th>
-            <th>Transmission</th>
-            <th>Fuel</th>
-            <th>Description</th>
-            <th>Operational</th>
-            <th>Comments</th>
-            <th></th>
-        </tr>
-        </thead>
+    <table>
         <tbody>
-        <tr th:each="vehicle: ${AvailableVehicles}">
-            <td th:text="${vehicle.regNumber}"/>
-            <td th:text="${vehicle.categoryId}"/>
-            <td th:text="${vehicle.yearStmp}"/>
-            <td th:text="${vehicle.odometer}"/>
-            <td th:text="${vehicle.transmission}"/>
-            <td th:text="${vehicle.fuelType}"/>
-            <td th:text="${vehicle.descriptionX}"/>
-            <td th:text="${vehicle.operational}"/>
-            <td th:text="${vehicle.oComment}"/>
+        <tr th:each="selected: ${datesL}">
+            <td th:text="${selected.pickUpDate}"/>
+            <td th:text="${selected.dropOffDate}"/>
+            
         </tr>
         </tbody>
     </table>
 
-    <table border="1" style="width: auto">
-        <thead>
-        <tr>
-            <h4>UnAvailable Vehicles</h4>
-            <th>Registration Number</th>
-            <th>Category</th>
-            <th>Year</th>
-            <th>Odometer</th>
-            <th>Transmission</th>
-            <th>Fuel</th>
-            <th>Description</th>
-            <th>Operational</th>
-            <th>Comments</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="vehicle: ${UnAvailableVehicles}">
-            <td th:text="${vehicle.regNumber}"/>
-            <td th:text="${vehicle.categoryId}"/>
-            <td th:text="${vehicle.yearStmp}"/>
-            <td th:text="${vehicle.odometer}"/>
-            <td th:text="${vehicle.transmission}"/>
-            <td th:text="${vehicle.fuelType}"/>
-            <td th:text="${vehicle.descriptionX}"/>
-            <td th:text="${vehicle.operational}"/>
-            <td th:text="${vehicle.oComment}"/>
-        </tr>
-        </tbody>
-    </table>
+    <div th:if="${not #lists.isEmpty(AvailableVehicles)}">
+        <table border="1" style="width: auto">
+            <thead>
+            <tr>
+                <h4>Available Vehicles</h4>
+                <th>Registration Number</th>
+                <th>Category</th>
+                <th>Year</th>
+                <th>Odometer</th>
+                <th>Transmission</th>
+                <th>Fuel</th>
+                <th>Description</th>
+                <th>Operational</th>
+                <th>Comments</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>     <!--
+            <tr th:each="dates: ${dates}">
+                <td th:text="${dates.startDate}">
+                <td th:text="${dates.endDate}">
+            </tr>           -->
+            <tr th:each="vehicle: ${AvailableVehicles}">
+                <td th:text="${vehicle.regNumber}"/>
+                <td th:text="${vehicle.categoryId}"/>
+                <td th:text="${vehicle.yearStmp}"/>
+                <td th:text="${vehicle.odometer}"/>
+                <td th:text="${vehicle.transmission}"/>
+                <td th:text="${vehicle.fuelType}"/>
+                <td th:text="${vehicle.descriptionX}"/>
+                <td th:text="${vehicle.operational}"/>
+                <td th:text="${vehicle.oComment}"/>
+                <td></td>
+                <td>
+                    <!--<a th:href="@{/deleteItem/{listId}/{itemId}(listId=${list.id},itemId=${item.id})}"></a>
+                    <a th:href="@{'/dates/'+${dates.startDate}+${dates.endDate}+${vehicle.regNumber}">
+                        <button>
+                            Select and Continue
+                        </button>
+                    </a>     -->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${not #lists.isEmpty(UnAvailableVehicles)}">
+        <table border="1" style="width: auto">
+            <thead>
+            <tr>
+                <h4>UnAvailable Vehicles</h4>
+                <th>Registration Number</th>
+                <th>Category</th>
+                <th>Year</th>
+                <th>Odometer</th>
+                <th>Transmission</th>
+                <th>Fuel</th>
+                <th>Description</th>
+                <th>Operational</th>
+                <th>Comments</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="vehicle: ${UnAvailableVehicles}">
+                <td th:text="${vehicle.regNumber}"/>
+                <td th:text="${vehicle.categoryId}"/>
+                <td th:text="${vehicle.yearStmp}"/>
+                <td th:text="${vehicle.odometer}"/>
+                <td th:text="${vehicle.transmission}"/>
+                <td th:text="${vehicle.fuelType}"/>
+                <td th:text="${vehicle.descriptionX}"/>
+                <td th:text="${vehicle.operational}"/>
+                <td th:text="${vehicle.oComment}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </body>
 </html>

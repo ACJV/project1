@@ -1,7 +1,9 @@
 package com.example.project.Controller;
 
 import com.example.project.Model.Booking;
+import com.example.project.Model.Vehicle;
 import com.example.project.Service.BookingService;
+import com.example.project.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,9 @@ import java.util.List;
 public class BookingController {
     @Autowired
     BookingService bookingService;
+
+    @Autowired
+    VehicleService vehicleService;
 
     @GetMapping("/booking")
     public String display(Model model) {
@@ -48,6 +53,22 @@ public class BookingController {
     @GetMapping("/newBooking")
     public String newBooking(){
         return "home/Bookings/newBooking";
+    }
+    @GetMapping("/vehicleForBooking/{regNumber}")
+    public String vehicleForBooking (@PathVariable("regNumber") String regNumber, Model model){
+        //Vehicle chosen = model.addAttribute("vfb", vehicleService.findVehicle(regNumber));
+        Vehicle chosen = vehicleService.findVehicle(regNumber);
+        if(!chosen.equals(null)){
+            Booking b = new Booking();
+            b.setRegNumber(chosen.getRegNumber());
+            bookingService.addBooking(b);
+        }
+        return "redirect:/newBooking";
+    }
+    @GetMapping("/selectCustomer")
+    public String selectCustomer(){
+
+        return null;
     }
 
     @GetMapping("deleteBooking/{bookingNo}")

@@ -32,7 +32,7 @@ public class VehicleRepository {
 
     public Vehicle findVehicle(String regNumber)
     {
-        String sql = "SELECT * FROM vehicle WHERE regNumber = ?";
+        String sql = "SELECT * FROM vehicle WHERE reg_number = ?";
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
         Vehicle v = template.queryForObject(sql, rowMapper, regNumber);
         return v;
