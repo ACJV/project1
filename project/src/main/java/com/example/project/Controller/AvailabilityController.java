@@ -39,12 +39,11 @@ public class AvailabilityController {
                 model.addAttribute("AvailableVehicles", availabilityService.fetchAvailabilityVehicles(startDate, endDate, "Available"));
                 model.addAttribute("UnAvailableVehicles", availabilityService.fetchAvailabilityVehicles(startDate, endDate, "Unavailable"));
                 //Vehicle chosen = vehicleService.findVehicle(regNumber);
-                List<String> dates = new ArrayList<String>();
-                BookingAvailability tester = new BookingAvailability();
+                Booking tester = new Booking();
                 tester.setPickUpDate(startDate);
                 tester.setDropOffDate(endDate);
                 //tester.setVehicleRegNumber(chosen.getRegNumber());
-                List<BookingAvailability> selected = new ArrayList<>();
+                List<Booking> selected = new ArrayList<>();
                 selected.add(tester);
                 model.addAttribute("datesL", selected);
             }
@@ -53,17 +52,9 @@ public class AvailabilityController {
           return "home/Availability/availability";
         }
     }
-    @GetMapping("/dates/{startDate}/{endDate}/{regNumber}")
+    @GetMapping("/dates/start/{startDate}/end/{endDate}/reg/{regNumber}")
     public String dates (@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate, @PathVariable("regNumber") String regNumber, Model model){
         Vehicle chosen = vehicleService.findVehicle(regNumber);
-        List<String> dates = new ArrayList<String>();
-        BookingAvailability tester = new BookingAvailability();
-        tester.setPickUpDate(startDate);
-        tester.setDropOffDate(endDate);
-        tester.setVehicleRegNumber(chosen.getRegNumber());
-        List<BookingAvailability> selected = new ArrayList<>();
-        selected.add(tester);
-        model.addAttribute("datesL", selected);
         if(!chosen.equals(null)){
             Booking b = new Booking();
             b.setRegNumber(regNumber);

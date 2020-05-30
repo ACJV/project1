@@ -17,9 +17,9 @@
 
     <table>
         <tbody>
-        <tr th:each="selected: ${datesL}">
-            <td th:text="${selected.pickUpDate}"/>
-            <td th:text="${selected.dropOffDate}"/>
+        <tr th:each="booking: ${datesL}">
+            <td th:text="${booking.pickUpDate}"/>
+            <td th:text="${booking.dropOffDate}"/>
             
         </tr>
         </tbody>
@@ -59,12 +59,21 @@
                 <td th:text="${vehicle.oComment}"/>
                 <td></td>
                 <td>
-                    <!--<a th:href="@{/deleteItem/{listId}/{itemId}(listId=${list.id},itemId=${item.id})}"></a>
-                    <a th:href="@{'/dates/'+${dates.startDate}+${dates.endDate}+${vehicle.regNumber}">
+
+                <div th:each="booking: ${datesL}">
+
+                    <a th:href="@{/dates/start/{startDate}/end/{endDate}/reg/{regNumber}(startDate = ${booking.pickUpDate}, endDate = ${booking.dropOffDate}, regNumber = ${vehicle.regNumber})}">
                         <button>
                             Select and Continue
                         </button>
-                    </a>     -->
+                    </a>
+                </div>
+                    <!--<a th:href="@{/deleteItem/{listId}/{itemId}(listId=${list.id},itemId=${item.id})}"></a>
+                    <a th:href="@{'/dates/'+${booking.pickUpDate}+${booking.dropOffDate}+${vehicle.regNumber}}">
+                        <button>
+                            Select and Continue
+                        </button>
+                    </a>-->
                 </td>
             </tr>
             </tbody>
