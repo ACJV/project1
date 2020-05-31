@@ -15,13 +15,13 @@ import java.util.Date;
 @Entity
 public class Customer {
     @Id
-    private int customerID; // NOT IN CONSTRUCTOR
+    private int customerId; // NOT IN CONSTRUCTOR
     private String fullName;
     private String driverLicNo;
     private String dob;
     private String phoneNo;
     private String email;
-    private int addressID; // NOT IN CONSTRUCTOR
+    private int addressId; // NOT IN CONSTRUCTOR
 
 
 
@@ -38,13 +38,12 @@ public class Customer {
         //this.addressID = addressID;
     }*/
 
-
-    public int getCustomerID() {
-        return customerID;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public String getFullName() {
@@ -63,15 +62,11 @@ public class Customer {
         this.driverLicNo = driverLicNo;
     }
 
-
     public String getDob() {
         return dob;
     }
 
-    public void setDob(String dob) throws ParseException {
-        //String d = dob;
-        //Date date = new SimpleDateFormat("yyyy-MM-dd").parse(d);
-        //System.out.println(dob);
+    public void setDob(String dob) {
         this.dob = dob;
     }
 
@@ -91,11 +86,11 @@ public class Customer {
         this.email = email;
     }
 
-    public int getAddressID() {
-        return addressID;
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setAddressID(int addressID) {
-        this.addressID = addressID;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.project.Controller;
 
+import com.example.project.Model.Address;
 import com.example.project.Model.Customer;
 import com.example.project.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,17 +46,18 @@ public class CustomerController {
         return "redirect:/customer";
     }
 
-    @GetMapping("/viewCustomer/{customerID}")
-    public String viewCustomer(@PathVariable("customerID") int customerID, Model model) {
-        System.out.println("GetMapping /viewCustomer, test ID=5: " + customerID);
-        model.addAttribute("customer", customerService.findCustomer(customerID));
+    @GetMapping("/viewCustomer/{customerId}")
+    public String viewCustomer(@PathVariable("customerId") int customerId, Model model) {
+        System.out.println("GetMapping /viewCustomer, test ID=5: " + customerId);
+        model.addAttribute("customer", customerService.findCustomer(customerId));
         return "home/Customers/viewCustomer";
     }
 
-    @GetMapping("/deleteCustomer/{customerID}")
-    public String delete(@PathVariable("customerID") int customerID){
 
-        boolean deleted = customerService.deleteCustomer(customerID);
+    @GetMapping("/deleteCustomer/{customerId}")
+    public String delete(@PathVariable("customerId") int customerId){
+
+        boolean deleted = customerService.deleteCustomer(customerId);
         if(deleted){
             return "redirect:/customer";
         } else {
@@ -66,7 +68,7 @@ public class CustomerController {
 
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute Customer customer){
-        customerService.updateCustomer(customer.getCustomerID(), customer);
+        customerService.updateCustomer(customer.getCustomerId(), customer);
         return "redirect:/customer";
     }
 

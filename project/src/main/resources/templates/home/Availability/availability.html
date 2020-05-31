@@ -7,23 +7,30 @@
 <body>
 
 
-    <h1>Check Availability</h1>
+    <h1>Check Availability</h1><br>
+    Select Dates
 
     <form th:action="@{/availability}" method="get">
         <input id="SearchStart" type="date" name="startDate" placeholder="Start Date">
         <input id="SearchEnd" type="date" name="endDate" placeholder="End Date">
         <button type="submit">Search</button>
     </form>
+    <br>
+    <div th:if="${not #lists.isEmpty(datesL)}">
+        <h4>Dates selected: </h4>
+        <table>
+            <tbody>
+            <tr th:each="booking: ${datesL}">
+                <td th:text="${booking.pickUpDate}"/>
+                <td th:text="${booking.dropOffDate}"/>
 
-    <table>
-        <tbody>
-        <tr th:each="booking: ${datesL}">
-            <td th:text="${booking.pickUpDate}"/>
-            <td th:text="${booking.dropOffDate}"/>
-            
-        </tr>
-        </tbody>
-    </table>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <br>
+
 
     <div th:if="${not #lists.isEmpty(AvailableVehicles)}">
         <table border="1" style="width: auto">

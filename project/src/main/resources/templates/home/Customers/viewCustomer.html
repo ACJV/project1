@@ -11,8 +11,8 @@
         <div>
             <strong>
             Customer ID:
-            <input type="text" name="customerID" id="testCSS" th:value="${customer.customerID}" readonly style="display: none;">
-            <span th:text="${customer.customerID}"/>
+            <input type="text" name="customerId" id="testCSS" th:value="${customer.customerId}" readonly style="display: none;">
+            <span th:text="${customer.customerId}"/>
             </strong>
             <br/>
         </div>
@@ -30,6 +30,8 @@
             <input type="text" name="phoneNo" th:value="${customer.phoneNo}" id="phone"><br><br>
             <label for="mail">Email: </label>
             <input type="text" name="email" th:value="${customer.email}" id="mail"><br><br>
+            <label for="address">AddressId: </label>
+            <input type="text" name="addressId" th:value="${customer.addressId}" id="address"><br><br>
         </fieldset>
         <!--
         <fieldset>
@@ -51,7 +53,7 @@
         -->
         <input type="submit" value="Save Changes">
     </form>
-    <a th:href="@{'/deleteCustomer/'+${customer.customerID}}">
+    <a th:href="@{'/deleteCustomer/'+${customer.customerId}}">
         <button class="btn-deleteCustomer" , id="btn-deleteCustomer">
             Delete
         </button>

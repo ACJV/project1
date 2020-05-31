@@ -61,9 +61,15 @@ public class AvailabilityController {
             b.setPickUpDate(startDate);
             b.setDropOffDate(endDate);
             bookingService.addBooking(b);
+            Booking booking = bookingService.findBookingNumber(b);
+            int bookingNo = booking.getBookingNo();
+            //model.addAttribute("bookingNo", bookingNo);
+            return "redirect:/newBooking/"+bookingNo;
+        } else {
+            return "home/Availability/error";
         }
-        return "redirect:/newBooking";
     }
+
     /*
     @GetMapping("/availablilty/{regNumber}")
     public String selectedRegNumber(@PathVariable("regNumber") String regNumber, Model model){

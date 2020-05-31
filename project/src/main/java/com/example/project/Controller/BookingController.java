@@ -1,8 +1,12 @@
 package com.example.project.Controller;
 
+import com.example.project.Model.Address;
 import com.example.project.Model.Booking;
+import com.example.project.Model.Customer;
 import com.example.project.Model.Vehicle;
+import com.example.project.Service.AddressService;
 import com.example.project.Service.BookingService;
+import com.example.project.Service.CustomerService;
 import com.example.project.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.awt.print.Book;
 import java.util.List;
 // Idea on commenting who did what
 //----------------------------------------------------------------------------------------------------------------------
@@ -25,6 +30,8 @@ public class BookingController {
 
     @Autowired
     VehicleService vehicleService;
+    CustomerService customerService;
+    AddressService addressService;
 
     @GetMapping("/booking")
     public String display(Model model) {
@@ -50,10 +57,21 @@ public class BookingController {
         bookingService.updateBooking(booking.getBookingNo(), booking);
         return "redirect:/booking";
     }
-    @GetMapping("/newBooking")
-    public String newBooking(){
+    @GetMapping("/newBooking/{bookingNo}")
+    public String newBooking(@PathVariable("bookingNo") int bookingNo, Model model){
+        Booking booking = bookingService.findBooking(bookingNo);
+        booking.setBookingStatus("Confirmed");
+        model.addAttribute("booking", booking);
         return "home/Bookings/newBooking";
     }
+    @GetMapping("/selectCustomerBooking/{bookingNo}")
+    public String selectCustomerBooking(@PathVariable("bookingNo") String bookingNo, @ModelAttribute Customer customer, @ModelAttribute Address address){
+        Customer c = customerService.addCustomer(customer);
+        Address a = addressService.addAddress(address);
+        return null;
+
+    }
+/*
     @GetMapping("/vehicleForBooking/{regNumber}")
     public String vehicleForBooking (@PathVariable("regNumber") String regNumber, Model model){
         //Vehicle chosen = model.addAttribute("vfb", vehicleService.findVehicle(regNumber));
@@ -64,7 +82,7 @@ public class BookingController {
             bookingService.addBooking(b);
         }
         return "redirect:/newBooking";
-    }
+    }*/
     @GetMapping("/selectCustomer")
     public String selectCustomer(){
 

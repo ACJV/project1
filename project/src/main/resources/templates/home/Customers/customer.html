@@ -32,14 +32,15 @@
     </thead>
     <tbody>
     <tr th:each="customer: ${customers}">
-        <td th:text="${customer.customerID}"/>
+        <td th:text="${customer.customerId}"/>
         <td th:text="${customer.fullName}"/>
         <td th:text="${customer.driverLicNo}"/>
         <td th:text="${customer.dob}"/>
         <td th:text="${customer.phoneNo}"/>
         <td th:text="${customer.email}"/>
+        <td th:text="${customer.addressId}"/>
         <td>
-            <a th:href="@{'/viewCustomer/'+${customer.customerID}}">
+            <a th:href="@{'/viewCustomer/'+${customer.customerId}}">
                 <button class="btn-viewCustomer" , id="btn-viewCustomer">
                     Select
                 </button>

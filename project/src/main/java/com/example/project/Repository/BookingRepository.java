@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.awt.print.Book;
 import java.util.List;
 
 @Repository
@@ -44,5 +45,11 @@ public class BookingRepository {
         template.update(sql, b.getPickUpDate(), b.getDropOffDate(), b.getBookingStatus(), b.getCustomerId(), b.getPickUpId(), b.getDropOffId(),
                 b.isBikeRack(), b.getBedLinen(), b.getChildSeat(), b.getTotalPrice(), b.getBookingNo());
         return null;
+    }
+    public Booking findBookingNumber (Booking b){
+        String sql = "SELECT * FROM booking WHERE reg_number = ? AND pick_up_date = ? AND drop_off_date = ?";
+        RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
+        Booking booking = template.queryForObject(sql, rowMapper, b.getRegNumber(), b.getPickUpDate(), b.getDropOffDate());
+        return booking;
     }
 }

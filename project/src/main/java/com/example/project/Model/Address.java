@@ -6,7 +6,7 @@ import javax.persistence.Id;
 @Entity
 public class Address {
     @Id
-    private int addressID;
+    private int addressId;
     private String address;
     private String zip;
     private String city;
@@ -24,8 +24,8 @@ public class Address {
         this.distance = distance;
     }
 
-    public Address(int addressID, String address, String zip, String city, String country, int distance) {
-        this.addressID = addressID;
+    public Address(int addressId, String address, String zip, String city, String country, int distance) {
+        this.addressId = addressId;
         this.address = address;
         this.zip = zip;
         this.city = city;
@@ -33,12 +33,12 @@ public class Address {
         this.distance = distance;
     }
 
-    public int getAddressID() {
-        return addressID;
+    public int getAddressId() {
+        return addressId;
     }
 
-    public void setAddressID(int addressID) {
-        this.addressID = addressID;
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public String getAddress() {

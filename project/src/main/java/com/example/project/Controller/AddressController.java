@@ -18,15 +18,16 @@ public class AddressController {
     @Autowired
     AddressService addressService;
 
-
+    /*
     @GetMapping("/address")
     public String index(Model model) {
         List<Address> addressList = addressService.fetchAll();
         model.addAttribute("addressL", addressList);
         return "home/Address/address";
 
-    }
+    }*/
 
+    /*
     @GetMapping("/createAddress")
     public String create() {
         return "home/Address/createAddress";
@@ -67,7 +68,16 @@ public class AddressController {
     public String updateAddress(@ModelAttribute Address address){
         addressService.updateAddress(address.getAddressID(),address);
         return "redirect:/address";
-    }
+    }*/
 
+
+
+
+
+
+    @GetMapping("/createAddressBooking")
+    public String createAddressBooking(){
+        return "home/Address/createAddressBooking";
+    }
 
 }

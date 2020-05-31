@@ -8,7 +8,7 @@
     <h1>Update Customer</h1>
 
     <form action="/saveCustomer" method="post">
-        <input type="text" name="customerID" th:value="${customer.customerID}" readonly>
+        <input type="text" name="customerId" th:value="${customer.customerId}" readonly>
         <input type="text" name="fullName" th:value="${customer.fullName}">
         <input type="text" name="driverLicNo" th:value="${customer.driverLicNo}">
         <input type="date" name="dob" th:value="${customer.dob}">
