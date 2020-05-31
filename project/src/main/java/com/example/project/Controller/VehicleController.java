@@ -22,6 +22,8 @@ public class VehicleController
     VehicleService vehicleService;
     @Autowired
     CategoryService categoryService;
+    @Autowired
+    DataManipulation dataManipulation;
 
 //----------------------------------------------------------------------------------------------------------------------
     // @Christian
@@ -46,7 +48,7 @@ public class VehicleController
     @GetMapping("/createVehicle")
     public String createVehicle(Model model1, Model model2, Model model3)
     {
-        model1.addAttribute("year", DataManipulation.getTodaysYear());
+        model1.addAttribute("year", dataManipulation.getTodaysYear());
 
         List<Category> categoryList = categoryService.fetchAll();
         model2.addAttribute("numberOfCategories", categoryList.size());
@@ -89,7 +91,7 @@ public class VehicleController
     @GetMapping("/updateVehicle/{regNumber}")
     public String updateVehicle(@PathVariable("regNumber") String regNumber, Model model, Model model1, Model model2, Model model3)
     {
-        model.addAttribute("year", DataManipulation.getTodaysYear());
+        model.addAttribute("year", dataManipulation.getTodaysYear());
 
         List<Category> categoryList = categoryService.fetchAll();
         model1.addAttribute("numberOfCategories", categoryList.size());

@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -19,6 +20,8 @@ import java.util.List;
 public class AvailabilityRepository {
     @Autowired
     JdbcTemplate template;
+    @Autowired
+    DataManipulation dataManipulation;
 
 //----------------------------------------------------------------------------------------------------------------------
     //@Ástþór
@@ -35,19 +38,47 @@ public class AvailabilityRepository {
     //@Juste
 //----------------------------------------------------------------------------------------------------------------------
 
-    // Returns the list of Bookings which are supposed to be end today
-    // (used for the easier access to staff)
+    // Returns the list of Bookings which are confirmed and supposed to end today
+    // (used for staff Home Page)
     public List<Booking> fetchBookingsEndingToday () {
-        String today = DataManipulation.getTodaysDate();
-        String sql = "SELECT FROM booking WHERE drop_off_date = ?";
+        String today = dataManipulation.getTodaysDate();
+        String sql = "SELECT * FROM booking WHERE drop_off_date = ? AND booking_status = 'Confirmed';";
         RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
         return template.query(sql, rowMapper, today);
     }
 
+    // Returns the list of Bookings which are cancelled and upcoming (start date is later or equals today)
+    // (used for staff Home Page)
+    public List<Booking> fetchCancelledBookings () {
+        String today = dataManipulation.getTodaysDate();
+        String sql = "SELECT * FROM booking WHERE pick_up_date >= ? AND booking_status = 'Cancelled';";
+        RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
+        return template.query(sql, rowMapper, today);
+    }
+
+    // Returns the list of Bookings which are confirmed and upcoming (start date is later or equals today)
+    // (used for staff Home Page)
+    public List<Booking> fetchConfirmedBookings () {
+        String today = dataManipulation.getTodaysDate();
+        String sql = "SELECT * FROM booking WHERE pick_up_date >= ? AND booking_status = 'Confirmed';";
+        RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
+        return template.query(sql, rowMapper, today);
+    }
+
+    // Returns the list of Bookings which are finished (end date will be later or equals today)
+    // (used for staff Home Page)
+    public List<Booking> fetchFinishedBookings () {
+        String today = dataManipulation.getTodaysDate();
+        String sql = "SELECT * FROM booking WHERE drop_off_date = ? AND booking_status = 'Finished';";
+        RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
+        return template.query(sql, rowMapper, today);
+    }
+
+
     // Returns the list of Vehicles which are supposed to be dropped off today
     // (used for the easier access to mechanic)
     public List<Vehicle> fetchVehiclesEndingToday () {
-        String today = DataManipulation.getTodaysDate();
+        String today = dataManipulation.getTodaysDate();
         String sql = "SELECT vehicle.reg_number, vehicle.year_stmp, vehicle.odometer, vehicle.transmission, vehicle.fuel_type, vehicle.operational, vehicle.o_comment " +
                      "FROM vehicle INNER JOIN booking ON vehicle.reg_number = booking.reg_number WHERE booking.drop_off_date = ?;";
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
@@ -56,7 +87,7 @@ public class AvailabilityRepository {
 
     // Returns the list of Vehicles which contains the rest of them (the ones which are not supposed to be dropped off today)
     public List<Vehicle> fetchVehiclesNotEndingToday () {
-        String today = DataManipulation.getTodaysDate();
+        String today = dataManipulation.getTodaysDate();
         String sql = "SELECT vehicle.reg_number, vehicle.year_stmp, vehicle.odometer, vehicle.transmission, vehicle.fuel_type, vehicle.operational, vehicle.o_comment \n" +
                      "FROM vehicle LEFT JOIN booking ON vehicle.reg_number = booking.reg_number \n" +
                      "WHERE vehicle.reg_number NOT IN \n" +
@@ -74,7 +105,7 @@ public class AvailabilityRepository {
 
         String sql1 = "SELECT vehicle.reg_number FROM vehicle;";
         RowMapper<String> rowMapper1 = new BeanPropertyRowMapper<>(String.class);
-        int vehiclesTotal = template.query(sql1, rowMapper).size();
+        int vehiclesTotal = template.query(sql1, rowMapper1).size();
 
         return vehiclesBooked/vehiclesTotal;
     }

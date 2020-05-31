@@ -41,7 +41,7 @@ public class CategoryRepository {
         return template.update(sql, catId) < 0;
     }
 
-    public Category updateCategory(Category c){
+    public Category updateCategory(Category c) {
         String sql = "UPDATE category SET cat_price = ?, cat_name = ?, cat_description = ?, model_name = ?, brand = ? WHERE cat_id = ?";
         template.update(sql, c.getCatPrice(), c.getCatName(), c.getCatDescription(), c.getModelName(), c.getBrand(), c.getCatId());
         return null;

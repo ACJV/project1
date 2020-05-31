@@ -1,8 +1,13 @@
 package com.example.project.Controller;
 
+import com.example.project.Data.DataManipulation;
 import com.example.project.Model.Booking;
+import com.example.project.Model.Vehicle;
+import com.example.project.Service.AvailabilityService;
 import com.example.project.Service.BookingService;
+import com.example.project.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +25,13 @@ import java.util.List;
 public class BookingController {
     @Autowired
     BookingService bookingService;
+    @Autowired
+    AvailabilityService availabilityService;
+    @Autowired
+    VehicleService vehicleService;
+    @Autowired
+    DataManipulation dataManipulation;
+
 
     @GetMapping("/booking")
     public String display(Model model) {
@@ -28,10 +40,53 @@ public class BookingController {
         return "home/Bookings/booking";
     }
 
+
     @GetMapping("/createBooking")
     public String createBooking(){
         return "home/Bookings/createBooking";
     }
+
+
+    @GetMapping("/bookingHome")
+    public String bookingHome(Model model, Model model1, Model model2, Model model3) {
+        List<Booking> bookingsEndingToday = availabilityService.fetchBookingsEndingToday();
+        model.addAttribute("bookingsToday", bookingsEndingToday);
+        List<Booking> confirmedBookings = availabilityService.fetchConfirmedBookings();
+        model1.addAttribute("confirmedBookings", confirmedBookings);
+        List<Booking> cancelledBookings = availabilityService.fetchCancelledBookings();
+        model2.addAttribute("cancelledBookings", cancelledBookings);
+        List<Booking> finishedBookings = availabilityService.fetchFinishedBookings();
+        model3.addAttribute("finishedBookings", finishedBookings);
+
+        return "home/Index/staff";
+    }
+
+
+    @GetMapping("/bookingFinish/{bookingNo}")
+    public String bookingFinish(@PathVariable("bookingNo") int bookingNo, Model model, Model model1){
+        Booking b = bookingService.findBooking(bookingNo);
+        model.addAttribute("booking", b);
+        model1.addAttribute("oldOdometer", vehicleService.findVehicle(b.getRegNumber()).getOdometer());
+        return "home/Bookings/bookingFinish";
+    }
+
+
+    @PostMapping("/bookingFinish")
+    public String bookingFinish(@Param("bookingNo") int bookingNo, @Param("odometer") int odometer, @Param("isLowTank") boolean isLowTank){
+        Booking booking = bookingService.findBooking(bookingNo);
+        double newTotalPrice = dataManipulation.calculateTotalPriceFinished(booking, isLowTank, odometer);
+        booking.setTotalPrice(newTotalPrice);
+        booking.setBookingStatus("Finished");
+
+        Vehicle v = vehicleService.findVehicle(booking.getRegNumber());
+        v.setOdometer(odometer);
+        vehicleService.updateVehicle(v);
+
+        bookingService.updateBooking(booking);
+        return "redirect:/bookingHome";
+    }
+
+
 //----------------------------------------------------------------------------------------------------------------------
     //@Ástþór
 //----------------------------------------------------------------------------------------------------------------------
@@ -40,9 +95,10 @@ public class BookingController {
         model.addAttribute("booking", bookingService.findBooking(bookingNo));
         return "home/Bookings/viewBooking";
     }
+
     @PostMapping("/saveBooking")
     public String saveBooking(@ModelAttribute Booking booking){
-        bookingService.updateBooking(booking.getBookingNo(), booking);
+        bookingService.updateBooking(booking);
         return "redirect:/booking";
     }
 

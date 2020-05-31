@@ -38,7 +38,7 @@ public class BookingRepository {
         return template.update(sql, bookingNo) < 0;
     }
 
-    public Booking updateBooking(int bookingNo, Booking b){
+    public Booking updateBooking(Booking b){
         String sql = "UPDATE booking SET pick_up_date = ?, drop_off_date = ?, booking_status = ?, customer_id = ?, pick_up_id = ?, drop_off_id = ?, " +
                 "bike_rack = ?, bed_linen = ?, child_seat = ?, total_price = ? WHERE booking_no = ?";
         template.update(sql, b.getPickUpDate(), b.getDropOffDate(), b.getBookingStatus(), b.getCustomerId(), b.getPickUpId(), b.getDropOffId(),

@@ -29,7 +29,7 @@ public class HomeController {
     @GetMapping("/")
     public String indexByPosition(@Param("position") String position) {
         if (position.equals("staff")) {
-            return "redirect:/staff";
+            return "redirect:/bookingHome";
         } else if (position.equals("mechanic")) {
             return "redirect:/mechanic";
         } else if (position.equals("owner")) {

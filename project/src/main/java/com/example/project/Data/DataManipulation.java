@@ -4,12 +4,14 @@ import com.example.project.Model.Booking;
 import com.example.project.Repository.AvailabilityRepository;
 import com.example.project.Service.AddressService;
 import com.example.project.Service.AvailabilityService;
+import com.example.project.Service.VehicleService;
 import com.sun.jndi.cosnaming.IiopUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class DataManipulation {
     @Autowired
     JdbcTemplate template;
@@ -27,13 +30,15 @@ public class DataManipulation {
     AvailabilityService availabilityService;
     @Autowired
     AddressService addressService;
+    @Autowired
+    VehicleService vehicleService;
 
 //----------------------------------------------------------------------------------------------------------------------
     // @Justé
 //----------------------------------------------------------------------------------------------------------------------
 
     // Will return today's date as a String in a format of YYYY-MM-DD
-    public static String getTodaysDate() {
+    public String getTodaysDate() {
         Date dateToday = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String today = dateFormat.format(dateToday);
@@ -41,7 +46,7 @@ public class DataManipulation {
     }
 
     // Will return today's year as a String in a format of YYYY
-    public static String getTodaysYear() {
+    public String getTodaysYear() {
         Date dateToday = Calendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("yyyy");
         String todayYear = dateFormat.format(dateToday);
@@ -50,7 +55,7 @@ public class DataManipulation {
 
     // Will return a list of all dates in between the specified ones
     // Strings for startDate & endDate has to be in the format of YYYY-MM-DD
-    public static List<String> getDatesBetween(String startDate, String endDate) {
+    public List<String> getDatesBetween(String startDate, String endDate) {
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate start = LocalDate.parse(startDate, dateFormat);
         LocalDate end = LocalDate.parse(endDate, dateFormat);
@@ -95,6 +100,7 @@ public class DataManipulation {
 
 
     public double calculateTotalPriceForAvailability(String pickUpDate, String dropOffDate, String regNumber) {
+
         // Gets list of all dates within the selected range
         List<String> list = getDatesBetween(pickUpDate, dropOffDate);
 
@@ -130,7 +136,7 @@ public class DataManipulation {
     // Status used after cancelling the booking, thus the price is calculated based on the
     // initial price after the confirmation and the cancellation fee if it applies
 
-    public static double calculateTotalPriceCancelled(Booking b) {
+    public double calculateTotalPriceCancelled(Booking b) {
         List<String> daysBetween = getDatesBetween(getTodaysDate(), b.getPickUpDate());
         int countDays = daysBetween.size();
         double totalPrice = 0.;
@@ -166,15 +172,20 @@ public class DataManipulation {
     // Status used after the booking is marked as finished, thus the price is calculated based on the
     // initial price after the confirmation and the additional fees if they apply
 
-    public static double calculateTotalPriceFinished(Booking b, @Param("isLowTank") Boolean isLowTank, @Param("kmOverOdometer") int kmOverOdometer) {
-        double totalPrice = 0.;
+    public double calculateTotalPriceFinished(Booking b, boolean isLowTank, int newOdometer) {
+        int oldOdometer = vehicleService.findVehicle(b.getRegNumber()).getOdometer();
+        int amountOfDays = getDatesBetween(b.getPickUpDate(), b.getDropOffDate()).size();
+        double totalPrice = b.getTotalPrice();
 
         // Checks if after drop-off the tank was less thank 1/2 full
         if (isLowTank) {
             totalPrice += 500.; // The additional charge of 500 kr. applies
         }
 
-        totalPrice += b.getTotalPrice() + (kmOverOdometer * 7.); // The additional charge of 7 kr. per km. applies if the customer drove more than 400km. per day
+        // The additional charge of 7 kr. per km. applies if the customer drove more than 400km. per day
+        if (((newOdometer - oldOdometer) / amountOfDays) > 400) {
+            totalPrice += (((newOdometer - oldOdometer) / amountOfDays) - 400) * 7.;
+        }
 
         return totalPrice;
     }

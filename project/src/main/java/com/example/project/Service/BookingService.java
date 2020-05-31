@@ -28,8 +28,8 @@ public class BookingService {
         return bookingRepository.deleteBooking(bookingNo);
     }
 
-    public Booking updateBooking(int bookingNo, Booking b) {
-        return bookingRepository.updateBooking(bookingNo, b);
+    public Booking updateBooking(Booking b) {
+        return bookingRepository.updateBooking(b);
     }
 
 }

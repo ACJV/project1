@@ -59,7 +59,7 @@ public class CategoryController {
 
 
     @GetMapping("/updateCategory/{catId}")
-    public String updateCategory(@PathVariable("catId") int catId, Model model, Model model1, Model model2, Model model3)
+    public String updateCategory(@PathVariable("catId") int catId, Model model, Model model1)
     {
         List<Category> categoryList = categoryService.fetchAll();
         model.addAttribute("categories", categoryList);

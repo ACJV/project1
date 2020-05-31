@@ -1,5 +1,6 @@
 package com.example.project.Service;
 
+import com.example.project.Data.DataManipulation;
 import com.example.project.Model.Booking;
 import com.example.project.Model.Vehicle;
 import com.example.project.Repository.AvailabilityRepository;
@@ -17,6 +18,22 @@ public class AvailabilityService {
 
     public List<Booking> fetchUnavailableVehicles (String startDate, String endDate) {
         return availabilityRepository.fetchUnavailableVehicles(startDate, endDate);
+    }
+
+    public List<Booking> fetchBookingsEndingToday () {
+        return availabilityRepository.fetchBookingsEndingToday();
+    }
+
+    public List<Booking> fetchCancelledBookings () {
+        return availabilityRepository.fetchCancelledBookings();
+    }
+
+    public List<Booking> fetchConfirmedBookings () {
+        return availabilityRepository.fetchConfirmedBookings();
+    }
+
+    public List<Booking> fetchFinishedBookings () {
+        return availabilityRepository.fetchFinishedBookings();
     }
 
     public List<Vehicle> fetchVehiclesEndingToday () {

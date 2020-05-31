@@ -12,7 +12,7 @@
 <header>
     <span>NMR</span>
     <span>
-        <a href="/start">Log Out</a>
+        <a href="/start" style="float: right">Log Out</a>
     </span>
 </header>
 
@@ -35,7 +35,7 @@
         <tbody>
         <tr th:each="vehicleT: ${vehiclesToday}">
 
-            <form th:action="@{'/mechanic'}" method="post">
+            <form th:action="@{/mechanic}" method="post">
                 <td th:text="${vehicleT.regNumber}" th:value="${vehicleT.regNumber}" name="regNumber"/>
                 <td th:text="${vehicleT.yearStmp}" />
                 <td th:text="${vehicleT.odometer}"/>
@@ -93,7 +93,7 @@
         <tbody>
         <tr th:each="vehicleO: ${vehiclesOther}">
 
-            <form th:action="@{'/mechanic'}" method="post">
+            <form th:action="@{/mechanic}" method="get">
                 <td th:text="${vehicleO.regNumber}" th:value="${vehicleO.regNumber}" name="regNumber"/>
                 <td th:text="${vehicleO.yearStmp}" th:value="${vehicleO.yearStmp}" name="yearStmp"/>
                 <td th:text="${vehicleO.odometer}" th:value="${vehicleO.odometer}" name="odometer"/>
@@ -130,6 +130,8 @@
 <div th:unless="${not #lists.isEmpty(vehiclesOther)}">
     <p>There are no vehicles to be displayed</p>
 </div>
+
+<footer></footer>
 
 </body>
 </html>

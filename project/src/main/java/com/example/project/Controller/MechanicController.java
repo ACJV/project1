@@ -27,18 +27,32 @@ public class MechanicController {
 //----------------------------------------------------------------------------------------------------------------------
 
     @GetMapping("/mechanic")
-    public String mechanic (Model model1, Model model2) {
+    public String mechanic (String regNumber, Boolean operational, String oComment, Model model1, Model model2) {
+        if ((regNumber != null) && (operational != null))
+        {
+            Vehicle v = vehicleService.findVehicle(regNumber);
+            v.setOperational(operational);
+            v.setoComment(oComment);
+            vehicleService.updateVehicle(v);
+        }
+
         List<Vehicle> vehiclesEndingToday = availabilityService.fetchVehiclesEndingToday();
         model1.addAttribute("vehiclesToday", vehiclesEndingToday);
         List<Vehicle> vehiclesNotEndingToday = availabilityService.fetchVehiclesNotEndingToday();
         model2.addAttribute("vehiclesOther", vehiclesNotEndingToday);
+
         return "home/Index/mechanic";
     }
 
+    /*
     @PostMapping("/mechanic")
-    public String mechanic (@ModelAttribute Vehicle vehicle) {
-        vehicleService.updateVehicle(vehicle);
+    public String mechanic (@Param("regNumber") String regNumber, @Param("operational") Boolean operational, @Param("oComment") String oComment) {
+        Vehicle v = vehicleService.findVehicle(regNumber);
+        v.setOperational(operational);
+        v.setoComment(oComment);
+        vehicleService.updateVehicle(v);
         return "redirect:/mechanic";
     }
+     */
 
 }
