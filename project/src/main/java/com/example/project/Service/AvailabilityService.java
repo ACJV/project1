@@ -27,5 +27,9 @@ public class AvailabilityService {
         return availabilityRepository.fetchVehiclesNotEndingToday();
     }
 
+    public double percentBooked (String day) {
+        return availabilityRepository.percentBooked(day);
+    }
+
 
 }

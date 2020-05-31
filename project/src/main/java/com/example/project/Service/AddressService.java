@@ -31,4 +31,8 @@ public class AddressService {
     public Address updateAddress(int id, Address a) {
         return addressRepository.updateAddress(id, a);
     }
+
+    public int getDistanceFromId (int id) {
+        return addressRepository.getDistanceFromId(id);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.project.Service;
 
 import com.example.project.Model.Category;
+import com.example.project.Model.Vehicle;
 import com.example.project.Repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +30,13 @@ public class CategoryService {
         return categoryRepository.deleteCategory(catId);
     }
 
-    public Category updateCategory(int catId, Category c) {
-        return categoryRepository.updateCategory(catId, c);
+    public Category updateCategory(Category c) {
+        return categoryRepository.updateCategory(c);
+    }
+
+    public List<Category> findByKeyword(String keyword)
+    {
+        return categoryRepository.findByKeyword(keyword);
     }
 
 }

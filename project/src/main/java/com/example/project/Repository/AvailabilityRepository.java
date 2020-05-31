@@ -48,7 +48,8 @@ public class AvailabilityRepository {
     // (used for the easier access to mechanic)
     public List<Vehicle> fetchVehiclesEndingToday () {
         String today = DataManipulation.getTodaysDate();
-        String sql = "SELECT vehicle.reg_number, vehicle.year_stmp, vehicle.odometer, vehicle.transmission, vehicle.fuel_type, vehicle.operational, vehicle.o_comment FROM vehicle INNER JOIN booking ON vehicle.reg_number = booking.reg_number WHERE booking.drop_off_date = ?;";
+        String sql = "SELECT vehicle.reg_number, vehicle.year_stmp, vehicle.odometer, vehicle.transmission, vehicle.fuel_type, vehicle.operational, vehicle.o_comment " +
+                     "FROM vehicle INNER JOIN booking ON vehicle.reg_number = booking.reg_number WHERE booking.drop_off_date = ?;";
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
         return template.query(sql, rowMapper, today);
     }
@@ -56,9 +57,26 @@ public class AvailabilityRepository {
     // Returns the list of Vehicles which contains the rest of them (the ones which are not supposed to be dropped off today)
     public List<Vehicle> fetchVehiclesNotEndingToday () {
         String today = DataManipulation.getTodaysDate();
-        String sql = "SELECT vehicle.reg_number, vehicle.year_stmp, vehicle.odometer, vehicle.transmission, vehicle.fuel_type, vehicle.operational, vehicle.o_comment FROM vehicle INNER JOIN booking ON vehicle.reg_number = booking.reg_number WHERE booking.drop_off_date != ?;";
+        String sql = "SELECT vehicle.reg_number, vehicle.year_stmp, vehicle.odometer, vehicle.transmission, vehicle.fuel_type, vehicle.operational, vehicle.o_comment \n" +
+                     "FROM vehicle LEFT JOIN booking ON vehicle.reg_number = booking.reg_number \n" +
+                     "WHERE vehicle.reg_number NOT IN \n" +
+                     "(SELECT vehicle.reg_number FROM vehicle INNER JOIN booking ON vehicle.reg_number = booking.reg_number WHERE booking.drop_off_date = ?);";
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
         return template.query(sql, rowMapper, today);
+    }
+
+    // Returns percentage of booked vehicles on a specified day (expressed as a decimal)
+    // Requires day as a String in a format of 'YYYY-MM-DD'
+    public double percentBooked (String day) {
+        String sql = "SELECT booking.reg_number FROM booking WHERE ? <= booking.drop_off_date AND ? >= booking.pick_up_date;";
+        RowMapper<String> rowMapper = new BeanPropertyRowMapper<>(String.class);
+        int vehiclesBooked = template.query(sql, rowMapper, day, day).size();
+
+        String sql1 = "SELECT vehicle.reg_number FROM vehicle;";
+        RowMapper<String> rowMapper1 = new BeanPropertyRowMapper<>(String.class);
+        int vehiclesTotal = template.query(sql1, rowMapper).size();
+
+        return vehiclesBooked/vehiclesTotal;
     }
 
 

@@ -2,7 +2,9 @@ package com.example.project.Repository;
 
 import com.example.project.Model.Booking;
 import com.example.project.Model.Category;
+import com.example.project.Model.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -35,14 +37,20 @@ public class CategoryRepository {
     }
 
     public Boolean deleteCategory(int catId) {
-        String sql = "DELETE FROM categiry WHERE cat_id = ?";
+        String sql = "DELETE FROM category WHERE cat_id = ?";
         return template.update(sql, catId) < 0;
     }
 
-    public Category updateCategory(int catId, Category c){
-        String sql = "UPDATE category SET cat_price = ?, cat_name = ?, cat_description = ?, model_name = ?, brand = ?";
-        template.update(sql, c.getCatPrice(), c.getCatName(), c.getCatDescription(), c.getModelName(), c.getBrand());
+    public Category updateCategory(Category c){
+        String sql = "UPDATE category SET cat_price = ?, cat_name = ?, cat_description = ?, model_name = ?, brand = ? WHERE cat_id = ?";
+        template.update(sql, c.getCatPrice(), c.getCatName(), c.getCatDescription(), c.getModelName(), c.getBrand(), c.getCatId());
         return null;
+    }
+
+    public List<Category> findByKeyword(@Param("keyword") String keyword) {
+        String sql = "SELECT * FROM category WHERE cat_name LIKE '%' ? '%'";
+        RowMapper<Category> rowMapper = new BeanPropertyRowMapper<>(Category.class);
+        return template.query(sql, rowMapper, keyword);
     }
 
 }

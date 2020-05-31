@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:insert="home/Vehicle/vehicle :: body"></div>
+<div th:insert="home/style :: style"></div>
+
+<div class="pop-up">
+    <form action="/saveVehicle" method="post">
+        <h1>Update Vehicle</h1>
+
+        <label>Registration Number</label><br><br>
+        <input type="text" minlength="7" maxlength="7" name="regNumber" th:value="${vehicle.regNumber}"><br><br>
+        <label>Category Identification</label><br><br>
+        <input type="number" min="0" th:max="${numberOfCategories}" name="catId" th:value="${vehicle.catId}"><br><br>
+        <!--
+        <span action="/chooseCategory" method="get"><input type="submit" value="CHOOSE CATEGORY"></span><br></br>
+        -->
+
+        <label>Year of Fabrication</label><br><br>
+        <input type="number" min="1800" th:max="${year}" name="yearStmp" th:value="${vehicle.yearStmp}"><br><br>
+        <label>Odometer</label><br><br>
+        <input type="number" min="0" max="999999" name="odometer" th:value="${vehicle.odometer}"><br><br>
+
+        <label>Transmission</label><br><br>
+        <span th:if="${vehicle.transmission == 'Manual'}">
+            <input type="radio" value="Manual" name="transmission" checked>
+            <label>Manual</label>
+            <input type="radio" value="Automatic" name="transmission">
+            <label>Automatic</label><br><br>
+        </span>
+        <span th:if="${vehicle.transmission == 'Automatic'}">
+            <input type="radio" value="Manual" name="transmission">
+            <label>Manual</label>
+            <input type="radio" value="Automatic" name="transmission" checked>
+            <label>Automatic</label><br><br>
+        </span>
+
+        <label>Fuel Type</label><br><br>
+        <span th:if="${vehicle.fuelType == 'Diesel'}">
+            <input type="radio" value="Diesel" name="fuelType" checked>
+            <label>Diesel</label>
+            <input type="radio" value="Petrol" name="fuelType">
+            <label>Petrol</label><br><br>
+        </span>
+        <span th:if="${vehicle.fuelType == 'Petrol'}">
+            <input type="radio" value="Diesel" name="fuelType">
+            <label>Diesel</label>
+            <input type="radio" value="Petrol" name="fuelType" checked>
+            <label>Petrol</label><br><br>
+        </span>
+
+        <input type="submit" value="Save Changes">
+    </form>
+</div>
+
+</body>
+</html>

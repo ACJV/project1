@@ -13,6 +13,9 @@ public class Category {
     String modelName;
     String brand;
 
+    public Category() {
+    }
+
     public Category(int catId, double catPrice, String catName, String catDescription, String modelName, String brand) {
         this.catId = catId;
         this.catPrice = catPrice;

@@ -1,5 +1,6 @@
 package com.example.project.Controller;
 
+import com.example.project.Model.Category;
 import com.example.project.Model.Vehicle;
 import com.example.project.Service.AvailabilityService;
 import com.example.project.Service.VehicleService;
@@ -35,9 +36,9 @@ public class MechanicController {
     }
 
     @PostMapping("/mechanic")
-    public String mechanic (String regNumber, String operational, String oComment) {
-        vehicleService.updateVehicleMechanic(regNumber, operational, oComment);
-
+    public String mechanic (@ModelAttribute Vehicle vehicle) {
+        vehicleService.updateVehicle(vehicle);
         return "redirect:/mechanic";
     }
+
 }

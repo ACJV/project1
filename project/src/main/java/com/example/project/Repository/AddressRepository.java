@@ -41,4 +41,16 @@ public class AddressRepository {
         return null;
     }
 
+//----------------------------------------------------------------------------------------------------------------------
+    // @Justé
+//----------------------------------------------------------------------------------------------------------------------
+
+    public int getDistanceFromId (int id) {
+        String sql = "SELECT address.distance FROM address WHERE address.address_id = ?;";
+        RowMapper<Integer> rowMapper = new BeanPropertyRowMapper<>(Integer.class);
+        List<Integer> distanceL = template.query(sql, rowMapper, id);
+        int distance = distanceL.get(0);
+        return distance;
+    }
+
 }

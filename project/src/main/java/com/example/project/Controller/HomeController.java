@@ -33,7 +33,7 @@ public class HomeController {
         } else if (position.equals("mechanic")) {
             return "redirect:/mechanic";
         } else if (position.equals("owner")) {
-            return "redirect:/owner";
+            return "redirect:/vehicle";
         } else return "redirect:/start";
     }
 

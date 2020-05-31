@@ -29,8 +29,8 @@ public class VehicleRepository {
 
     public Vehicle addVehicle(Vehicle v)
     {
-        String sql = "INSERT INTO vehicle (reg_number, cat_id, year_stmp, odometer, transmission, fuel_type, operational, o_comment) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-        template.update(sql, v.getRegNumber(), v.getCatId(), v.getYearStmp(), v.getOdometer(), v.getTransmission(), v.getFuelType(), v.isOperational(), v.getoComment());
+        String sql = "INSERT INTO vehicle (reg_number, cat_id, year_stmp, odometer, transmission, fuel_type) VALUES(?, ?, ?, ?, ?, ?)";
+        template.update(sql, v.getRegNumber(), v.getCatId(), v.getYearStmp(), v.getOdometer(), v.getTransmission(), v.getFuelType());
         return null;
     }
 
@@ -50,8 +50,8 @@ public class VehicleRepository {
 
     public Vehicle updateVehicle(Vehicle vehicle)
     {
-        String sql = "UPDATE vehicle SET year_stmp = ?, odometer = ?, transmission = ?, fuel_type = ?, operational = ?, o_comment = ? WHERE reg_number = ?";
-        template.update(sql, vehicle.getYearStmp(), vehicle.getOdometer(), vehicle.getTransmission(), vehicle.getFuelType(), vehicle.isOperational(), vehicle.getoComment(), vehicle.getRegNumber());
+        String sql = "UPDATE vehicle SET reg_number = ?, cat_id = ?, year_stmp = ?, odometer = ?, transmission = ?, fuel_type = ?, operational = ?, o_comment = ? WHERE reg_number = ?";
+        template.update(sql, vehicle.getRegNumber(), vehicle.getCatId(), vehicle.getYearStmp(), vehicle.getOdometer(), vehicle.getTransmission(), vehicle.getFuelType(), vehicle.isOperational(), vehicle.getoComment(), vehicle.getRegNumber());
         return null;
     }
 

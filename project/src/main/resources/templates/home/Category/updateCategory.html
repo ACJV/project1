@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:insert="home/Category/category :: body"></div>
+<div th:insert="home/style :: style"></div>
+
+<div class="pop-up">
+    <form action="/saveCategory" method="post">
+        <h1>Update Category</h1>
+
+        <label>Category Name</label>
+        <input type="text" name="catName" th:value="${category.catName}"><br><br>
+        <label>Model Name</label>
+        <input type="text" name="modelName" th:value="${category.modelName}"><br><br>
+        <label>Brand</label>
+        <input type="text" name="brand" th:value="${category.brand}"><br><br>
+        <label>Base Price (daily)</label>
+        <input type="number" name="catPrice" th:value="${category.catPrice}"><br><br>
+        <label>Short Category Description</label>
+        <input type="text" name="catDescription" th:value="${category.catDescription}"><br><br>
+
+        <input type="submit" value="Save Changes">
+    </form>
+</div>
+
+</body>
+</html>

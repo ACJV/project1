@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:insert="home/Category/category :: body"></div>
+<div th:insert="home/style :: style"></div>
+
+<div class="pop-up">
+    <form action="/createCategory" method="post">
+        <h1>Add New Category</h1>
+
+        <label>Category Name</label>
+        <input type="text" name="catName"><br><br>
+        <label>Model Name</label>
+        <input type="text" name="modelName"><br><br>
+        <label>Brand</label>
+        <input type="text" name="brand"><br><br>
+        <label>Base Price (daily)</label>
+        <input type="number" name="catPrice"><br><br>
+        <label>Short Category Description</label>
+        <input type="text" name="catDescription"><br><br>
+        <input type="submit" value="Create Category">
+    </form>
+</div>
+
+</form>
+</body>
+</html>
