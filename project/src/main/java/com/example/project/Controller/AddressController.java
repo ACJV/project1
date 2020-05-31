@@ -1,7 +1,6 @@
 package com.example.project.Controller;
 
 import com.example.project.Model.Address;
-import com.example.project.Model.Vehicle;
 import com.example.project.Service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,31 +18,31 @@ public class AddressController {
     AddressService addressService;
 
 
-    @GetMapping("/address")
+    @GetMapping("/address") //listen to this route
     public String index(Model model) {
         List<Address> addressList = addressService.fetchAll();
         model.addAttribute("addressL", addressList);
-        return "home/Address/address";
+        return "home/Address/addressIndex"; //render
 
     }
 
     @GetMapping("/createAddress")
     public String create() {
-        return "home/Address/createAddress";
+        return "home/Address/createAddress"; //render the create address page
     }
 
     @PostMapping("/createAddress")
     public String create(@ModelAttribute Address address)
     {
         addressService.addAddress(address);
-        return "redirect:/address";
+        return "redirect:/address"; //after creating the address go back to the main page
     }
 
-    @GetMapping("/viewAddress/{addressID}")
+    @GetMapping("/viewOneAddress/{addressID}")
     public String viewAddress(@PathVariable("addressID") int addressID, Model model)
     {
-        model.addAttribute("address", addressService.findAddress(addressID));
-        return "home/Address/viewAddress";
+        model.addAttribute("address", addressService.findAddressById(addressID));
+        return "home/Address/viewOneAddress";
     }
 
     @GetMapping("/deleteAddress/{addressID}")
@@ -59,7 +58,7 @@ public class AddressController {
 
     @GetMapping("/updateAddress/{addressID}")
     public String update(@PathVariable("addressID") int addressID, Model model){
-        model.addAttribute("address", addressService.findAddress(addressID));
+        model.addAttribute("address", addressService.findAddressById(addressID));
         return "home/updateAddress";
     }
 

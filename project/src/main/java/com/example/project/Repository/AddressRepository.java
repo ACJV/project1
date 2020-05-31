@@ -23,22 +23,23 @@ public class AddressRepository {
     }
 
     public Address addAddress(Address a) {
-        String sql = "INSERT INTO address (id, address, zip, city, country, distance) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO address (address_id, address, zip, city, country, distance) VALUES (?, ?, ?, ?, ?, ?)";
         template.update(sql,a.getAddressID(), a.getAddress(), a.getZip(), a.getCity(), a.getCountry(),a.getDistance());
         return null;
     }
-    public Address findAddress(int id) {
-        String sql = "SELECT * FROM address WHERE id = ?";
+    public Address findAddressById(int id) {
+        String sql = "SELECT * FROM address WHERE address_id = ?";
         RowMapper<Address> rowMapper = new BeanPropertyRowMapper<>(Address.class);
         Address a = template.queryForObject(sql, rowMapper, id);
         return a;
     }
     public Boolean deleteAddress(int id){
-        return null;
+        String sql = "DELETE FROM address WHERE id = ?";
+        return template.update(sql, id) < 0;
     }
 
     public Address updateAddress(int id, Address a){
-        String sql = "UPDATE address SET address =?, zip =?, city=?, country=?, distance=? WHERE id = ?";
+        String sql = "UPDATE address SET address =?, zip =?, city=?, country=?, distance=? WHERE address_id = ?";
         template.update(sql, a.getAddress(), a.getZip(), a.getCity(), a.getCountry(),a.getDistance());
         return null;
     }

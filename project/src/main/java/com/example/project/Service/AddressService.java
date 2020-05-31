@@ -21,8 +21,8 @@ public class AddressService {
         return addressRepository.addAddress(a);
     }
 
-    public Address findAddress(int id) {
-        return addressRepository.findAddress(id);
+    public Address findAddressById(int id) {
+        return addressRepository.findAddressById(id);
     }
 
     public Boolean deleteAddress(int id) {

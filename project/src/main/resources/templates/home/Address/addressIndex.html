@@ -29,6 +29,17 @@
         <td th:text="${address.city}"/>
         <td th:text="${address.country}"/>
         <td th:text="${address.distance}"/>
+        <td>
+            <a th:href="@{'/viewOneAddress/'+${address.addressID}}">
+                <button class="btn-viewOne", id ="btn-viewOne">View one</button>
+            </a>
+            <a th:href="@{'/deleteAddress/'+${address.addressID}}">
+                <button class="btn-delete", id ="btn-delete">Delete</button>
+            </a>
+            <a th:href="@{'/updateAddress/'+${address.addressID}}">
+                <button class="btn-update", id ="btn-update">Update</button>
+            </a>
+        </td>
     </tr>
     </tbody>
 </table>

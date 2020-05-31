@@ -37,7 +37,7 @@ public class Address {
         return addressID;
     }
 
-    public void setAddressID(int addressID) {
+    public void setAddressID(int addressId) {
         this.addressID = addressID;
     }
 
