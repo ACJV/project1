@@ -53,7 +53,7 @@ public class AvailabilityController {
         }
     }
     @GetMapping("/dates/start/{startDate}/end/{endDate}/reg/{regNumber}")
-    public String dates (@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate, @PathVariable("regNumber") String regNumber, Model model){
+    public String dates (@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate, @PathVariable("regNumber") String regNumber){
         Vehicle chosen = vehicleService.findVehicle(regNumber);
         if(!chosen.equals(null)){
             Booking b = new Booking();
@@ -63,8 +63,7 @@ public class AvailabilityController {
             bookingService.addBooking(b);
             Booking booking = bookingService.findBookingNumber(b);
             int bookingNo = booking.getBookingNo();
-            //model.addAttribute("bookingNo", bookingNo);
-            return "redirect:/newBooking/"+bookingNo;
+            return "redirect:/selectCustomerBooking/"+bookingNo;
         } else {
             return "home/Availability/error";
         }

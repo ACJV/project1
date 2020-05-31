@@ -3,6 +3,7 @@ package com.example.project.Service;
 import com.example.project.Model.Address;
 import com.example.project.Model.Customer;
 import com.example.project.Repository.AddressRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,10 @@ public class AddressService {
 
     public List<Address> findByKeyword(String keyword){
         return addressRepository.findByKeyword(keyword);
+    }
+
+    public Address findAddressId (Address address){
+        return addressRepository.findAddressId(address);
     }
 
 }

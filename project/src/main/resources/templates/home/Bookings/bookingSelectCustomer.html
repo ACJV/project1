@@ -2,22 +2,16 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Customer Page</title>
-    <link rel="stylesheet" type="text/css" href="styler.css">
+    <title>Title</title>
 </head>
-<body style="font-family: Helvetica; margin-left: 100px;">
-<h1>Customer list</h1>
-<a href="/createAddressAndCustomer">
-    <button>
-        Create New Customer
-    </button>
-</a>
+<body>
 
+<!--
 <form th:action="@{/customer}" method="get">
     <input id="Search" type="text" name="keyword" placeholder="Search">
     <button type="submit">Go</button>
 </form>
-
+-->
 <table style="font-size: small">
     <thead >
     <tr>
@@ -40,9 +34,9 @@
         <td th:text="${customer.email}"/>
         <td th:text="${customer.addressId}"/>
         <td>
-            <a th:href="@{'/viewCustomer/'+${customer.customerId}}">
-                <button class="btn-viewCustomer" , id="btn-viewCustomer">
-                    Select
+            <a th:href="@{/selectCustomerBooking/{bookingNo}/customer/{customerId}(bookingNo = ${booking.bookingNo}, customerId = ${customer.customerId})}">
+                <button>
+                    Select and Continue to booking
                 </button>
             </a>
         </td>

@@ -71,13 +71,7 @@ public class AddressController {
     }*/
 
 
-
-
-
-
-    @GetMapping("/createAddressBooking")
-    public String createAddressBooking(){
-        return "home/Address/createAddressBooking";
-    }
-
 }
+
+
+

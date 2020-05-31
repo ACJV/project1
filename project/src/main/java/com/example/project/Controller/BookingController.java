@@ -3,7 +3,6 @@ package com.example.project.Controller;
 import com.example.project.Model.Address;
 import com.example.project.Model.Booking;
 import com.example.project.Model.Customer;
-import com.example.project.Model.Vehicle;
 import com.example.project.Service.AddressService;
 import com.example.project.Service.BookingService;
 import com.example.project.Service.CustomerService;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.awt.print.Book;
 import java.util.List;
 // Idea on commenting who did what
 //----------------------------------------------------------------------------------------------------------------------
@@ -27,10 +25,11 @@ import java.util.List;
 public class BookingController {
     @Autowired
     BookingService bookingService;
-
     @Autowired
     VehicleService vehicleService;
+    @Autowired
     CustomerService customerService;
+    @Autowired
     AddressService addressService;
 
     @GetMapping("/booking")
@@ -58,36 +57,33 @@ public class BookingController {
         return "redirect:/booking";
     }
     @GetMapping("/newBooking/{bookingNo}")
-    public String newBooking(@PathVariable("bookingNo") int bookingNo, Model model){
+    public String newBooking(@PathVariable("bookingNo") int bookingNo, Model model, Model model2){
         Booking booking = bookingService.findBooking(bookingNo);
         booking.setBookingStatus("Confirmed");
+        Customer customer = customerService.findCustomer(booking.getCustomerId());
         model.addAttribute("booking", booking);
+        model2.addAttribute("customer", customer);
         return "home/Bookings/newBooking";
     }
     @GetMapping("/selectCustomerBooking/{bookingNo}")
-    public String selectCustomerBooking(@PathVariable("bookingNo") String bookingNo, @ModelAttribute Customer customer, @ModelAttribute Address address){
-        Customer c = customerService.addCustomer(customer);
-        Address a = addressService.addAddress(address);
-        return null;
+    public String selectCustomerBooking(@PathVariable("bookingNo") int bookingNo, Model model, Model model2){
+        Booking booking = bookingService.findBooking(bookingNo);
+        model.addAttribute("booking", booking);
+        List<Customer> customerList = customerService.fetchAll();
+        model2.addAttribute("customers", customerList);
+        return "home/Bookings/bookingSelectCustomer";
 
     }
-/*
-    @GetMapping("/vehicleForBooking/{regNumber}")
-    public String vehicleForBooking (@PathVariable("regNumber") String regNumber, Model model){
-        //Vehicle chosen = model.addAttribute("vfb", vehicleService.findVehicle(regNumber));
-        Vehicle chosen = vehicleService.findVehicle(regNumber);
-        if(!chosen.equals(null)){
-            Booking b = new Booking();
-            b.setRegNumber(chosen.getRegNumber());
-            bookingService.addBooking(b);
-        }
-        return "redirect:/newBooking";
-    }*/
-    @GetMapping("/selectCustomer")
-    public String selectCustomer(){
 
-        return null;
+    @GetMapping("selectCustomerBooking/{bookingNo}/customer/{customerId}")
+    public String selectCustomerRouting(@PathVariable("bookingNo") int bookingNo, @PathVariable("customerId") int customerId, Model model, Model model2){
+        Booking booking = bookingService.findBooking(bookingNo);
+        Customer customer = customerService.findCustomer(customerId);
+        booking.setCustomerId(customerId);
+        bookingService.updateBooking(bookingNo, booking);
+        return "redirect:/newBooking/"+bookingNo;
     }
+
 
     @GetMapping("deleteBooking/{bookingNo}")
     public String deleteBooking(@PathVariable("bookingNo") int bookingNo){

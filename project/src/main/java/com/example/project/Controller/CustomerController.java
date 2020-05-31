@@ -2,6 +2,7 @@ package com.example.project.Controller;
 
 import com.example.project.Model.Address;
 import com.example.project.Model.Customer;
+import com.example.project.Service.AddressService;
 import com.example.project.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,9 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    AddressService addressService;
 
     // Should Be done.
     @GetMapping("/customer")
@@ -65,6 +69,20 @@ public class CustomerController {
         }
     }
 
+    @GetMapping("/createAddressAndCustomer")
+    public String createAddressAndCustomer(){
+        return "home/Customers/createAddressAndCustomer";
+    }
+
+    @PostMapping("/createAddressAndCustomer")
+    public String createAddressAndCustomer(@ModelAttribute Address address, @ModelAttribute Customer customer){
+        addressService.addAddress(address);
+        Address a = addressService.findAddressId(address);
+        int addressId = a.getAddressId();
+        customer.setAddressId(addressId);
+        customerService.addCustomer(customer);
+        return "redirect:/customer";
+    }
 
     @PostMapping("/saveCustomer")
     public String saveCustomer(@ModelAttribute Customer customer){

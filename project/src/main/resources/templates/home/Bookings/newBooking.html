@@ -15,6 +15,7 @@
                 <th>Vehicle Registration Number</th>
                 <th>Pick Up Date</th>
                 <th>Drop Off Date</th>
+                <th>Customer Id</th>
                 <th>Booking Status</th>
                 <th>Bike Rack</th>
                 <th>Bed Linen</th>
@@ -29,6 +30,7 @@
                 <td th:text="${booking.regNumber}" />
                 <td th:text="${booking.pickUpDate}"/>
                 <td th:text="${booking.dropOffDate}"/>
+                <td th:text="${booking.customerId}"/>
                 <td th:text="${booking.bookingStatus}"/>
                 <td th:text="${booking.bikeRack}"/>
                 <td th:text="${booking.bedLinen}"/>
@@ -59,6 +61,12 @@
 
             <label>dropOffDate</label>
             <input type="date" name="dropOffDate" th:value="${booking.dropOffDate}" readonly><br><br>
+
+            <label>CustomerId</label>
+            <input type="number" name="customerId" th:value="${booking.customerId}" readonly><br><br>
+
+            <label>Customer Name</label>
+            <input type="text" name="fullName" th:value="${customer.fullName}" readonly><br><br>
 
             <label>bookingStatus</label>
             <input type="text" name="bookingStatus" th:value="${booking.bookingStatus}" readonly><br><br>
