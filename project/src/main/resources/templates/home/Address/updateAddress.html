@@ -9,9 +9,12 @@
 <h1>Edit Address</h1>
 
 <form action="/updateAddress" method="post">
-    <input type="text" name="id" th:value="${address_id}">
-    <input type="text" name="first_name" th:value="${person.first_name}">
-    <input type="text" name="last_name" th:value="${person.last_name}">
+    <input type="text" name="addressId" th:value="${address.addressId}" readonly>
+    <input type="text" name="address" th:value="${address.address}">
+    <input type="text" name="zip" th:value="${address.zip}">
+    <input type="text" name="city" th:value="${address.city}">
+    <input type="text" name="country" th:value="${address.country}">
+    <input type="text" name="distance" th:value="${address.distance}">
     <input type="submit" value="Save changes">
 
 </form>

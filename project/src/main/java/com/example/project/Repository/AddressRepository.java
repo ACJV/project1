@@ -34,7 +34,7 @@ public class AddressRepository {
         return a;
     }
     public Boolean deleteAddress(int id){
-        String sql = "DELETE FROM address WHERE id = ?";
+        String sql = "DELETE FROM address WHERE address_id = ?";
         return template.update(sql, id) < 0;
     }
 
