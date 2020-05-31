@@ -6,7 +6,7 @@ import javax.persistence.Id;
 @Entity
 public class Address {
     @Id
-    public int addressId;
+    private int addressId;
     private String address;
     private String zip;
     private String city;
@@ -33,7 +33,8 @@ public class Address {
 //        this.distance = distance;
 //    }
 
-    public int getAddressID() {
+
+    public int getAddressId() {
         return addressId;
     }
 

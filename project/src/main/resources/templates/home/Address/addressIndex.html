@@ -23,20 +23,20 @@
     </thead>
     <tbody>
     <tr th:each="address: ${addressL}">
-        <td th:text="${address.addressID}"/>
+        <td th:text="${address.addressId}"/>
         <td th:text="${address.address}"/>
         <td th:text="${address.zip}"/>
         <td th:text="${address.city}"/>
         <td th:text="${address.country}"/>
         <td th:text="${address.distance}"/>
         <td>
-            <a th:href="@{'/viewOneAddress/'+${address.addressID}}">
+            <a th:href="@{'/viewOneAddress/'+${address.addressId}}">
                 <button class="btn-viewOne", id ="btn-viewOne">View one</button>
             </a>
-            <a th:href="@{'/deleteAddress/'+${address.addressID}}">
+            <a th:href="@{'/deleteAddress/'+${address.addressId}}">
                 <button class="btn-delete", id ="btn-delete">Delete</button>
             </a>
-            <a th:href="@{'/updateAddress/'+${address.addressID}}">
+            <a th:href="@{'/updateAddress/'+${address.addressId}}">
                 <button class="btn-update", id ="btn-update">Update</button>
             </a>
         </td>

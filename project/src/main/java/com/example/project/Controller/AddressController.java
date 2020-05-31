@@ -68,18 +68,18 @@ public class AddressController {
 
     @PostMapping("/updateAddress")
     public String updateAddress(@ModelAttribute Address address){
-        addressService.updateAddress(address.getAddressID(),address);
+        addressService.updateAddress(address.getAddressId(),address);
         return "redirect:/address";
     }
 
     //create customer and address
-    @PostMapping("/createCustomerAddress")
-    public String createAddress(@ModelAttribute Address address, @ModelAttribute Customer customer)
-    {
-        addressService.addAddress(address);
-        customerService.addCustomer(customer);
-        return "redirect:/address"; //after creating the address go back to the main page
-    }
+//    @PostMapping("/createCustomerAddress")
+//    public String createAddress(@ModelAttribute Address address, @ModelAttribute Customer customer)
+//    {
+//        addressService.addAddress(address);
+//        customerService.addCustomer(customer);
+//        return "redirect:/address"; //after creating the address go back to the main page
+//    }
 
 
 }

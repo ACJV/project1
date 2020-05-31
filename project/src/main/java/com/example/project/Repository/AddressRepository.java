@@ -24,7 +24,7 @@ public class AddressRepository {
 
     public Address addAddress(Address a) {
         String sql = "INSERT INTO address (address_id, address, zip, city, country, distance) VALUES (?, ?, ?, ?, ?, ?)";
-        template.update(sql,a.getAddressID(), a.getAddress(), a.getZip(), a.getCity(), a.getCountry(),a.getDistance());
+        template.update(sql,a.getAddressId(), a.getAddress(), a.getZip(), a.getCity(), a.getCountry(),a.getDistance());
         return null;
     }
     public Address findAddressById(int id) {
@@ -40,7 +40,7 @@ public class AddressRepository {
 
     public Address updateAddress(int id, Address a){
         String sql = "UPDATE address SET address =?, zip =?, city=?, country=?, distance=? WHERE address_id = ?";
-        template.update(sql, a.getAddress(), a.getZip(), a.getCity(), a.getCountry(),a.getDistance());
+        template.update(sql, a.getAddress(), a.getZip(), a.getCity(), a.getCountry(),a.getDistance(), a.getAddressId());
         return null;
     }
 
