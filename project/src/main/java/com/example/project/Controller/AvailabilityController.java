@@ -2,6 +2,7 @@ package com.example.project.Controller;
 
 
 
+import com.example.project.Data.DataManipulation;
 import com.example.project.Model.Booking;
 import com.example.project.Model.Vehicle;
 import com.example.project.Service.AvailabilityService;
@@ -27,6 +28,8 @@ public class AvailabilityController {
 
     @Autowired
     BookingService bookingService;
+    @Autowired
+    DataManipulation dataManipulation;
 
     // Availability -
     @GetMapping("/availability")
@@ -59,6 +62,7 @@ public class AvailabilityController {
             b.setDropOffDate(endDate);
             b.setPickUpId(1);
             b.setDropOffId(1);
+            b.setTotalPrice(dataManipulation.calculateTotalPriceConfirmed(b));
             bookingService.addBooking(b);
             Booking booking = bookingService.findBookingNumber(b);
             int bookingNo = booking.getBookingNo();

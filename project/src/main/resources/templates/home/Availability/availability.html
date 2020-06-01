@@ -46,7 +46,6 @@
                 <th>Odometer</th>
                 <th>Transmission</th>
                 <th>Fuel</th>
-                <th>Description</th>
                 <th>Operational</th>
                 <th>Comments</th>
                 <th></th>
@@ -59,12 +58,11 @@
             </tr>           -->
             <tr th:each="vehicle: ${AvailableVehicles}">
                 <td th:text="${vehicle.regNumber}"/>
-                <td th:text="${vehicle.categoryId}"/>
+                <td th:text="${vehicle.catId}"/>
                 <td th:text="${vehicle.yearStmp}"/>
                 <td th:text="${vehicle.odometer}"/>
                 <td th:text="${vehicle.transmission}"/>
                 <td th:text="${vehicle.fuelType}"/>
-                <td th:text="${vehicle.descriptionX}"/>
                 <td th:text="${vehicle.operational}"/>
                 <td th:text="${vehicle.oComment}"/>
                 <td>
@@ -104,7 +102,6 @@
                 <th>Odometer</th>
                 <th>Transmission</th>
                 <th>Fuel</th>
-                <th>Description</th>
                 <th>Operational</th>
                 <th>Comments</th>
                 <th></th>
@@ -113,12 +110,11 @@
             <tbody>
             <tr th:each="vehicle: ${UnAvailableVehicles}">
                 <td th:text="${vehicle.regNumber}"/>
-                <td th:text="${vehicle.categoryId}"/>
+                <td th:text="${vehicle.catId}"/>
                 <td th:text="${vehicle.yearStmp}"/>
                 <td th:text="${vehicle.odometer}"/>
                 <td th:text="${vehicle.transmission}"/>
                 <td th:text="${vehicle.fuelType}"/>
-                <td th:text="${vehicle.descriptionX}"/>
                 <td th:text="${vehicle.operational}"/>
                 <td th:text="${vehicle.oComment}"/>
             </tr>
