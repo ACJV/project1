@@ -32,4 +32,8 @@ public class BookingService {
         return bookingRepository.updateBooking(b);
     }
 
+    public void updateBookingFinished(Booking b) {
+        bookingRepository.updateBookingFinished(b);
+    }
+
 }

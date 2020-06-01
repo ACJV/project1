@@ -63,6 +63,7 @@ public class VehicleController
     @PostMapping("/createVehicle")
     public String createVehicle(@ModelAttribute Vehicle vehicle)
     {
+        vehicle.setRegNumber(vehicle.getRegNumber().toUpperCase());
         vehicleService.addVehicle(vehicle);
         return "redirect:/vehicle";
     }
@@ -107,8 +108,21 @@ public class VehicleController
     @PostMapping("/saveVehicle")
     public String saveVehicle(@ModelAttribute Vehicle vehicle)
     {
+        vehicle.setRegNumber(vehicle.getRegNumber().toUpperCase());
         vehicleService.updateVehicle(vehicle);
         return "redirect:/vehicle";
+    }
+
+
+    @GetMapping("/vehicleFull")
+    public String vehicleFull(Model model, Model model1)
+    {
+        List<Vehicle> vehicleList = vehicleService.fetchAll();
+        model.addAttribute("vehicles", vehicleList);
+        List<Category> categoryList = categoryService.fetchAll();
+        model1.addAttribute("categories", categoryList);
+
+        return "home/Vehicle/vehicleFull";
     }
 
 }

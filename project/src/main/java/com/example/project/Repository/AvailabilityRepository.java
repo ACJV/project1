@@ -4,6 +4,7 @@ package com.example.project.Repository;
 import com.example.project.Data.DataManipulation;
 import com.example.project.Model.Booking;
 import com.example.project.Model.Vehicle;
+import com.example.project.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -22,6 +23,8 @@ public class AvailabilityRepository {
     JdbcTemplate template;
     @Autowired
     DataManipulation dataManipulation;
+    @Autowired
+    VehicleService vehicleService;
 
 //----------------------------------------------------------------------------------------------------------------------
     //@Ástþór
@@ -79,7 +82,7 @@ public class AvailabilityRepository {
     // (used for the easier access to mechanic)
     public List<Vehicle> fetchVehiclesEndingToday () {
         String today = dataManipulation.getTodaysDate();
-        String sql = "SELECT vehicle.reg_number, vehicle.year_stmp, vehicle.odometer, vehicle.transmission, vehicle.fuel_type, vehicle.operational, vehicle.o_comment " +
+        String sql = "SELECT vehicle.reg_number, vehicle.cat_id, vehicle.year_stmp, vehicle.odometer, vehicle.transmission, vehicle.fuel_type, vehicle.operational, vehicle.o_comment " +
                      "FROM vehicle INNER JOIN booking ON vehicle.reg_number = booking.reg_number WHERE booking.drop_off_date = ?;";
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
         return template.query(sql, rowMapper, today);
@@ -87,13 +90,18 @@ public class AvailabilityRepository {
 
     // Returns the list of Vehicles which contains the rest of them (the ones which are not supposed to be dropped off today)
     public List<Vehicle> fetchVehiclesNotEndingToday () {
-        String today = dataManipulation.getTodaysDate();
-        String sql = "SELECT vehicle.reg_number, vehicle.year_stmp, vehicle.odometer, vehicle.transmission, vehicle.fuel_type, vehicle.operational, vehicle.o_comment \n" +
-                     "FROM vehicle LEFT JOIN booking ON vehicle.reg_number = booking.reg_number \n" +
-                     "WHERE vehicle.reg_number NOT IN \n" +
-                     "(SELECT vehicle.reg_number FROM vehicle INNER JOIN booking ON vehicle.reg_number = booking.reg_number WHERE booking.drop_off_date = ?);";
-        RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
-        return template.query(sql, rowMapper, today);
+        List<Vehicle> vehiclesToday = fetchVehiclesEndingToday();
+        List<Vehicle> vehiclesAll = vehicleService.fetchAll();
+
+        for (int i = 0; i < vehiclesAll.size(); i++) {
+            for (int j = 0; j < vehiclesToday.size(); j++) {
+                if (vehiclesAll.get(i).getRegNumber().equals(vehiclesToday.get(j).getRegNumber())) {
+                    vehiclesAll.remove(vehiclesAll.get(i));
+                }
+            }
+        }
+
+        return vehiclesAll;
     }
 
     // Returns percentage of booked vehicles on a specified day (expressed as a decimal)

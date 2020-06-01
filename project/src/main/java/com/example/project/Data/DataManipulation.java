@@ -4,6 +4,7 @@ import com.example.project.Model.Booking;
 import com.example.project.Repository.AvailabilityRepository;
 import com.example.project.Service.AddressService;
 import com.example.project.Service.AvailabilityService;
+import com.example.project.Service.BookingService;
 import com.example.project.Service.VehicleService;
 import com.sun.jndi.cosnaming.IiopUrl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ public class DataManipulation {
     JdbcTemplate template;
     @Autowired
     AvailabilityService availabilityService;
+    @Autowired
+    BookingService bookingService;
     @Autowired
     AddressService addressService;
     @Autowired
@@ -172,7 +175,8 @@ public class DataManipulation {
     // Status used after the booking is marked as finished, thus the price is calculated based on the
     // initial price after the confirmation and the additional fees if they apply
 
-    public double calculateTotalPriceFinished(Booking b, boolean isLowTank, int newOdometer) {
+    public double calculateTotalPriceFinished(int bookingNo, boolean isLowTank, int newOdometer) {
+        Booking b = bookingService.findBooking(bookingNo);
         int oldOdometer = vehicleService.findVehicle(b.getRegNumber()).getOdometer();
         int amountOfDays = getDatesBetween(b.getPickUpDate(), b.getDropOffDate()).size();
         double totalPrice = b.getTotalPrice();
@@ -182,9 +186,9 @@ public class DataManipulation {
             totalPrice += 500.; // The additional charge of 500 kr. applies
         }
 
-        // The additional charge of 7 kr. per km. applies if the customer drove more than 400km. per day
+        // The additional charge of 7,5 kr. per km. applies if the customer drove more than 400km. per day
         if (((newOdometer - oldOdometer) / amountOfDays) > 400) {
-            totalPrice += (((newOdometer - oldOdometer) / amountOfDays) - 400) * 7.;
+            totalPrice += (((newOdometer - oldOdometer) / amountOfDays) - 400) * 7.5;
         }
 
         return totalPrice;

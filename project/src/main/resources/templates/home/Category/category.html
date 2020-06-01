@@ -11,18 +11,18 @@
 <div th:insert="home/Index/owner :: footer"></div>
 
 <h1>Category List</h1>
+<a href="/createCategory">
+    <button class="button-create">
+        Add New Category
+    </button>
+</a>
 
 <form th:action="@{/category}" method="get">
     <input id="Search" type="text" name="keyword" placeholder="Enter keyword to search for a category" style="margin-left: 300px">
     <button type="submit">Search</button>
-</form>
+</form><br>
 
-<a href="/createCategory">
-    <button class="btn-create" id="btn-create">
-        Add New Category
-    </button>
-</a>
-<table border="1" style="width: auto">
+<table>
     <thead >
     <tr>
         <th>Category ID</th>
@@ -31,7 +31,6 @@
         <th>Brand</th>
         <th>Base Price (daily)</th>
         <th>Short Category Description</th>
-        <th></th>
 
     </tr>
     </thead>
@@ -47,6 +46,8 @@
             <a th:href="@{'/updateCategory/'+${category.catId}}">
                 <button>UPDATE</button>
             </a>
+        </td>
+        <td>
             <a th:href="@{'/deleteCategory/'+${category.catId}}">
                 <button>DELETE</button>
             </a>

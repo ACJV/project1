@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,6 +7,57 @@
 <body>
 
 <!-- Displaying all vehicles for staff - displaying together with category info and no buttons to modify them -->
+
+<div th:insert="home/style :: style"></div>
+<div th:insert="home/Index/staff :: header"></div>
+<div th:insert="home/Index/staff :: footer"></div>
+
+<table>
+    <thead >
+    <tr>
+        <th><div>Vehicle</div><div>Registration</div><div>Number</div></th>
+        <th>Year</th>
+        <th>Odometer</th>
+        <th>Transmission</th>
+        <th>Fuel</th>
+        <th>Category Name</th>
+        <th>Model Name</th>
+        <th>Brand</th>
+        <th><div>Base Price</div><div>(daily)</div></th>
+        <th>Short Category Description</th>
+        <th>Status</th>
+        <th><div>Additional Comments</div><div>(if not available for rental)</div></th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="vehicle: ${vehicles}">
+        <td th:text="${vehicle.regNumber}"/>
+        <td th:text="${vehicle.yearStmp}"/>
+        <td th:text="${vehicle.odometer}"/>
+        <td th:text="${vehicle.transmission}"/>
+        <td th:text="${vehicle.fuelType}"/>
+
+        <span th:each="category: ${categories}">
+            <span th:if="${vehicle.catId == category.catId}">
+                <td th:text="${category.catName}"/>
+                <td th:text="${category.modelName}"/>
+                <td th:text="${category.brand}"/>
+                <td th:text="${category.catPrice} + ' kr.'"/>
+                <td th:text="${category.catDescription}"/>
+            </span>
+        </span>
+
+        <td th:if="${vehicle.operational}">
+            <span>Available for rental</span>
+        </td>
+        <td th:unless="${vehicle.operational}">
+            <span>Not available for rental</span>
+        </td>
+        <td th:text="${vehicle.oComment}"/>
+    </tr>
+    </tbody>
+</table>
 
 </body>
 </html>

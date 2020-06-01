@@ -10,7 +10,8 @@
 <div th:insert="home/style :: style"></div>
 
 <header>
-    <span>NMR</span>
+    <span class="logo">NMR</span>
+    <span class="position"> - Mechanic</span>
     <span>
         <a href="/start" style="float: right">Log Out</a>
     </span>
@@ -19,10 +20,11 @@
 <h1>Vehicles Dropped Off Today:</h1>
 
 <div th:if="${not #lists.isEmpty(vehiclesToday)}">
-    <table border="1">
+    <table>
         <thead>
         <tr>
             <th>Vehicle Registration Number</th>
+            <th>Category ID</th>
             <th>Year</th>
             <th>Odometer</th>
             <th>Transmission</th>
@@ -34,37 +36,29 @@
 
         <tbody>
         <tr th:each="vehicleT: ${vehiclesToday}">
-
-            <form th:action="@{/mechanic}" method="post">
-                <td th:text="${vehicleT.regNumber}" th:value="${vehicleT.regNumber}" name="regNumber"/>
-                <td th:text="${vehicleT.yearStmp}" />
-                <td th:text="${vehicleT.odometer}"/>
-                <td th:text="${vehicleT.transmission}"/>
-                <td th:text="${vehicleT.fuelType}"/>
-                <span th:if="${vehicleT.operational}">
-                    <td>
-                        <select name="operational">
-                            <option value="true">Available for rental</option>
-                            <option value="false">Not available for rental</option>
-                        </select>
-                    </td>
-                </span>
-                <span th:unless="${vehicleT.operational}">
-                    <td>
-                        <select name="operational">
-                            <option value="false">Not available for rental</option>
-                            <option value="true">Available for rental</option>
-                        </select>
-                    </td>
-                </span>
-                <td>
-                    <span th:if="${vehicleT.oComment == null}"><input type="text" th:value="${vehicleT.oComment}" name="oComment" th:placeholder="${vehicleT.oComment}" style="width: 100%"/></span>
-                    <span th:unless="${vehicleT.oComment == null}"><input type="text" th:value="${vehicleT.oComment}" name="oComment" placeholder="No Comments Added" style="width: 100%"/></span>
-                </td>
-                <td>
-                    <input type="submit" value="SUBMIT">
-                </td>
-            </form>
+            <td th:text="${vehicleT.regNumber}"/>
+            <td th:text="${vehicleT.catId}"/>
+            <td th:text="${vehicleT.yearStmp}"/>
+            <td th:text="${vehicleT.odometer}"/>
+            <td th:text="${vehicleT.transmission}"/>
+            <td th:text="${vehicleT.fuelType}"/>
+            <span th:if="${vehicleT.operational}">
+                <td>Available for rental</td>
+            </span>
+            <span th:unless="${vehicleT.operational}">
+                <td>Not available for rental</td>
+            </span>
+            <span th:if="${vehicleT.oComment == null}">
+                <td>No Comments Added</td>
+            </span>
+            <span th:unless="${vehicleT.oComment == null}">
+                <td th:text="${vehicleT.oComment}"/>
+            </span>
+            <td>
+                <a th:href="@{'/updateMechanic/'+${vehicleT.regNumber}}">
+                    <button>CHANGE STATUS</button>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -77,10 +71,11 @@
 <h1>Other Vehicles:</h1>
 
 <div th:if="${not #lists.isEmpty(vehiclesOther)}">
-    <table border="1">
+    <table>
         <thead>
         <tr>
             <th>Vehicle Registration Number</th>
+            <th>Category ID</th>
             <th>Year</th>
             <th>Odometer</th>
             <th>Transmission</th>
@@ -92,37 +87,29 @@
 
         <tbody>
         <tr th:each="vehicleO: ${vehiclesOther}">
-
-            <form th:action="@{/mechanic}" method="get">
-                <td th:text="${vehicleO.regNumber}" th:value="${vehicleO.regNumber}" name="regNumber"/>
-                <td th:text="${vehicleO.yearStmp}" th:value="${vehicleO.yearStmp}" name="yearStmp"/>
-                <td th:text="${vehicleO.odometer}" th:value="${vehicleO.odometer}" name="odometer"/>
-                <td th:text="${vehicleO.transmission}" th:value="${vehicleO.transmission}" name="transmission"/>
-                <td th:text="${vehicleO.fuelType}" th:value="${vehicleO.fuelType}" name="fuelType"/>
-                <span th:if="${vehicleO.operational}">
-                    <td>
-                        <select name="operational">
-                            <option value="true">Available for rental</option>
-                            <option value="false">Not available for rental</option>
-                        </select>
-                    </td>
-                </span>
-                <span th:unless="${vehicleO.operational}">
-                    <td>
-                        <select name="operational">
-                            <option value="false">Not available for rental</option>
-                            <option value="true">Available for rental</option>
-                        </select>
-                    </td>
-                </span>
-                <td>
-                    <span th:if="${vehicleO.oComment == null}"><input type="text" th:value="${vehicleO.oComment}" name="oComment" th:placeholder="${vehicleO.oComment}" style="width: 100%"/></span>
-                    <span th:unless="${vehicleO.oComment == null}"><input type="text" th:value="${vehicleO.oComment}" name="oComment" placeholder="No Comments Added" style="width: 100%"/></span>
-                </td>
-                <td>
-                    <input type="submit" value="SUBMIT">
-                </td>
-            </form>
+            <td th:text="${vehicleO.regNumber}"/>
+            <td th:text="${vehicleO.catId}"/>
+            <td th:text="${vehicleO.yearStmp}"/>
+            <td th:text="${vehicleO.odometer}"/>
+            <td th:text="${vehicleO.transmission}"/>
+            <td th:text="${vehicleO.fuelType}"/>
+            <span th:if="${vehicleO.operational}">
+                <td>Available for rental</td>
+            </span>
+            <span th:unless="${vehicleO.operational}">
+                <td>Not available for rental</td>
+            </span>
+            <span th:if="${vehicleO.oComment == null}">
+                <td>No Comments Added</td>
+            </span>
+            <span th:unless="${vehicleO.oComment == null}">
+                <td th:text="${vehicleO.oComment}"/>
+            </span>
+            <td>
+                <a th:href="@{'/updateMechanic/'+${vehicleO.regNumber}}">
+                    <button>CHANGE STATUS</button>
+                </a>
+            </td>
         </tr>
         </tbody>
     </table>

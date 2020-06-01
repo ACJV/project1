@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<!--<div onclick="location.href='vehicle';" class="pop-up-background">-->
 
 <div th:insert="home/Category/category :: body"></div>
 <div th:insert="home/style :: style"></div>
@@ -13,20 +14,22 @@
     <form action="/createCategory" method="post">
         <h1>Add New Category</h1>
 
-        <label>Category Name</label>
+        <label>Category Name</label><br><br>
         <input type="text" name="catName"><br><br>
-        <label>Model Name</label>
+        <label>Model Name</label><br><br>
         <input type="text" name="modelName"><br><br>
-        <label>Brand</label>
+        <label>Brand</label><br><br>
         <input type="text" name="brand"><br><br>
-        <label>Base Price (daily)</label>
-        <input type="number" name="catPrice"><br><br>
-        <label>Short Category Description</label>
+        <label>Base Price (daily)</label><br><br>
+        <input min="0" maxlength="7" type="number" name="catPrice"><span> kr.</span><br><br>
+        <label>Short Category Description</label><br><br>
         <input type="text" name="catDescription"><br><br>
-        <input type="submit" value="Create Category">
+        <input type="submit" value="Create Category"><br><br>
     </form>
 </div>
 
 </form>
+
+<!--</div>-->
 </body>
 </html>

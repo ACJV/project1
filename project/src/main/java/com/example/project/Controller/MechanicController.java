@@ -1,11 +1,9 @@
 package com.example.project.Controller;
 
-import com.example.project.Model.Category;
 import com.example.project.Model.Vehicle;
 import com.example.project.Service.AvailabilityService;
 import com.example.project.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,15 +25,7 @@ public class MechanicController {
 //----------------------------------------------------------------------------------------------------------------------
 
     @GetMapping("/mechanic")
-    public String mechanic (String regNumber, Boolean operational, String oComment, Model model1, Model model2) {
-        if ((regNumber != null) && (operational != null))
-        {
-            Vehicle v = vehicleService.findVehicle(regNumber);
-            v.setOperational(operational);
-            v.setoComment(oComment);
-            vehicleService.updateVehicle(v);
-        }
-
+    public String mechanic (Model model1, Model model2) {
         List<Vehicle> vehiclesEndingToday = availabilityService.fetchVehiclesEndingToday();
         model1.addAttribute("vehiclesToday", vehiclesEndingToday);
         List<Vehicle> vehiclesNotEndingToday = availabilityService.fetchVehiclesNotEndingToday();
@@ -44,15 +34,22 @@ public class MechanicController {
         return "home/Index/mechanic";
     }
 
-    /*
-    @PostMapping("/mechanic")
-    public String mechanic (@Param("regNumber") String regNumber, @Param("operational") Boolean operational, @Param("oComment") String oComment) {
-        Vehicle v = vehicleService.findVehicle(regNumber);
-        v.setOperational(operational);
-        v.setoComment(oComment);
-        vehicleService.updateVehicle(v);
+    @GetMapping("/updateMechanic/{regNumber}")
+    public String updateMechanic (@PathVariable("regNumber") String regNumber, Model model, Model model1, Model model2)
+    {
+        model.addAttribute("vehicle", vehicleService.findVehicle(regNumber));
+        List<Vehicle> vehiclesEndingToday = availabilityService.fetchVehiclesEndingToday();
+        model1.addAttribute("vehiclesToday", vehiclesEndingToday);
+        List<Vehicle> vehiclesNotEndingToday = availabilityService.fetchVehiclesNotEndingToday();
+        model2.addAttribute("vehiclesOther", vehiclesNotEndingToday);
+        return "home/Vehicle/updateMechanic";
+    }
+
+    @PostMapping("/saveMechanic")
+    public String saveMechanic (@ModelAttribute Vehicle vehicle) {
+        vehicleService.updateVehicleMechanic(vehicle);
         return "redirect:/mechanic";
     }
-     */
+
 
 }

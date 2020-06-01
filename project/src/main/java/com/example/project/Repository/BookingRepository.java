@@ -45,4 +45,9 @@ public class BookingRepository {
                 b.isBikeRack(), b.getBedLinen(), b.getChildSeat(), b.getTotalPrice(), b.getBookingNo());
         return null;
     }
+
+    public void updateBookingFinished(Booking b) {
+        String sql = "UPDATE booking SET booking_status = ?, total_price = ? WHERE booking_no = ?";
+        template.update(sql, b.getBookingStatus(), b.getTotalPrice(), b.getBookingNo());
+    }
 }

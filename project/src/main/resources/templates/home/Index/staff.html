@@ -9,7 +9,8 @@
 <div th:insert="home/style :: style"></div>
 
 <header>
-    <span>NMR</span>
+    <span class="logo">NMR</span>
+    <span class="position"> - Staff</span>
     <span>
         <a href="/bookingHome">Home</a>
         <a href="/availability">Create Booking</a> <!-- where to? -->
@@ -22,7 +23,7 @@
 
 <h1>Bookings Ending Today:</h1>
 <div th:if="${not #lists.isEmpty(bookingsToday)}">
-    <table border="1">
+    <table>
         <thead>
         <tr>
             <th>Booking Number</th>
@@ -73,11 +74,11 @@
     <div class="inline-table">
         <h1>Upcoming Bookings:</h1>
         <div th:if="${not #lists.isEmpty(confirmedBookings)}">
-            <table border="1">
+            <table>
                 <thead>
                 <tr>
-                    <th>Booking Number</th>
-                    <th>Vehicle Registration Number</th>
+                    <th><div>Booking</div>Number</th>
+                    <th><div>Vehicle</div><div>Registration</div>Number</th>
                     <th>Pick Up Date</th>
                     <th>Drop Off Date</th>
                     <th>Booking Status</th>
@@ -103,11 +104,11 @@
     <div class="inline-table">
         <h1>Cancelled Bookings:</h1>
         <div th:if="${not #lists.isEmpty(cancelledBookings)}">
-            <table border="1">
+            <table>
                 <thead>
                 <tr>
-                    <th>Booking Number</th>
-                    <th>Vehicle Registration Number</th>
+                    <th><div>Booking</div>Number</th>
+                    <th><div>Vehicle</div><div>Registration</div>Number</th>
                     <th>Pick Up Date</th>
                     <th>Drop Off Date</th>
                     <th>Booking Status</th>
@@ -133,11 +134,11 @@
     <div class="inline-table">
         <h1>Finished Bookings:</h1>
         <div th:if="${not #lists.isEmpty(finishedBookings)}">
-            <table border="1">
+            <table>
                 <thead>
                 <tr>
-                    <th>Booking Number</th>
-                    <th>Vehicle Registration Number</th>
+                    <th><div>Booking</div>Number</th>
+                    <th><div>Vehicle</div><div>Registration</div>Number</th>
                     <th>Pick Up Date</th>
                     <th>Drop Off Date</th>
                     <th>Booking Status</th>

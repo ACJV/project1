@@ -63,26 +63,36 @@ public class BookingController {
 
 
     @GetMapping("/bookingFinish/{bookingNo}")
-    public String bookingFinish(@PathVariable("bookingNo") int bookingNo, Model model, Model model1){
+    public String bookingFinish(@PathVariable("bookingNo") int bookingNo, Model model, Model model1, Model model2, Model model3, Model model4, Model model5){
         Booking b = bookingService.findBooking(bookingNo);
         model.addAttribute("booking", b);
         model1.addAttribute("oldOdometer", vehicleService.findVehicle(b.getRegNumber()).getOdometer());
+
+        List<Booking> bookingsEndingToday = availabilityService.fetchBookingsEndingToday();
+        model2.addAttribute("bookingsToday", bookingsEndingToday);
+        List<Booking> confirmedBookings = availabilityService.fetchConfirmedBookings();
+        model3.addAttribute("confirmedBookings", confirmedBookings);
+        List<Booking> cancelledBookings = availabilityService.fetchCancelledBookings();
+        model4.addAttribute("cancelledBookings", cancelledBookings);
+        List<Booking> finishedBookings = availabilityService.fetchFinishedBookings();
+        model5.addAttribute("finishedBookings", finishedBookings);
+
         return "home/Bookings/bookingFinish";
     }
 
 
     @PostMapping("/bookingFinish")
-    public String bookingFinish(@Param("bookingNo") int bookingNo, @Param("odometer") int odometer, @Param("isLowTank") boolean isLowTank){
-        Booking booking = bookingService.findBooking(bookingNo);
-        double newTotalPrice = dataManipulation.calculateTotalPriceFinished(booking, isLowTank, odometer);
+    public String bookingFinish(@ModelAttribute Booking booking, @Param("odometer") int odometer, @Param("isLowTank") boolean isLowTank){
+        double newTotalPrice = dataManipulation.calculateTotalPriceFinished(booking.getBookingNo(), isLowTank, odometer);
         booking.setTotalPrice(newTotalPrice);
         booking.setBookingStatus("Finished");
+        bookingService.updateBookingFinished(booking);
+        String regNumber = bookingService.findBooking(booking.getBookingNo()).getRegNumber();
 
-        Vehicle v = vehicleService.findVehicle(booking.getRegNumber());
+        Vehicle v = vehicleService.findVehicle(regNumber);
         v.setOdometer(odometer);
         vehicleService.updateVehicle(v);
 
-        bookingService.updateBooking(booking);
         return "redirect:/bookingHome";
     }
 

@@ -52,8 +52,8 @@ public class VehicleService {
     // @Justé
 //----------------------------------------------------------------------------------------------------------------------
 
-    public void updateVehicleMechanic(String regNumber, String operational, String oComment) {
-        vehicleRepository.updateVehicleMechanic(regNumber, operational, oComment);
+    public void updateVehicleMechanic(Vehicle vehicle) {
+        vehicleRepository.updateVehicleMechanic(vehicle);
     }
 
 }

@@ -67,8 +67,8 @@ public class VehicleRepository {
     // @Justé
 //----------------------------------------------------------------------------------------------------------------------
 
-    public void updateVehicleMechanic(@Param("regNumber") String regNumber, @Param("operational") String operational, @Param("oComment") String oComment) {
+    public void updateVehicleMechanic(Vehicle vehicle) {
         String sql = "UPDATE vehicle SET operational = ?, o_comment = ? WHERE reg_number = ?";
-        template.update(sql, operational, oComment, regNumber);
+        template.update(sql, vehicle.isOperational(), vehicle.getoComment(), vehicle.getRegNumber());
     }
 }

@@ -5,22 +5,26 @@
     <title>Title</title>
 </head>
 <body>
+<!--<div onclick="location.href='vehicle';" class="pop-up-background">-->
 
 <div th:insert="home/Index/staff :: body"></div>
 <div th:insert="home/style :: style"></div>
 
 <div class="pop-up">
-    <form action="/bookingFinish" method="post" name="bookingNo" th:value="${booking.bookingNo}">
+    <form action="/bookingFinish" method="post">
         <h1>Please enter additional information about vehicle's condition before finishing:</h1>
 
+        <label>Booking Number</label><br><br>
+        <input type="text" name="bookingNo" th:value="${booking.bookingNo}" readonly class="readonly"><br><br>
+
         <label>Current Odometer Value</label><br><br>
-        <input type="number" th:min="${oldOdometer}" max="999999" name="odometer" th:placeholder="${oldOdometer}"><br><br>
+        <input type="number" th:min="${oldOdometer}" maxlength="6" max="999999" name="odometer" th:placeholder="${oldOdometer}"><br><br>
 
         <label>Was Tank Less Than 1/2 Full?</label><br><br>
         <span>
-            <input type="radio" value="true" name="isLowTank" checked>
+            <input type="radio" value="true" name="isLowTank">
             <label>Yes</label>
-            <input type="radio" value="false" name="isLowTank">
+            <input type="radio" value="false" name="isLowTank" checked>
             <label>No</label><br><br>
         </span>
 
@@ -28,5 +32,6 @@
     </form>
 </div>
 
+<!--</div>-->
 </body>
 </html>
