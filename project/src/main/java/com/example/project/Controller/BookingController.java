@@ -74,12 +74,68 @@ public class BookingController {
         return "home/Bookings/bookingSelectCustomer";
 
     }
+    @GetMapping("createAddressTest/{bookingNo}")
+    public String testCreate(@PathVariable("bookingNo") int bookingNo, Model model){
+        Booking booking = bookingService.findBooking(bookingNo);
+        model.addAttribute("booking", booking);
+        return "home/Bookings/testCreateAddressPost";
+    }
+    @PostMapping("/createAddressTest/{bookingNo}")
+    public String testCreateP(@PathVariable("bookingNo") int bookingNo, @ModelAttribute Address address){
+        Booking booking = bookingService.findBooking(bookingNo);
+        addressService.addAddress(address);
+        return "redirect:/newBooking/"+bookingNo;
+    }
 
     @GetMapping("selectCustomerBooking/{bookingNo}/customer/{customerId}")
     public String selectCustomerRouting(@PathVariable("bookingNo") int bookingNo, @PathVariable("customerId") int customerId, Model model, Model model2){
         Booking booking = bookingService.findBooking(bookingNo);
         Customer customer = customerService.findCustomer(customerId);
         booking.setCustomerId(customerId);
+        bookingService.updateBooking(bookingNo, booking);
+        return "redirect:/newBooking/"+bookingNo;
+    }
+
+    /* Started out trying to create an address while creating booking - Problem is not knowing how to use input html values as path variables.
+        First idea was using PostMapping but the */
+    @GetMapping("/createBookingAddressPickUp/{bookingNo}")
+    public String createBookingAddressPickUp(@PathVariable("bookingNo") int bookingNo, Model model){
+        Booking booking = bookingService.findBooking(bookingNo);
+        model.addAttribute("booking", booking);
+        return "home/Bookings/createBookingAddressPickUp";
+    }
+    @GetMapping("/createBookingAddressDropOff/{bookingNo}")
+    public String createBookingAddressDropOff(@PathVariable("bookingNo") int bookingNo, Model model){
+        Booking booking = bookingService.findBooking(bookingNo);
+        model.addAttribute("booking", booking);
+        return "home/Bookings/createBookingAddressDropOff";
+    }
+
+    @GetMapping("/createBookingDropOffAddress/booking/{bookingNo}/address/{address}/{zip}/{city}/{country}/{distance}")
+    public String updateBookingDropOffAddress(@PathVariable("bookingNo") int bookingNo,
+                                             @PathVariable("address") String address,
+                                             @PathVariable("zip") String zip, @PathVariable("city") String city,
+                                             @PathVariable("country") String country,
+                                             @PathVariable("distance") int distance){
+        Address a = new Address(address, zip, city, country, distance);
+        addressService.addAddress(a);
+        Booking booking = bookingService.findBooking(bookingNo);
+        Address found = addressService.findAddressId(a);
+        booking.setDropOffId(found.getAddressId());
+        bookingService.updateBooking(bookingNo, booking);
+        return "redirect:/newBooking/"+bookingNo;
+    }
+    @GetMapping("/createBookingPickUpAddress/booking/{bookingNo}/address/{address}/{zip}/{city}/{country}/{distance}")
+    public String updateBookingPickUoAddress(@PathVariable("bookingNo") int bookingNo,
+                                             @PathVariable("address") String address,
+                                             @PathVariable("zip") String zip, @PathVariable("city") String city,
+                                             @PathVariable("country") String country,
+                                             @PathVariable("distance") int distance){
+        Address a = new Address(address, zip, city, country, distance);
+        addressService.addAddress(a);
+        Booking booking = bookingService.findBooking(bookingNo);
+        Address found = addressService.findAddressId(a);
+        booking.setPickUpId(found.getAddressId());
         bookingService.updateBooking(bookingNo, booking);
         return "redirect:/newBooking/"+bookingNo;
     }

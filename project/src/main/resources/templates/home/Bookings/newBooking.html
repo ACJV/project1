@@ -41,6 +41,22 @@
         </table>
     </div>
 
+    <label>Create New PickUp Location for this booking:</label>
+    @GetMapping("/createBookingAddressPickUp/{bookingNo}")
+    <div th:each="booking: ${booking}">
+        <a th:href="@{'/createAddressTest/'+${booking.bookingNo}}">
+            <button>
+                Try this one
+            </button>
+        </a>
+        <a th:href="@{'/createBookingAddressPickUp/'+${booking.bookingNo}}">
+            <button>
+                Create PickUpAddress
+            </button>
+        </a>
+    </div>
+
+
     <!--<div th:if="${variable.something} == null">-->
     <form action="/saveBooking" method="post">
         <div>
@@ -76,6 +92,7 @@
 
             <label>pickUpId</label>
             <input type="number" name="pickUpId" th:value="${booking.pickUpId}" readonly><br><br>
+
 
             <label>dropOffId</label>
             <input type="number" name="dropOffId" th:value="${booking.dropOffId}"readonly><br><br>

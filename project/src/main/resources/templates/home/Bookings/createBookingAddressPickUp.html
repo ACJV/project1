@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>PickUp Address</title>
+</head>
+
+<body>
+th:with="someVariable=${someValue}">
+<label>Address</label>
+<input type="text"
+       th:with="address=${address.address}" id="address" th:name="address"><br><br>
+<label>zip</label>
+<input type="text"
+       th:with="zip=${address.zip}" id="zip" th:name="zip"><br><br>
+<label>City</label>
+<input type="text"
+       th:with="city=${address.city}" id="city" th:name="city"><br><br>
+<label>Country</label>
+<input type="text"
+       th:with="country=${address.country}" id="country" th:name="country"><br><br>
+<label>Distance From Office:</label>
+<input type="number"
+       th:with="distance${address.distance}" id="distance" th:name="distance"><br><br>
+
+    <!-- Want to get the values entered above in the input fields for this link to be able to use them as pathVariables -->
+    <a th:href="@{/createBookingPickUpAddress/booking/{bookingNo}/address/{address}/{zip}/{city}/{country}/{distance}(bookingNo = ${booking.bookingNo}, address = ${address.address}, zip = ${address.zip}, city = ${address.city}, country = ${address.country}, distance = ${address.distance})}">
+        <!-- This href calls a GetMapping, because I can't find out how to set PathVariables for PostMappings. (without JS)  -->
+        <button>
+            Create Address and continue
+        </button>
+    </a>
+
+th:action="@{|/tasks/${task.id}|}"
+
+
+
+</body>
+</html>

@@ -60,6 +60,8 @@ public class AvailabilityController {
             b.setRegNumber(regNumber);
             b.setPickUpDate(startDate);
             b.setDropOffDate(endDate);
+            b.setPickUpId(1);
+            b.setDropOffId(1);
             bookingService.addBooking(b);
             Booking booking = bookingService.findBookingNumber(b);
             int bookingNo = booking.getBookingNo();
