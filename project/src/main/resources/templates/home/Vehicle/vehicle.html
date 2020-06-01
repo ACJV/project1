@@ -4,58 +4,68 @@
     <meta charset="UTF-8">
     <title>Vehicle Page</title>
     <link rel="stylesheet" type="text/css" href="../../../static/styler.css">
+    <link rel="stylesheet" type="text/css" href="basicStyling.css">
 </head>
-<body style="margin-left: 300px">
-<h1>Vehicle List</h1>
+<body>
 
-<form th:action="@{/vehicle}" method="get">
-    <input id="Search" type="text" name="keyword" placeholder="XX12345" style="margin-left: 300px">
-    <button type="submit">Search</button>
-</form>
+<div th:insert="home/style :: style"></div>
+<div th:insert="home/Index/owner :: header"></div>
 
-<a href="/createVehicle">
-    <button class="btn-create" id="btn-create">
-        Create New Vehicle
-    </button>
-</a>
-<table border="1" style="width: auto">
-    <thead >
-    <tr>
-        <th>Registration Number</th>
-        <th>Category</th>
-        <th>Year</th>
-        <th>Odometer</th>
-        <th>Transmission</th>
-        <th>Fuel</th>
-        <th>Description</th>
-        <th>Operational</th>
-        <th>Comments</th>
-        <th></th>
+<div class="to-back">
+    <h1>Vehicle List</h1>
+    <a href="/createVehicle">
+        <button class="button-create">
+            Add New Vehicle
+        </button>
+    </a>
 
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="vehicle: ${vehicles}">
-        <td th:text="${vehicle.regNumber}"/>
-        <td th:text="${vehicle.categoryId}"/>
-        <td th:text="${vehicle.yearStmp}"/>
-        <td th:text="${vehicle.odometer}"/>
-        <td th:text="${vehicle.transmission}"/>
-        <td th:text="${vehicle.fuelType}"/>
-        <td th:text="${vehicle.descriptionX}"/>
-        <td th:text="${vehicle.operational}"/>
-        <td th:text="${vehicle.oComment}"/>
-        <td></td>
-        <td>
-            <a th:href="@{'/viewVehicle/'+${vehicle.regNumber}}">
-                <button class="btn-viewVehicle" , id="btn-viewVehicle">
-                    Select Car
-                </button>
-            </a>
+    <form th:action="@{/vehicle}" method="get">
+        <input id="Search" type="text" name="keyword" placeholder="XX12345" style="margin-left: 300px">
+        <button type="submit">Search</button>
+    </form><br>
 
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <table>
+        <thead >
+        <tr>
+            <th>Vehicle Registration Number</th>
+            <th>Category ID</th>
+            <th>Year</th>
+            <th>Odometer</th>
+            <th>Transmission</th>
+            <th>Fuel</th>
+            <th>Status</th>
+            <th><div>Additional Comments</div><div>(if not available for rental)</div></th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="vehicle: ${vehicles}">
+            <td th:text="${vehicle.regNumber}"/>
+            <td th:text="${vehicle.catId}"/>
+            <td th:text="${vehicle.yearStmp}"/>
+            <td th:text="${vehicle.odometer}"/>
+            <td th:text="${vehicle.transmission}"/>
+            <td th:text="${vehicle.fuelType}"/>
+            <td th:if="${vehicle.operational}">
+                <span>Available for rental</span>
+            </td>
+            <td th:unless="${vehicle.operational}">
+                <span>Not available for rental</span>
+            </td>
+            <td th:text="${vehicle.oComment}"/>
+            <td>
+                <a th:href="@{'/updateVehicle/'+${vehicle.regNumber}}">
+                    <button>UPDATE</button>
+                </a>
+            </td>
+            <td>
+                <a th:href="@{'/deleteVehicle/'+${vehicle.regNumber}}">
+                    <button>DELETE</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

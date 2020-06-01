@@ -1,7 +1,6 @@
 package com.example.project.Service;
 
 import com.example.project.Model.Address;
-import com.example.project.Model.Customer;
 import com.example.project.Repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,4 +36,8 @@ public class AddressService {
         return addressRepository.findByKeyword(keyword);
     }
 
+
+    public int getDistanceFromId (int id) {
+        return addressRepository.getDistanceFromId(id);
+    }
 }

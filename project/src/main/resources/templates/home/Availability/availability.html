@@ -6,9 +6,11 @@
 </head>
 <body>
 
+<div th:insert="home/style :: style"></div>
+<div th:insert="home/Index/staff :: header"></div>
+<div th:insert="home/Index/staff :: footer"></div>
 
     <h1>Check Availability</h1>
-
     <form th:action="@{/availability}" method="get">
         <input id="SearchStart" type="date" name="startDate" placeholder="Start Date">
         <input id="SearchEnd" type="date" name="endDate" placeholder="End Date">
@@ -20,7 +22,7 @@
         <tr th:each="selected: ${datesL}">
             <td th:text="${selected.pickUpDate}"/>
             <td th:text="${selected.dropOffDate}"/>
-            
+
         </tr>
         </tbody>
     </table>

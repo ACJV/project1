@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:insert="home/Index/mechanic :: body"></div>
+<div th:insert="home/style :: style"></div>
+
+<div class="pop-up">
+    <form action="/saveMechanic" method="post">
+        <h1>Update Vehicle's Condition</h1>
+
+        <label>Registration Number</label><br><br>
+        <input type="text" name="regNumber" th:value="${vehicle.regNumber}" readonly class="readonly"><br><br>
+
+        <label>Vehicle's Condition</label><br><br>
+        <span th:if="${vehicle.operational}">
+            <input type="radio" value="true" name="operational" checked>
+            <span>Available for Rental</span><br>
+            <input type="radio" value="false" name="operational">
+            <span>Not Available for Rental</span><br><br>
+        </span>
+        <span th:unless="${vehicle.operational}">
+            <input type="radio" value="true" name="operational">
+            <span>Available for Rental</span><br>
+            <input type="radio" value="false" name="operational" checked>
+            <span>Not Available for Rental</span><br><br>
+        </span>
+        <label>Additional Comments about Vehicle's Condition</label><br><br>
+        <span th:if="${vehicle.oComment == null}">
+            <input type="text" maxlength="255" placeholder="No Comments Added" name="oComment" th:value="${vehicle.oComment}"><br><br>
+        </span>
+        <span th:unless="${vehicle.oComment == null}">
+            <input type="text" maxlength="255" th:placeholder="${vehicle.oComment}" name="oComment" th:value="${vehicle.oComment}"><br><br>
+        </span>
+
+        <input type="submit" value="SAVE CHANGES">
+    </form>
+</div>
+
+</body>
+</html>

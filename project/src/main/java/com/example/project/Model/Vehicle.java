@@ -7,7 +7,7 @@ import javax.persistence.Id;
 public class Vehicle {
     @Id
     private String regNumber;
-    private int categoryId;
+    private int catId;
     private int yearStmp;
     private int odometer;
     private String transmission;
@@ -19,12 +19,9 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    // Constructor for everything
-    public Vehicle(String regNumber, int categoryID, int yearStmp,
-                   int odometer, String transmission, String fuelType, String descriptionX,
-                   boolean operational, String oComment) {
+    public Vehicle(String regNumber, int catId, int yearStmp, int odometer, String transmission, String fuelType, boolean operational, String oComment) {
         this.regNumber = regNumber;
-        this.categoryId = categoryID;
+        this.catId = catId;
         this.yearStmp = yearStmp;
         this.odometer = odometer;
         this.transmission = transmission;
@@ -42,12 +39,12 @@ public class Vehicle {
         this.regNumber = regNumber;
     }
 
-    public int getCategoryId() {
-        return categoryId;
+    public int getCatId() {
+        return catId;
     }
 
-    public void setCategoryId(int categoryId) {
-        this.categoryId = categoryId;
+    public void setCatId(int catId) {
+        this.catId = catId;
     }
 
     public int getYearStmp() {
@@ -82,15 +79,7 @@ public class Vehicle {
         this.fuelType = fuelType;
     }
 
-    public String getDescriptionX() {
-        return descriptionX;
-    }
-
-    public void setDescriptionX(String descriptionX) {
-        this.descriptionX = descriptionX;
-    }
-
-    public boolean getOperational() {
+    public boolean isOperational() {
         return operational;
     }
 

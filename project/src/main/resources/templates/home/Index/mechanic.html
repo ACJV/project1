@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Mechanic</title>
+    <link rel="stylesheet" type="text/css" href="basicStyling.css">
+</head>
+<body>
+
+<div th:insert="home/style :: style"></div>
+
+<header>
+    <span class="logo">NMR</span>
+    <span class="position"> - Mechanic</span>
+    <span>
+        <a href="/start" style="float: right">Log Out</a>
+    </span>
+</header>
+
+<h1>Vehicles Dropped Off Today:</h1>
+
+<div th:if="${not #lists.isEmpty(vehiclesToday)}">
+    <table>
+        <thead>
+        <tr>
+            <th>Vehicle Registration Number</th>
+            <th>Category ID</th>
+            <th>Year</th>
+            <th>Odometer</th>
+            <th>Transmission</th>
+            <th>Fuel</th>
+            <th>Status</th>
+            <th>Additional Comments (if not available for rental)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="vehicleT: ${vehiclesToday}">
+            <td th:text="${vehicleT.regNumber}"/>
+            <td th:text="${vehicleT.catId}"/>
+            <td th:text="${vehicleT.yearStmp}"/>
+            <td th:text="${vehicleT.odometer}"/>
+            <td th:text="${vehicleT.transmission}"/>
+            <td th:text="${vehicleT.fuelType}"/>
+            <span th:if="${vehicleT.operational}">
+                <td>Available for rental</td>
+            </span>
+            <span th:unless="${vehicleT.operational}">
+                <td>Not available for rental</td>
+            </span>
+            <span th:if="${vehicleT.oComment == null}">
+                <td>No Comments Added</td>
+            </span>
+            <span th:unless="${vehicleT.oComment == null}">
+                <td th:text="${vehicleT.oComment}"/>
+            </span>
+            <td>
+                <a th:href="@{'/updateMechanic/'+${vehicleT.regNumber}}">
+                    <button>CHANGE STATUS</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:unless="${not #lists.isEmpty(vehiclesToday)}">
+    <p>There are no vehicles to be dropped off today</p>
+</div>
+
+
+<h1>Other Vehicles:</h1>
+
+<div th:if="${not #lists.isEmpty(vehiclesOther)}">
+    <table>
+        <thead>
+        <tr>
+            <th>Vehicle Registration Number</th>
+            <th>Category ID</th>
+            <th>Year</th>
+            <th>Odometer</th>
+            <th>Transmission</th>
+            <th>Fuel</th>
+            <th>Status</th>
+            <th>Additional Comments (if not available for rental)</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="vehicleO: ${vehiclesOther}">
+            <td th:text="${vehicleO.regNumber}"/>
+            <td th:text="${vehicleO.catId}"/>
+            <td th:text="${vehicleO.yearStmp}"/>
+            <td th:text="${vehicleO.odometer}"/>
+            <td th:text="${vehicleO.transmission}"/>
+            <td th:text="${vehicleO.fuelType}"/>
+            <span th:if="${vehicleO.operational}">
+                <td>Available for rental</td>
+            </span>
+            <span th:unless="${vehicleO.operational}">
+                <td>Not available for rental</td>
+            </span>
+            <span th:if="${vehicleO.oComment == null}">
+                <td>No Comments Added</td>
+            </span>
+            <span th:unless="${vehicleO.oComment == null}">
+                <td th:text="${vehicleO.oComment}"/>
+            </span>
+            <td>
+                <a th:href="@{'/updateMechanic/'+${vehicleO.regNumber}}">
+                    <button>CHANGE STATUS</button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:unless="${not #lists.isEmpty(vehiclesOther)}">
+    <p>There are no vehicles to be displayed</p>
+</div>
+
+<footer></footer>
+
+</body>
+</html>

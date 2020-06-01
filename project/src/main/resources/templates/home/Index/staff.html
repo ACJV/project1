@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff</title>
+</head>
+<body>
+
+<div th:insert="home/style :: style"></div>
+
+<header>
+    <span class="logo">NMR</span>
+    <span class="position"> - Staff</span>
+    <span>
+        <a href="/bookingHome">Home</a>
+        <a href="/availability">Create Booking</a> <!-- where to? -->
+        <a href="/booking">All Bookings</a>
+        <a href="/vehicleFull">All Vehicles</a>
+        <a href="/address">All Addresses</a>
+        <a href="/start" style="float: right">Log Out</a>
+    </span>
+</header>
+
+<h1>Bookings Ending Today:</h1>
+<div th:if="${not #lists.isEmpty(bookingsToday)}">
+    <table>
+        <thead>
+        <tr>
+            <th>Booking Number</th>
+            <th>Vehicle Registration Number</th>
+            <th>Pick Up Date</th>
+            <th>Drop Off Date</th>
+            <th>Booking Status</th>
+            <th>Customer ID</th>
+            <th>Pick Up Location ID</th>
+            <th>Drop Off Location ID</th>
+            <th>Bike Rack</th>
+            <th>Bed Linen</th>
+            <th>Child Seat</th>
+            <th>Total Price</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="bookingT: ${bookingsToday}">
+            <td th:text="${bookingT.bookingNo}" />
+            <td th:text="${bookingT.regNumber}" />
+            <td th:text="${bookingT.pickUpDate}"/>
+            <td th:text="${bookingT.dropOffDate}"/>
+            <td th:text="${bookingT.bookingStatus}"/>
+            <td th:text="${bookingT.customerId}"/>
+            <td th:text="${bookingT.pickUpId}"/>
+            <td th:text="${bookingT.dropOffId}"/>
+            <td th:text="${bookingT.bikeRack}"/>
+            <td th:text="${bookingT.bedLinen}"/>
+            <td th:text="${bookingT.childSeat}"/>
+            <td th:text="${bookingT.totalPrice}"/>
+            <td>
+                <a th:href="@{'/bookingFinish/'+${bookingT.bookingNo}}">
+                    <button>
+                        MARK AS FINISHED
+                    </button>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:unless="${not #lists.isEmpty(bookingsToday)}">
+    <p>There are no bookings ending today</p>
+</div>
+
+<div>
+    <div class="inline-table">
+        <h1>Upcoming Bookings:</h1>
+        <div th:if="${not #lists.isEmpty(confirmedBookings)}">
+            <table>
+                <thead>
+                <tr>
+                    <th><div>Booking</div>Number</th>
+                    <th><div>Vehicle</div><div>Registration</div>Number</th>
+                    <th>Pick Up Date</th>
+                    <th>Drop Off Date</th>
+                    <th>Booking Status</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="bConfirmed: ${confirmedBookings}">
+                    <td th:text="${bConfirmed.bookingNo}" />
+                    <td th:text="${bConfirmed.regNumber}" />
+                    <td th:text="${bConfirmed.pickUpDate}"/>
+                    <td th:text="${bConfirmed.dropOffDate}"/>
+                    <td th:text="${bConfirmed.bookingStatus}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:unless="${not #lists.isEmpty(confirmedBookings)}">
+            <p>There are no upcoming bookings to be displayed</p>
+        </div>
+    </div>
+
+    <div class="inline-table">
+        <h1>Cancelled Bookings:</h1>
+        <div th:if="${not #lists.isEmpty(cancelledBookings)}">
+            <table>
+                <thead>
+                <tr>
+                    <th><div>Booking</div>Number</th>
+                    <th><div>Vehicle</div><div>Registration</div>Number</th>
+                    <th>Pick Up Date</th>
+                    <th>Drop Off Date</th>
+                    <th>Booking Status</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="bCancelled: ${cancelledBookings}">
+                    <td th:text="${bCancelled.bookingNo}" />
+                    <td th:text="${bCancelled.regNumber}" />
+                    <td th:text="${bCancelled.pickUpDate}"/>
+                    <td th:text="${bCancelled.dropOffDate}"/>
+                    <td th:text="${bCancelled.bookingStatus}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:unless="${not #lists.isEmpty(cancelledBookings)}">
+            <p>There are no cancelled bookings to be displayed</p>
+        </div>
+    </div>
+
+    <div class="inline-table">
+        <h1>Finished Bookings:</h1>
+        <div th:if="${not #lists.isEmpty(finishedBookings)}">
+            <table>
+                <thead>
+                <tr>
+                    <th><div>Booking</div>Number</th>
+                    <th><div>Vehicle</div><div>Registration</div>Number</th>
+                    <th>Pick Up Date</th>
+                    <th>Drop Off Date</th>
+                    <th>Booking Status</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="bFinished: ${finishedBookings}">
+                    <td th:text="${bFinished.bookingNo}" />
+                    <td th:text="${bFinished.regNumber}" />
+                    <td th:text="${bFinished.pickUpDate}"/>
+                    <td th:text="${bFinished.dropOffDate}"/>
+                    <td th:text="${bFinished.bookingStatus}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:unless="${not #lists.isEmpty(finishedBookings)}">
+            <p>There are no finished bookings to be displayed</p>
+        </div>
+    </div>
+
+</div>
+
+<footer></footer>
+
+</body>
+</html>
