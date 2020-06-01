@@ -1,7 +1,6 @@
 package com.example.project.Controller;
 
 import com.example.project.Model.Address;
-import com.example.project.Model.Customer;
 import com.example.project.Service.AddressService;
 import com.example.project.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,6 @@ public class AddressController {
         List<Address> addressList = addressService.fetchAll();
         model.addAttribute("addressL", addressList);
         return "home/Address/addressIndex"; //render
-
     }
 
     @GetMapping("/createAddress")
@@ -39,8 +37,6 @@ public class AddressController {
         addressService.addAddress(address);
         return "redirect:/address"; //after creating the address go back to the main page
     }
-
-
 
     @GetMapping("/viewOneAddress/{addressID}")
     public String viewAddress(@PathVariable("addressID") int addressID, Model model)
@@ -70,13 +66,6 @@ public class AddressController {
     public String updateAddress(@ModelAttribute Address address){
         addressService.updateAddress(address.getAddressId(),address);
         return "redirect:/address";
-    }
-
-    @GetMapping("/address2") //listen to this route
-    public String index2(Model model) {
-
-        return "home/Address/addressIndex2"; //render
-
     }
 
 }

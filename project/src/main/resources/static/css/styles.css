@@ -27,37 +27,31 @@ fieldset {
 }
 
 .tf1 {
-    padding: 10px 10px 10px 10x;
+    padding: 10px 10px 10px 10px;
     border:1px;
     border-radius: 5px;
 }
 
 .container1 {
-    height: 500px;
+    height: 600px;
     width: 300px;
-    border: 4px solid #cccccc;    
-    border-radius: 4px;
     padding:10px;
     margin:auto;
 }
 
 .container2 {
-    height: 500px;
-    width: 300px;
-    border: 4px solid #a9a9a9;   
-    border-radius: 4px; 
+    height: 600px;
+    width: 350px;
     padding:10px;
-    margin:auto;   
-
+    margin:auto;
 }
 
 .container3 {
-    height: 500px;
-    width: 300px;
-    border: 4px solid #808080;    
-    border-radius: 4px;
+    height: 600px;
+    width: 450px;
     padding:10px;
     margin:auto;
+    overflow: auto;
 }
 
 h1 {

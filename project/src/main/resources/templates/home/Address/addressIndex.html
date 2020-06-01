@@ -1,55 +1,158 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="../static/css/styles.css" th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
+
 <body>
-<h1>Address List</h1>
 
-<!-- Testing data retrieval from temporary MySQL address table-->
-<table>
-    <thead>
-    <tr>
-        <th>addressID</th>
-        <th>address</th>
-        <th>zip</th>
-        <th>city</th>
-        <th>country</th>
-        <th>distance</th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="address: ${addressL}">
-        <td th:text="${address.addressId}"/>
-        <td th:text="${address.address}"/>
-        <td th:text="${address.zip}"/>
-        <td th:text="${address.city}"/>
-        <td th:text="${address.country}"/>
-        <td th:text="${address.distance}"/>
-        <td>
-            <a th:href="@{'/viewOneAddress/'+${address.addressId}}">
-                <button class="btn-viewOne", id ="btn-viewOne">View one</button>
-            </a>
-            <a th:href="@{'/deleteAddress/'+${address.addressId}}">
-                <button class="btn-delete", id ="btn-delete">Delete</button>
-            </a>
-            <a th:href="@{'/updateAddress/'+${address.addressId}}">
-                <button class="btn-update", id ="btn-update">Update</button>
-            </a>
-        </td>
-    </tr>
+<div class="wrapper">
 
-    <a href="/createAddress">
-        <button class="btn-create" id="btn-create">
-            Create New Address
-        </button>
-    </a>
+    <div class="row">
+        <div class="header">
+            <h1>Addresses</h1>
+        </div>
+    </div>
+    <hr>
 
-    </tbody>
-</table>
+    <div class="row">
+        <div class="column">
+            <div class="container3">
+                <h1>Addresses:</h1>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>addressID</th>
+                        <th>address</th>
+                        <th>zip</th>
+                        <th>city</th>
+                        <th>country</th>
+                        <th>distance</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="address: ${addressL}">
+                        <td th:text="${address.addressId}"/>
+                        <td th:text="${address.address}"/>
+                        <td th:text="${address.zip}"/>
+                        <td th:text="${address.city}"/>
+                        <td th:text="${address.country}"/>
+                        <td th:text="${address.distance}"/>
+                        <td>
+                            <a th:href="@{'/viewOneAddress/'+${address.addressId}}">
+                                <button class="btn-viewOne", id ="btn-viewOne">View one</button>
+                            </a>
+                            <a th:href="@{'/deleteAddress/'+${address.addressId}}">
+                                <button class="btn-delete", id ="btn-delete">Delete</button>
+                            </a>
 
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+
+
+            </div>
+        </div>
+        <div class="column">
+            <div class="container2">
+
+                <h1>Update Address</h1>
+
+                <form action="/updateAddress" method="post">
+                    <fieldset>
+                        <legend>Address ID</legend>
+                        <input type="number" name="addressId" placeholder="Address ID" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Address</legend>
+                        <input type="text" name="address" placeholder="Address" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Zip</legend>
+                        <input type="text" name="zip" placeholder="Zip" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>City</legend>
+                        <input type="text" name="city"placeholder="City" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Country</legend>
+                        <input type="text" name="country" placeholder="Country" required>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Distance</legend>
+                        <input type="number" name="distance" placeholder="Distance" required>
+                    </fieldset>
+
+                    <input type="submit" value="Save changes">
+                </form>
+
+            </div>
+        </div>
+
+            <div class="column">
+                <div class="container1">
+
+                    <h1>Create Address</h1>
+
+                    <form action="/createAddress" method="post">
+                        <fieldset>
+                            <legend>Address ID</legend>
+                            <input type="number" name="addressId" placeholder="Address ID" required>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Address</legend>
+                            <input type="text" name="address" placeholder="Address" required>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Zip</legend>
+                            <input type="text" name="zip" placeholder="Zip" required>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>City</legend>
+                            <input type="text" name="city"placeholder="City" required>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Country</legend>
+                            <input type="text" name="country" placeholder="Country" required>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Distance</legend>
+                            <input type="number" name="distance" placeholder="Distance" required>
+                        </fieldset>
+
+                        <input type="submit" value="Save changes">
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+</div>
 </body>
+
 </html>
