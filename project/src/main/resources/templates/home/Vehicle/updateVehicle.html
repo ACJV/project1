@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--<div onclick="location.href='vehicle';" class="pop-up-background">-->
+
+<div th:insert="home/Vehicle/vehicle :: body"></div>
+<div th:insert="home/style :: style"></div>
+
+<div class="pop-up">
+    <form action="/saveVehicle" method="post">
+        <h1>Update Vehicle</h1>
+
+        <div><label>Registration Number</label></div>
+        <input type="text" minlength="7" maxlength="7" name="regNumber" th:value="${vehicle.regNumber}">
+        <div><label>Category Identification</label></div>
+        <input type="number" min="0" th:max="${numberOfCategories}" name="catId" th:value="${vehicle.catId}">
+        <div><label>Year of Fabrication</label></div>
+        <input type="number" minlength="4" maxlength="4" min="1900" th:max="${year}" name="yearStmp" th:value="${vehicle.yearStmp}">
+        <div><label>Odometer</label></div>
+        <input type="number" min="0" max="999999" maxlength="6" name="odometer" th:value="${vehicle.odometer}">
+
+        <div><label>Transmission</label></div>
+        <span th:if="${vehicle.transmission == 'Manual'}">
+            <input type="radio" value="Manual" name="transmission" checked>
+            <span>Manual</span>
+            <input type="radio" value="Automatic" name="transmission">
+            <span>Automatic</span>
+        </span>
+        <span th:if="${vehicle.transmission == 'Automatic'}">
+            <input type="radio" value="Manual" name="transmission">
+            <span>Manual</span>
+            <input type="radio" value="Automatic" name="transmission" checked>
+            <span>Automatic</span>
+        </span>
+
+        <div><label>Fuel Type</label></div>
+        <span th:if="${vehicle.fuelType == 'Diesel'}">
+            <input type="radio" value="Diesel" name="fuelType" checked>
+            <span>Diesel</span>
+            <input type="radio" value="Petrol" name="fuelType">
+            <span>Petrol</span>
+        </span>
+        <span th:if="${vehicle.fuelType == 'Petrol'}">
+            <input type="radio" value="Diesel" name="fuelType">
+            <span>Diesel</span>
+            <input type="radio" value="Petrol" name="fuelType" checked>
+            <span>Petrol</span>
+        </span>
+        <div><label>Vehicle's Condition</label></div>
+        <span th:if="${vehicle.operational}">
+            <input type="radio" value="true" name="operational" checked>
+            <span>Available for Rental</span><br>
+            <input type="radio" value="false" name="operational">
+            <span>Not Available for Rental</span>
+        </span>
+        <span th:unless="${vehicle.operational}">
+            <input type="radio" value="true" name="operational">
+            <span>Available for Rental</span><br>
+            <input type="radio" value="false" name="operational" checked>
+            <span>Not Available for Rental</span>
+        </span>
+        <div><label>Additional Comments about Vehicle's Condition</label></div>
+        <span th:if="${vehicle.oComment == null}">
+            <input type="text" maxlength="255" placeholder="No Comments Added" name="oComment" th:value="${vehicle.oComment}">
+        </span>
+        <span th:unless="${vehicle.oComment == null}">
+            <input type="text" maxlength="255" th:placeholder="${vehicle.oComment}" name="oComment" th:value="${vehicle.oComment}">
+        </span>
+
+        <br><br>
+        <input type="submit" value="SAVE CHANGES">
+    </form>
+</div>
+
+<!--</div>-->
+</body>
+</html>

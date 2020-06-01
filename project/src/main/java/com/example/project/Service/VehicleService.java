@@ -3,6 +3,7 @@ package com.example.project.Service;
 import com.example.project.Model.Vehicle;
 import com.example.project.Repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,11 @@ import java.util.List;
 public class VehicleService {
     @Autowired
     VehicleRepository vehicleRepository;
+
+//----------------------------------------------------------------------------------------------------------------------
+    // @Christian
+//----------------------------------------------------------------------------------------------------------------------
+
 
     public List<Vehicle> fetchAll()
     {
@@ -32,13 +38,22 @@ public class VehicleService {
         return vehicleRepository.deleteVehicle(regNumber);
     }
 
-    public Vehicle updateVehicle(String regNumber, Vehicle v)
+    public Vehicle updateVehicle(Vehicle v)
     {
-        return vehicleRepository.updateVehicle(regNumber, v);
+        return vehicleRepository.updateVehicle(v);
     }
 
     public List<Vehicle> findByKeyword(String keyword)
     {
         return vehicleRepository.findByKeyword(keyword);
     }
+
+//----------------------------------------------------------------------------------------------------------------------
+    // @Justé
+//----------------------------------------------------------------------------------------------------------------------
+
+    public void updateVehicleMechanic(Vehicle vehicle) {
+        vehicleRepository.updateVehicleMechanic(vehicle);
+    }
+
 }

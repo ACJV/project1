@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehicle Page</title>
+</head>
+<body>
+
+<div th:insert="home/style :: style"></div>
+<div th:insert="home/Index/owner :: header"></div>
+<div th:insert="home/Index/owner :: footer"></div>
+
+<h1>Category List</h1>
+<a href="/createCategory">
+    <button class="button-create">
+        Add New Category
+    </button>
+</a>
+
+<form th:action="@{/category}" method="get">
+    <input id="Search" type="text" name="keyword" placeholder="Enter keyword to search for a category" style="margin-left: 300px">
+    <button type="submit">Search</button>
+</form><br>
+
+<table>
+    <thead >
+    <tr>
+        <th>Category ID</th>
+        <th>Category Name</th>
+        <th>Model Name</th>
+        <th>Brand</th>
+        <th>Base Price (daily)</th>
+        <th>Short Category Description</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="category: ${categories}">
+        <td th:text="${category.catId}"/>
+        <td th:text="${category.catName}"/>
+        <td th:text="${category.modelName}"/>
+        <td th:text="${category.brand}"/>
+        <td th:text="${category.catPrice} + ' kr.'"/>
+        <td th:text="${category.catDescription}"/>
+        <td>
+            <a th:href="@{'/updateCategory/'+${category.catId}}">
+                <button>UPDATE</button>
+            </a>
+        </td>
+        <td>
+            <a th:href="@{'/deleteCategory/'+${category.catId}}">
+                <button>DELETE</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -53,7 +53,8 @@ public class AddressRepository {
     }
     // Deletes address with known Id
     public Boolean deleteAddress(int id){
-        return null;
+        String sql = "DELETE FROM address WHERE address_id = ?";
+        return template.update(sql, id) < 0;
     }
     // Updates fields of address with known Id - Take out int Id when possible
     public Address updateAddress(int id, Address a){
@@ -98,6 +99,18 @@ public class AddressRepository {
             }
         }
         return lowestId;
+    }
+
+//----------------------------------------------------------------------------------------------------------------------
+    // @Justé
+//----------------------------------------------------------------------------------------------------------------------
+
+    public int getDistanceFromId (int id) {
+        String sql = "SELECT address.distance FROM address WHERE address.address_id = ?;";
+        RowMapper<Integer> rowMapper = new BeanPropertyRowMapper<>(Integer.class);
+        List<Integer> distanceL = template.query(sql, rowMapper, id);
+        int distance = distanceL.get(0);
+        return distance;
     }
 
 }

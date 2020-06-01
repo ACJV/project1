@@ -52,4 +52,9 @@ public class BookingRepository {
         Booking booking = template.queryForObject(sql, rowMapper, b.getRegNumber(), b.getPickUpDate(), b.getDropOffDate());
         return booking;
     }
+
+    public void updateBookingFinished(Booking b) {
+        String sql = "UPDATE booking SET booking_status = ?, total_price = ? WHERE booking_no = ?";
+        template.update(sql, b.getBookingStatus(), b.getTotalPrice(), b.getBookingNo());
+    }
 }
