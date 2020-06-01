@@ -3,7 +3,6 @@ package com.example.project.Controller;
 
 
 import com.example.project.Model.Booking;
-import com.example.project.Model.BookingAvailability;
 import com.example.project.Model.Vehicle;
 import com.example.project.Service.AvailabilityService;
 import com.example.project.Service.BookingService;
@@ -13,9 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import java.awt.print.Book;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -32,6 +28,7 @@ public class AvailabilityController {
     @Autowired
     BookingService bookingService;
 
+    // Availability -
     @GetMapping("/availability")
     public String availability(Model model, String startDate, String endDate){
         if(startDate != null && endDate != null) {
@@ -65,7 +62,7 @@ public class AvailabilityController {
             bookingService.addBooking(b);
             Booking booking = bookingService.findBookingNumber(b);
             int bookingNo = booking.getBookingNo();
-            return "redirect:/selectCustomerBooking/"+bookingNo;
+            return "redirect:/findCustomerForBooking/"+bookingNo;
         } else {
             return "home/Availability/error";
         }

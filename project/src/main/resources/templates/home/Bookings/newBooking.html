@@ -3,11 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>New Booking</title>
+    <link rel="stylesheet" type="text/css" href="../../stylerA.css">
 </head>
 <body>
     <h1>New Booking</h1>
 
     <div>
+        <h3>Booking: </h3>
         <table>
             <thead>
             <tr>
@@ -23,7 +25,6 @@
                 <th>Total Price</th>
             </tr>
             </thead>
-
             <tbody>
             <tr th:each="booking: ${booking}">
                 <td th:text="${booking.bookingNo}" />
@@ -39,30 +40,131 @@
             </tr>
             </tbody>
         </table>
+    </div> <br>
+    <br>
+    <hr>
+    <div>
+        <h3>Customer: </h3>
+        <table>
+            <thead >
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>Driver Licence Number</th>
+                <th>Date Of Birth</th>
+                <th>Phone Number</th>
+                <th>Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer: ${customer}">
+                <td th:text="${customer.customerId}"/>
+                <td th:text="${customer.fullName}"/>
+                <td th:text="${customer.driverLicNo}"/>
+                <td th:text="${customer.dob}"/>
+                <td th:text="${customer.phoneNo}"/>
+                <td th:text="${customer.email}"/>
+            </tr>
+            </tbody>
+        </table>
     </div>
+    <br>
+    <table>
+        <thead>
+        <tr>
+            <th>Address Id:</th>
+            <th>Address: </th>
+            <th>Zip: </th>
+            <th>City: </th>
+            <th>Country: </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="address: ${customerAddress}">
+            <td th:text="${address.addressId}"/>
+            <td th:text="${address.address}"/>
+            <td th:text="${address.zip}"/>
+            <td th:text="${address.city}"/>
+            <td th:text="${address.country}"/>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <hr>
 
-    <label>Create New PickUp Location for this booking:</label>
-    @GetMapping("/createBookingAddressPickUp/{bookingNo}")
-    <div th:each="booking: ${booking}">
-        <a th:href="@{'/createAddressTest/'+${booking.bookingNo}}">
+    <div>
+        <h3>PickUp Address: </h3>
+        <label for="createPickUpId">Create New PickUp address and assign to this booking: </label>
+        <a th:href="@{'/createBookingAddressPickUp/'+${booking.bookingNo}}" id="createPickUpId">
             <button>
-                Try this one
+                Create PickUp Address
             </button>
         </a>
-        <a th:href="@{'/createBookingAddressPickUp/'+${booking.bookingNo}}">
-            <button>
-                Create PickUpAddress
-            </button>
-        </a>
+        <table>
+            <thead>
+            <tr>
+                <th>Address Id:</th>
+                <th>Address: </th>
+                <th>Zip: </th>
+                <th>City: </th>
+                <th>Country: </th>
+                <th>Distance: </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="address: ${addressPickUp}">
+                <td th:text="${address.addressId}"/>
+                <td th:text="${address.address}"/>
+                <td th:text="${address.zip}"/>
+                <td th:text="${address.city}"/>
+                <td th:text="${address.country}"/>
+                <td th:text="${address.distance}"/>
+            </tr>
+            </tbody>
+        </table>
     </div>
+    <div>
+        <h3>DropOff Address: </h3>
 
 
+            <a th:href="@{'/createBookingAddressDropOff/'+${booking.bookingNo}}", id="createDropOffId">
+                <button>
+                    Create DropOff Address
+                </button>
+            </a>
+        <label for="createDropOffId" style="font-size: small"><i> - Create New DropOff address and assign to this booking</i> </label><br>
+        <table>
+            <thead>
+            <tr>
+                <th>Address Id:</th>
+                <th>Address: </th>
+                <th>Zip: </th>
+                <th>City: </th>
+                <th>Country: </th>
+                <th>Distance: </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="address: ${addressDropOff}">
+                <td th:text="${address.addressId}"/>
+                <td th:text="${address.address}"/>
+                <td th:text="${address.zip}"/>
+                <td th:text="${address.city}"/>
+                <td th:text="${address.country}"/>
+                <td th:text="${address.distance}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <hr>
+    <br>
     <!--<div th:if="${variable.something} == null">-->
     <form action="/saveBooking" method="post">
         <div>
             <strong>
                 Booking ID:
-                <input type="text" name="bookingNo" th:value="${booking.bookingNo}" readonly>
+                <input type="text" name="bookingNo" th:value="${booking.bookingNo}" readonly, style="border: none">
             </strong>
         </div>
         <br>

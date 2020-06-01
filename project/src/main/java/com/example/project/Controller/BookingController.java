@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 // Idea on commenting who did what
 //----------------------------------------------------------------------------------------------------------------------
@@ -46,107 +47,121 @@ public class BookingController {
 //----------------------------------------------------------------------------------------------------------------------
     //@Ástþór
 //----------------------------------------------------------------------------------------------------------------------
+
+    // WiewBooking includes updating and deleting booking
     @GetMapping("/viewBooking/{bookingNo}")
     public String viewBooking(@PathVariable("bookingNo") int bookingNo, Model model){
         model.addAttribute("booking", bookingService.findBooking(bookingNo));
         return "home/Bookings/viewBooking";
     }
+    //Deletes the booking from the database
+    @GetMapping("deleteBooking/{bookingNo}")
+    public String deleteBooking(@PathVariable("bookingNo") int bookingNo){
+        boolean deleted = bookingService.deleteBooking(bookingNo);
+        return "redirect:/booking";
+    }
+    //Saves Booking in database
     @PostMapping("/saveBooking")
     public String saveBooking(@ModelAttribute Booking booking){
         bookingService.updateBooking(booking.getBookingNo(), booking);
         return "redirect:/booking";
     }
-    @GetMapping("/newBooking/{bookingNo}")
-    public String newBooking(@PathVariable("bookingNo") int bookingNo, Model model, Model model2){
+
+    //------------------------------------------------------------------------------------------------------------------
+
+
+    // From Availability
+    // Displays all customers and possibility to select existing customer for the booking.
+    @GetMapping("/findCustomerForBooking/{bookingNo}")
+    public String findCustomerForBooking(@PathVariable("bookingNo") int bookingNo, Model model, Model model2){
+        // find and get booking from database
         Booking booking = bookingService.findBooking(bookingNo);
+        // Model used so href in html can use bookingNo as pathVariable
+        model.addAttribute("booking", booking);
+        // List of Customers to be displayed and to offer selection
+        List<Customer> customerList = customerService.fetchAll();
+        // Model used to display customers using thymeleaf
+        model2.addAttribute("customers", customerList);
+        // Return html page for selecting Customer
+        return "home/Bookings/bookingSelectCustomer";
+    }
+
+    // After user selects customer, the following GetMapping uses pathVariables to link booking to chosen customer
+    @GetMapping("selectCustomerForBooking/{bookingNo}/customer/{customerId}")
+    public String selectCustomerForRouting(@PathVariable("bookingNo") int bookingNo,
+                                        @PathVariable("customerId") int customerId, Model model, Model model2){
+        // Find and Get booking
+        Booking booking = bookingService.findBooking(bookingNo);
+        // Set booking customerId for selected customer
+        booking.setCustomerId(customerId);
+        // Update Booking with selected customers' Id
+        bookingService.updateBooking(bookingNo, booking);
+        // Redirect to display newBooking and option to change defaults such as pickUp/dropOff location and extras
+        return "redirect:/newBooking/"+bookingNo;
+    }
+
+    // NewBooking displays booking as is and offers user to change some of the fields
+    @GetMapping("/newBooking/{bookingNo}")
+    public String newBooking(@PathVariable("bookingNo") int bookingNo, Model model, Model model2, Model model3,
+                             Model model4, Model model5){
+        // Find and Get Booking with PathVariable
+        Booking booking = bookingService.findBooking(bookingNo);
+        // Set BookingStatus as confirmed
         booking.setBookingStatus("Confirmed");
+        // Find and Get Customer
         Customer customer = customerService.findCustomer(booking.getCustomerId());
+        Address addressCustomer = addressService.findAddress(customer.getAddressId());
+        // Use array of 2 addresses, one for pickUp and one for dropOff:
+        Address addressPickUp = addressService.findAddress(booking.getPickUpId());
+        Address addressDropOff = addressService.findAddress(booking.getDropOffId());
+        //Address[] addressArray = new Address[2];
+        //addressArray[0] = addressService.findAddress(booking.getPickUpId());
+        //addressArray[1] = addressService.findAddress(booking.getDropOffId());
+
+        // Use model to display booking, customer and address information and options to update
         model.addAttribute("booking", booking);
         model2.addAttribute("customer", customer);
+        model3.addAttribute("addressPickUp", addressPickUp);
+        model4.addAttribute("addressDropOff", addressDropOff);
+        model5.addAttribute("customerAddress", addressCustomer);
+        //model3.addAttribute("address", addressArray);
         return "home/Bookings/newBooking";
     }
-    @GetMapping("/selectCustomerBooking/{bookingNo}")
-    public String selectCustomerBooking(@PathVariable("bookingNo") int bookingNo, Model model, Model model2){
-        Booking booking = bookingService.findBooking(bookingNo);
-        model.addAttribute("booking", booking);
-        List<Customer> customerList = customerService.fetchAll();
-        model2.addAttribute("customers", customerList);
-        return "home/Bookings/bookingSelectCustomer";
 
-    }
-    @GetMapping("createAddressTest/{bookingNo}")
-    public String testCreate(@PathVariable("bookingNo") int bookingNo, Model model){
-        Booking booking = bookingService.findBooking(bookingNo);
-        model.addAttribute("booking", booking);
-        return "home/Bookings/testCreateAddressPost";
-    }
-    @PostMapping("/createAddressTest/{bookingNo}")
-    public String testCreateP(@PathVariable("bookingNo") int bookingNo, @ModelAttribute Address address){
-        Booking booking = bookingService.findBooking(bookingNo);
-        addressService.addAddress(address);
-        return "redirect:/newBooking/"+bookingNo;
-    }
-
-    @GetMapping("selectCustomerBooking/{bookingNo}/customer/{customerId}")
-    public String selectCustomerRouting(@PathVariable("bookingNo") int bookingNo, @PathVariable("customerId") int customerId, Model model, Model model2){
-        Booking booking = bookingService.findBooking(bookingNo);
-        Customer customer = customerService.findCustomer(customerId);
-        booking.setCustomerId(customerId);
-        bookingService.updateBooking(bookingNo, booking);
-        return "redirect:/newBooking/"+bookingNo;
-    }
-
-    /* Started out trying to create an address while creating booking - Problem is not knowing how to use input html values as path variables.
-        First idea was using PostMapping but the */
+    //------------------------------------------------------------------------------------------------------------------
+    // Following section is for creating new pickUp and dropOff address for booking being created or updated
     @GetMapping("/createBookingAddressPickUp/{bookingNo}")
     public String createBookingAddressPickUp(@PathVariable("bookingNo") int bookingNo, Model model){
         Booking booking = bookingService.findBooking(bookingNo);
         model.addAttribute("booking", booking);
         return "home/Bookings/createBookingAddressPickUp";
     }
+    @PostMapping("/createBookingAddressPickUp/{bookingNo}")
+    public String createBookingAddressPickUp(@PathVariable("bookingNo") int bookingNo, @ModelAttribute Address address){
+        addressService.addAddress(address);
+        Address a = addressService.findAddressId(address);
+        Booking booking = bookingService.findBooking(bookingNo);
+        booking.setPickUpId(a.getAddressId());
+        bookingService.updateBooking(bookingNo, booking);
+        return "redirect:/newBooking/"+bookingNo;
+    }
+
     @GetMapping("/createBookingAddressDropOff/{bookingNo}")
     public String createBookingAddressDropOff(@PathVariable("bookingNo") int bookingNo, Model model){
         Booking booking = bookingService.findBooking(bookingNo);
         model.addAttribute("booking", booking);
         return "home/Bookings/createBookingAddressDropOff";
     }
-
-    @GetMapping("/createBookingDropOffAddress/booking/{bookingNo}/address/{address}/{zip}/{city}/{country}/{distance}")
-    public String updateBookingDropOffAddress(@PathVariable("bookingNo") int bookingNo,
-                                             @PathVariable("address") String address,
-                                             @PathVariable("zip") String zip, @PathVariable("city") String city,
-                                             @PathVariable("country") String country,
-                                             @PathVariable("distance") int distance){
-        Address a = new Address(address, zip, city, country, distance);
-        addressService.addAddress(a);
+    @PostMapping("/createBookingAddressDropOff/{bookingNo}")
+    public String createBookingAddressDropOff(@PathVariable("bookingNo") int bookingNo, @ModelAttribute Address address){
+        addressService.addAddress(address);
+        Address a = addressService.findAddressId(address);
         Booking booking = bookingService.findBooking(bookingNo);
-        Address found = addressService.findAddressId(a);
-        booking.setDropOffId(found.getAddressId());
+        booking.setDropOffId(a.getAddressId());
         bookingService.updateBooking(bookingNo, booking);
         return "redirect:/newBooking/"+bookingNo;
     }
-    @GetMapping("/createBookingPickUpAddress/booking/{bookingNo}/address/{address}/{zip}/{city}/{country}/{distance}")
-    public String updateBookingPickUoAddress(@PathVariable("bookingNo") int bookingNo,
-                                             @PathVariable("address") String address,
-                                             @PathVariable("zip") String zip, @PathVariable("city") String city,
-                                             @PathVariable("country") String country,
-                                             @PathVariable("distance") int distance){
-        Address a = new Address(address, zip, city, country, distance);
-        addressService.addAddress(a);
-        Booking booking = bookingService.findBooking(bookingNo);
-        Address found = addressService.findAddressId(a);
-        booking.setPickUpId(found.getAddressId());
-        bookingService.updateBooking(bookingNo, booking);
-        return "redirect:/newBooking/"+bookingNo;
-    }
-
-
-    @GetMapping("deleteBooking/{bookingNo}")
-    public String deleteBooking(@PathVariable("bookingNo") int bookingNo){
-        boolean deleted = bookingService.deleteBooking(bookingNo);
-        return "redirect:/booking";
-    }
-
+    //------------------------------------------------------------------------------------------------------------------
 
     @PostMapping("/createBooking")
     public String createBooking(@ModelAttribute Booking b) {
@@ -154,8 +169,5 @@ public class BookingController {
         //return "redirect:/booking";
         return "home/Bookings/createBooking";
     }
-
-
-
 
 }

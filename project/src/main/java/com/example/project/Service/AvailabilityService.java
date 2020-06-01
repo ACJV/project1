@@ -1,7 +1,5 @@
 package com.example.project.Service;
 
-import com.example.project.Model.Booking;
-import com.example.project.Model.BookingAvailability;
 import com.example.project.Model.Vehicle;
 import com.example.project.Repository.AvailabilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;

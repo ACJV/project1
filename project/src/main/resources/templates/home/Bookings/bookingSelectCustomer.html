@@ -34,7 +34,7 @@
         <td th:text="${customer.email}"/>
         <td th:text="${customer.addressId}"/>
         <td>
-            <a th:href="@{/selectCustomerBooking/{bookingNo}/customer/{customerId}(bookingNo = ${booking.bookingNo}, customerId = ${customer.customerId})}">
+            <a th:href="@{/selectCustomerForBooking/{bookingNo}/customer/{customerId}(bookingNo = ${booking.bookingNo}, customerId = ${customer.customerId})}">
                 <button>
                     Select and Continue to booking
                 </button>

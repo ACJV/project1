@@ -68,6 +68,10 @@
 
                 <div th:each="booking: ${datesL}">
 
+                    <!--
+                    Selects Vehicle in
+
+                    -->
                     <a th:href="@{/dates/start/{startDate}/end/{endDate}/reg/{regNumber}(startDate = ${booking.pickUpDate}, endDate = ${booking.dropOffDate}, regNumber = ${vehicle.regNumber})}">
                         <button>
                             Select and Continue

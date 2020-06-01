@@ -2,7 +2,6 @@ package com.example.project.Repository;
 
 
 import com.example.project.Model.Booking;
-import com.example.project.Model.BookingAvailability;
 import com.example.project.Model.Vehicle;
 import com.example.project.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.awt.print.Book;
 import java.util.ArrayList;
 import java.util.List;
 

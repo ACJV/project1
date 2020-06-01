@@ -16,13 +16,9 @@
     <input id="searchBooking" type="text" placeholder="BookingNumber">
     <button type="submit">Search</button>
 </form>
-<!--
-    @Justé
--->
-
 
 <div>
-    <table>
+    <table style="">
         <thead>
         <tr>
             <th>Booking Number</th>
@@ -39,7 +35,6 @@
             <th>Total Price</th>
         </tr>
         </thead>
-
         <tbody>
         <tr th:each="booking: ${bookingL}">
             <td th:text="${booking.bookingNo}" />
