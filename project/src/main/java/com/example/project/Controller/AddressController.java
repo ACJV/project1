@@ -72,14 +72,11 @@ public class AddressController {
         return "redirect:/address";
     }
 
-    //create customer and address
-//    @PostMapping("/createCustomerAddress")
-//    public String createAddress(@ModelAttribute Address address, @ModelAttribute Customer customer)
-//    {
-//        addressService.addAddress(address);
-//        customerService.addCustomer(customer);
-//        return "redirect:/address"; //after creating the address go back to the main page
-//    }
+    @GetMapping("/address2") //listen to this route
+    public String index2(Model model) {
 
+        return "home/Address/addressIndex2"; //render
+
+    }
 
 }
