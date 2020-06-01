@@ -41,7 +41,7 @@ public class AddressController {
     @GetMapping("/viewOneAddress/{addressID}")
     public String viewAddress(@PathVariable("addressID") int addressID, Model model)
     {
-        model.addAttribute("address", addressService.findAddressById(addressID));
+        model.addAttribute("address", addressService.findAddress(addressID));
         return "home/Address/viewOneAddress";
     }
 
@@ -58,7 +58,7 @@ public class AddressController {
 
     @GetMapping("/updateAddress/{addressID}")
     public String update(@PathVariable("addressID") int addressID, Model model){
-        model.addAttribute("address", addressService.findAddressById(addressID));
+        model.addAttribute("address", addressService.findAddress(addressID));
         return "home/Address/updateAddress";
     }
 

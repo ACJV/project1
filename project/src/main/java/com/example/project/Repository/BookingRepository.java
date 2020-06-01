@@ -46,10 +46,6 @@ public class BookingRepository {
         return null;
     }
 
-    public void updateBookingFinished(Booking b) {
-        String sql = "UPDATE booking SET booking_status = ?, total_price = ? WHERE booking_no = ?";
-        template.update(sql, b.getBookingStatus(), b.getTotalPrice(), b.getBookingNo());
-    }
     public Booking findBookingNumber (Booking b){
         String sql = "SELECT * FROM booking WHERE reg_number = ? AND pick_up_date = ? AND drop_off_date = ?";
         RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);

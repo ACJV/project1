@@ -23,8 +23,18 @@ public class Customer {
     private String email;
     private int addressId; // NOT IN CONSTRUCTOR
 
+    public Customer() {
+    }
 
-
+    public Customer(int customerId, String fullName, String driverLicNo, String dob, String phoneNo, String email, int addressId) {
+        this.customerId = customerId;
+        this.fullName = fullName;
+        this.driverLicNo = driverLicNo;
+        this.dob = dob;
+        this.phoneNo = phoneNo;
+        this.email = email;
+        this.addressId = addressId;
+    }
 
     /*
     public Customer(int customerID, String name, String driverLicNo, String dob, String phoneNo, String email) {

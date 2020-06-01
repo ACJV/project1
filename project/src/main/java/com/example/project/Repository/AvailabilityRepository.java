@@ -6,7 +6,6 @@ import com.example.project.Model.Booking;
 import com.example.project.Model.Vehicle;
 import com.example.project.Service.VehicleService;
 import com.example.project.Model.Booking;
-import com.example.project.Model.BookingAvailability;
 import com.example.project.Model.Vehicle;
 import com.example.project.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +31,6 @@ public class AvailabilityRepository {
     @Autowired
     VehicleService vehicleService;
 
-    @Autowired
-    VehicleService vehicleService;
 
     public List<Vehicle> fetchAvailabilityVehicles (@Param("startDate") String startDate, @Param("endDate") String endDate, String sort){
         String sql = "SELECT * FROM booking WHERE ? between pick_up_date and drop_off_date " +

@@ -209,11 +209,12 @@ public class BookingController {
 
 
     @GetMapping("/createBookingAddressDropOff/{bookingNo}")
-    public String createBookingAddressDropOff(@PathVariable("bookingNo") int bookingNo, Model model){
+    public String createBookingAddressDropOff(@PathVariable("bookingNo") int bookingNo, Model model) {
         Booking booking = bookingService.findBooking(bookingNo);
         model.addAttribute("booking", booking);
         return "home/Bookings/createBookingAddressDropOff";
     }
+
     @PostMapping("/createBookingAddressDropOff/{bookingNo}")
     public String createBookingAddressDropOff(@PathVariable("bookingNo") int bookingNo, @ModelAttribute Address address){
         addressService.addAddress(address);
