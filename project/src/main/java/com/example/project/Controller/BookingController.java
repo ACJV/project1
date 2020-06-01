@@ -156,7 +156,7 @@ public class BookingController {
         // Set booking customerId for selected customer
         booking.setCustomerId(customerId);
         // Update Booking with selected customers' Id
-        bookingService.updateBooking(bookingNo, booking);
+        bookingService.updateBooking(booking);
         // Redirect to display newBooking and option to change defaults such as pickUp/dropOff location and extras
         return "redirect:/newBooking/"+bookingNo;
     }
@@ -206,6 +206,8 @@ public class BookingController {
         bookingService.updateBooking(bookingNo, booking);
         return "redirect:/newBooking/"+bookingNo;
     }
+    @GetMapping("/selectCustomer")
+    public String selectCustomer(){
 
     @GetMapping("/createBookingAddressDropOff/{bookingNo}")
     public String createBookingAddressDropOff(@PathVariable("bookingNo") int bookingNo, Model model){

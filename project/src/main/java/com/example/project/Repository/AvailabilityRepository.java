@@ -6,6 +6,7 @@ import com.example.project.Model.Booking;
 import com.example.project.Model.Vehicle;
 import com.example.project.Service.VehicleService;
 import com.example.project.Model.Booking;
+import com.example.project.Model.BookingAvailability;
 import com.example.project.Model.Vehicle;
 import com.example.project.Service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,14 +50,6 @@ public class AvailabilityRepository {
         } else {
             return array[1]; // Returns available vehicles.
         }
-//----------------------------------------------------------------------------------------------------------------------
-    //@Ástþór
-//----------------------------------------------------------------------------------------------------------------------
-
-    public List<Booking> fetchUnavailableVehicles (@Param("startDate") String startDate, @Param("endDate") String endDate){
-        String sql = "SELECT reg_number FROM booking WHERE ? between pick_up_date and drop_off_date or ? between pick_up_date and drop_off_date or ? <= pick_up_date and drop_off_date <= ?";
-        RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
-        return template.query(sql, rowMapper, startDate, endDate, startDate, endDate);
     }
 
     public static ArrayList[] sortVehicles (List<Booking> bookingsFound, List<Vehicle> allVehicles){
