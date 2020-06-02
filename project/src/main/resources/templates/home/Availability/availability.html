@@ -14,8 +14,8 @@
     Select Dates
 
     <form th:action="@{/availability}" method="get">
-        <input id="SearchStart" type="date" name="startDate" placeholder="Start Date">
-        <input id="SearchEnd" type="date" name="endDate" placeholder="End Date">
+        <input id="SearchStart" type="date" name="startDate" th:min="${today}" placeholder="Start Date">
+        <input id="SearchEnd" type="date" name="endDate" th:min="${today}" placeholder="End Date">
         <button type="submit">Search</button>
     </form>
     <br>

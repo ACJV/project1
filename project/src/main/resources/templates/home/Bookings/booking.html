@@ -53,13 +53,6 @@
             <td th:text="${booking.bedLinen}"/>
             <td th:text="${booking.childSeat}"/>
             <td th:text="${booking.totalPrice}"/>
-            <td>
-                <a th:href="@{'/viewBooking/'+${booking.bookingNo}}">
-                    <button>
-                        Select
-                    </button>
-                </a>
-            </td>
         </tr>
         </tbody>
     </table>

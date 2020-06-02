@@ -5,7 +5,12 @@
     <title>Customer Page</title>
     <link rel="stylesheet" type="text/css" href="stylerA.css">
 </head>
-<body style="font-family: Helvetica; margin-left: 100px;">
+<body>
+
+<div th:insert="home/style :: style"></div>
+<div th:insert="home/Index/staff :: header"></div>
+
+
 <h1>Customer list</h1>
 <a href="/createAddressAndCustomer">
     <button>
@@ -39,13 +44,17 @@
         <td th:text="${customer.phoneNo}"/>
         <td th:text="${customer.email}"/>
         <td th:text="${customer.addressId}"/>
+        <!--<td>
+        <a th:href="@{'/updateCustomer/'+${customer.customerId}}">
+            <button>UPDATE</button>
+        </a>
+        </td>-->
         <td>
-            <a th:href="@{'/viewCustomer/'+${customer.customerId}}">
-                <button class="btn-viewCustomer" , id="btn-viewCustomer">
-                    Select
-                </button>
+            <a th:href="@{'/deleteCustomer/'+${customer.customerId}}">
+                <button>DELETE</button>
             </a>
         </td>
+
     </tr>
     </tbody>
 </table>

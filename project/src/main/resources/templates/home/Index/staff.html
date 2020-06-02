@@ -15,6 +15,7 @@
         <a href="/bookingHome">Home</a>
         <a href="/availability">Create Booking</a> <!-- where to? -->
         <a href="/booking">All Bookings</a>
+        <a href="/customer">All Customers</a>
         <a href="/vehicleFull">All Vehicles</a>
         <a href="/address">All Addresses</a>
         <a href="/start" style="float: right">Log Out</a>
@@ -92,6 +93,13 @@
                     <td th:text="${bConfirmed.pickUpDate}"/>
                     <td th:text="${bConfirmed.dropOffDate}"/>
                     <td th:text="${bConfirmed.bookingStatus}"/>
+                    <td>
+                        <a th:href="@{'/bookingCancelled/'+${bConfirmed.bookingNo}}">
+                            <button>
+                                MARK AS CANCELLED
+                            </button>
+                        </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

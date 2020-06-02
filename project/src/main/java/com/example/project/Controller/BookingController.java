@@ -88,13 +88,22 @@ public class BookingController {
         return "home/Bookings/bookingFinish";
     }
 
+    @GetMapping("/bookingCancelled/{bookingNo}")
+    public String bookingCancelled(@PathVariable("bookingNo") int bookingNo){
+        Booking b = bookingService.findBooking(bookingNo);
+        double newTotalPrice = dataManipulation.calculateTotalPriceCancelled(b);
+        b.setTotalPrice(newTotalPrice);
+        b.setBookingStatus("Cancelled");
+        bookingService.updateBookingStatus(b);
+        return "redirect:/bookingHome";
+    }
 
     @PostMapping("/bookingFinish")
     public String bookingFinish(@ModelAttribute Booking booking, @Param("odometer") int odometer, @Param("isLowTank") boolean isLowTank){
         double newTotalPrice = dataManipulation.calculateTotalPriceFinished(booking.getBookingNo(), isLowTank, odometer);
         booking.setTotalPrice(newTotalPrice);
         booking.setBookingStatus("Finished");
-        bookingService.updateBookingFinished(booking);
+        bookingService.updateBookingStatus(booking);
         String regNumber = bookingService.findBooking(booking.getBookingNo()).getRegNumber();
 
         Vehicle v = vehicleService.findVehicle(regNumber);

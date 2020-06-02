@@ -22,10 +22,8 @@ import java.util.List;
 public class AvailabilityController {
     @Autowired
     AvailabilityService availabilityService;
-
     @Autowired
     VehicleService vehicleService;
-
     @Autowired
     BookingService bookingService;
     @Autowired
@@ -33,7 +31,8 @@ public class AvailabilityController {
 
     // Availability -
     @GetMapping("/availability")
-    public String availability(Model model, String startDate, String endDate){
+    public String availability(Model model, Model model1, String startDate, String endDate){
+        model.addAttribute("today", dataManipulation.getTodaysDate());
         if(startDate != null && endDate != null) {
             if(isDate(startDate, endDate)) {
                 model.addAttribute("AvailableVehicles", availabilityService.fetchAvailabilityVehicles(startDate, endDate, "Available"));
@@ -73,19 +72,6 @@ public class AvailabilityController {
             return "home/Availability/error";
         }
     }
-
-    /*
-    @GetMapping("/availablilty/{regNumber}")
-    public String selectedRegNumber(@PathVariable("regNumber") String regNumber, Model model){
-
-    }
-
-    /*
-    @GetMapping("/getAvailability")
-    public String getAvailability(Model model, @ModelAttribute SearchingDates searchingDates){
-        List<BookingAvailability> unAvailable = availabilityService.fetchUnavailableVehicles(searchingDates);
-        return "home/Availability/availability";
-    }*/
 
     public boolean isDate (String startDate, String endDate) {
         boolean dates = true;

@@ -1,6 +1,7 @@
 package com.example.project.Controller;
 
 import com.example.project.Model.Address;
+import com.example.project.Model.Category;
 import com.example.project.Model.Customer;
 import com.example.project.Service.AddressService;
 import com.example.project.Service.CustomerService;
@@ -26,7 +27,6 @@ public class CustomerController {
     @GetMapping("/customer")
     public String customer(Model model, String keyword) {
         List<Customer> customerList = customerService.fetchAll();
-
 
         if(keyword != null){
             model.addAttribute("customers", customerService.findByKeyword(keyword));
@@ -55,6 +55,14 @@ public class CustomerController {
         System.out.println("GetMapping /viewCustomer, test ID=5: " + customerId);
         model.addAttribute("customer", customerService.findCustomer(customerId));
         return "home/Customers/viewCustomer";
+    }
+
+    @GetMapping("/updateCustomer/{customerId}")
+    public String updateCategory(@PathVariable("customerId") int customerId, Model model)
+    {
+        Customer customer = customerService.findCustomer(customerId);
+        model.addAttribute("customer", customer);
+        return "home/Customers/updateCustomer";
     }
 
 

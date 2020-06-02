@@ -10,6 +10,9 @@
 
 <body>
 
+<div th:insert="home/Index/staff :: header"></div>
+<div th:insert="home/Index/staff :: footer"></div>
+
 <div class="wrapper">
 
     <div class="row">
@@ -45,10 +48,10 @@
                         <td th:text="${address.distance}"/>
                         <td>
                             <a th:href="@{'/viewOneAddress/'+${address.addressId}}">
-                                <button class="btn-viewOne", id ="btn-viewOne">View one</button>
+                                <button class="btn-viewOne" id ="btn-viewOne">View one</button>
                             </a>
                             <a th:href="@{'/deleteAddress/'+${address.addressId}}">
-                                <button class="btn-delete", id ="btn-delete">Delete</button>
+                                <button class="btn-delete" id ="btn-delete">Delete</button>
                             </a>
 
                         </td>
@@ -84,7 +87,7 @@
 
                     <fieldset>
                         <legend>City</legend>
-                        <input type="text" name="city"placeholder="City" required>
+                        <input type="text" name="city" placeholder="City" required>
                     </fieldset>
 
                     <fieldset>

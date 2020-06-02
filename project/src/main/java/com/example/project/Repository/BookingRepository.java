@@ -53,7 +53,7 @@ public class BookingRepository {
         return booking;
     }
 
-    public void updateBookingFinished(Booking b) {
+    public void updateBookingStatus (Booking b) {
         String sql = "UPDATE booking SET booking_status = ?, total_price = ? WHERE booking_no = ?";
         template.update(sql, b.getBookingStatus(), b.getTotalPrice(), b.getBookingNo());
     }

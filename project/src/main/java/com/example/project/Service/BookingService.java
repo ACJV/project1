@@ -32,8 +32,8 @@ public class BookingService {
         return bookingRepository.updateBooking(b);
     }
 
-    public void updateBookingFinished(Booking b) {
-        bookingRepository.updateBookingFinished(b);
+    public void updateBookingStatus(Booking b) {
+        bookingRepository.updateBookingStatus(b);
     }
 
     public Booking findBookingNumber(Booking b){
