@@ -12,7 +12,7 @@ public class Vehicle {
     private int odometer;
     private String transmission;
     private String fuelType;
-    private String descriptionX;
+    //private String descriptionX;
     private boolean operational;
     private String oComment;
 
@@ -26,7 +26,6 @@ public class Vehicle {
         this.odometer = odometer;
         this.transmission = transmission;
         this.fuelType = fuelType;
-        this.descriptionX = descriptionX;
         this.operational = operational;
         this.oComment = oComment;
     }

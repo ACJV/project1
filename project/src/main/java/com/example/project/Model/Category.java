@@ -6,12 +6,12 @@ import javax.persistence.Id;
 @Entity
 public class Category {
     @Id
-    int catId;
-    double catPrice;
-    String catName;
-    String catDescription;
-    String modelName;
-    String brand;
+    private int catId;
+    private double catPrice;
+    private String catName;
+    private String catDescription;
+    private String modelName;
+    private String brand;
 
     public Category() {
     }

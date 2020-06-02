@@ -104,12 +104,14 @@ public class AddressRepository {
     // @Justé
 //----------------------------------------------------------------------------------------------------------------------
 
-    public int getDistanceFromId (int id) {
+    public double getDistanceFromId (int id) {
         String sql = "SELECT address.distance FROM address WHERE address.address_id = ?;";
-        RowMapper<Integer> rowMapper = new BeanPropertyRowMapper<>(Integer.class);
-        List<Integer> distanceL = template.query(sql, rowMapper, id);
-        int distance = distanceL.get(0);
-        return distance;
+        RowMapper<Address> rowMapper = new BeanPropertyRowMapper<>(Address.class);
+        List<Address> distanceL = template.query(sql, rowMapper, id);
+        System.out.println(distanceL.size());
+        int distance = distanceL.get(0).getDistance();
+        double distanceD = distance;
+        return distanceD;
     }
 
 }

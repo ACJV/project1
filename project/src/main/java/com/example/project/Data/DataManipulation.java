@@ -1,12 +1,12 @@
 package com.example.project.Data;
 
 import com.example.project.Model.Booking;
+import com.example.project.Model.Category;
 import com.example.project.Repository.AvailabilityRepository;
 import com.example.project.Service.AddressService;
 import com.example.project.Service.AvailabilityService;
 import com.example.project.Service.BookingService;
 import com.example.project.Service.VehicleService;
-import com.sun.jndi.cosnaming.IiopUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -96,8 +96,9 @@ public class DataManipulation {
         totalPrice += (b.getBedLinen() * 50.); // BED LINEN - if included, will add additional 50 kr. for every single one to the total price
 
         // DISTANCE FROM PICK UP / DROP OFF - adds the additional charge of 5 kr. / per km for the distances to pick up / drop off locations
+        System.out.println("TotalPrice in calcPriceConfirmed method - Before getting distance: " + totalPrice);
         totalPrice += (addressService.getDistanceFromId(b.getPickUpId()) + addressService.getDistanceFromId(b.getDropOffId())) * 5.;
-
+        System.out.println("TotalPrice in calcPriceConfirmed method - After getting distance: " + totalPrice);
         return totalPrice;
     }
 
@@ -106,12 +107,18 @@ public class DataManipulation {
 
         // Gets list of all dates within the selected range
         List<String> list = getDatesBetween(pickUpDate, dropOffDate);
-
+        for(int i = 0; i<list.size(); i++){
+            System.out.println("Testing getDates method = " + i + " >>>>> " + list.get(i));
+        }
         // Brings back the base daily price for the selected vehicle (base price of it's category)
-        String sql = "SELECT category.cat_price FROM category WHERE category.cat_id = (SELECT vehicle.cat_id FROM vehicle WHERE ? = vehicle.reg_number);";
-        RowMapper<Double> rowMapper = new BeanPropertyRowMapper<>(Double.class);
-        List<Double> price = template.query(sql, rowMapper, regNumber);
-        double daysPrice = price.get(0);
+        String sql = "SELECT * FROM category WHERE category.cat_id = (SELECT vehicle.cat_id FROM vehicle WHERE ? = vehicle.reg_number);";
+        RowMapper<Category> rowMapper = new BeanPropertyRowMapper<>(Category.class);
+        List<Category> categoryList = template.query(sql, rowMapper, regNumber);
+        double price = categoryList.get(0).getCatPrice();
+        System.out.println("RegNumber being searched: " + regNumber);
+        System.out.println("price received " + price);
+
+        double daysPrice = price;
 
         double totalPrice = 0.;
         // Will check the availability percentage for every single day and calculate the price accordingly
@@ -119,7 +126,7 @@ public class DataManipulation {
         // and the extras added to the booking (if selected)
         for (int i = 0; i < list.size(); i++) {
             double availability = availabilityService.percentBooked(list.get(i));
-
+            System.out.println("Printing list of dates " + list.get(i));
             // Checks to which season the day belongs based on the percentage of vehicles booked that day:
 
             if (availability < 0.3) {           // LOW SEASON - if booked less than 30% of vehicles - base price applies
@@ -130,6 +137,7 @@ public class DataManipulation {
                 totalPrice += daysPrice * 1.6;
             }
         }
+        System.out.println("total Price " + totalPrice);
         return totalPrice;
     }
 

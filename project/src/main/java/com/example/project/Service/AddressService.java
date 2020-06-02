@@ -42,7 +42,7 @@ public class AddressService {
     }
 
 
-    public int getDistanceFromId (int id) {
+    public double getDistanceFromId (int id) {
         return addressRepository.getDistanceFromId(id);
     }
 }

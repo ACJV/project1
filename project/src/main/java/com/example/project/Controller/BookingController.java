@@ -124,6 +124,7 @@ public class BookingController {
     //Saves Booking in database
     @PostMapping("/saveBooking")
     public String saveBooking(@ModelAttribute Booking booking){
+        booking.setTotalPrice(dataManipulation.calculateTotalPriceConfirmed(booking));
         bookingService.updateBooking(booking);
         return "redirect:/booking";
     }
@@ -203,6 +204,7 @@ public class BookingController {
         Address a = addressService.findAddressId(address);
         Booking booking = bookingService.findBooking(bookingNo);
         booking.setPickUpId(a.getAddressId());
+        booking.setTotalPrice(dataManipulation.calculateTotalPriceConfirmed(booking));
         bookingService.updateBooking(booking);
         return "redirect:/newBooking/"+bookingNo;
     }
@@ -221,6 +223,7 @@ public class BookingController {
         Address a = addressService.findAddressId(address);
         Booking booking = bookingService.findBooking(bookingNo);
         booking.setDropOffId(a.getAddressId());
+        booking.setTotalPrice(dataManipulation.calculateTotalPriceConfirmed(booking));
         bookingService.updateBooking(booking);
         return "redirect:/newBooking/"+bookingNo;
     }
