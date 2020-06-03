@@ -74,6 +74,8 @@ public class AvailabilityController {
         }
     }
 
+
+
     /*
     @GetMapping("/availablilty/{regNumber}")
     public String selectedRegNumber(@PathVariable("regNumber") String regNumber, Model model){
