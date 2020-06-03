@@ -18,6 +18,9 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+// @Authors: Ástþór Arnar & Justé
+//
+
 @Controller
 public class AvailabilityController {
     @Autowired
@@ -29,9 +32,13 @@ public class AvailabilityController {
     @Autowired
     BookingService bookingService;
     @Autowired
-    DataManipulation dataManipulation;
+    DataManipulation dataManipulation; // Justé
 
-    // Availability -
+    //------------------------------------------------------------------------------------------------------------------
+        // @Ástþór Arnar
+    //------------------------------------------------------------------------------------------------------------------
+    // Availability
+    // Gets availability html file for user to select dates, check's if dates have been entered in the html
     @GetMapping("/availability")
     public String availability(Model model, String startDate, String endDate){
         if(startDate != null && endDate != null) {
@@ -74,19 +81,10 @@ public class AvailabilityController {
         }
     }
 
-    /*
-    @GetMapping("/availablilty/{regNumber}")
-    public String selectedRegNumber(@PathVariable("regNumber") String regNumber, Model model){
 
-    }
-
-    /*
-    @GetMapping("/getAvailability")
-    public String getAvailability(Model model, @ModelAttribute SearchingDates searchingDates){
-        List<BookingAvailability> unAvailable = availabilityService.fetchUnavailableVehicles(searchingDates);
-        return "home/Availability/availability";
-    }*/
-
+    //------------------------------------------------------------------------------------------------------------------
+        // @ Justé
+    //------------------------------------------------------------------------------------------------------------------
     public boolean isDate (String startDate, String endDate) {
         boolean dates = true;
         try{
