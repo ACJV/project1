@@ -22,8 +22,10 @@ import java.util.List;
 public class AvailabilityController {
     @Autowired
     AvailabilityService availabilityService;
+
     @Autowired
     VehicleService vehicleService;
+
     @Autowired
     BookingService bookingService;
     @Autowired
@@ -72,6 +74,21 @@ public class AvailabilityController {
             return "home/Availability/error";
         }
     }
+
+
+
+    /*
+    @GetMapping("/availablilty/{regNumber}")
+    public String selectedRegNumber(@PathVariable("regNumber") String regNumber, Model model){
+
+    }
+
+    /*
+    @GetMapping("/getAvailability")
+    public String getAvailability(Model model, @ModelAttribute SearchingDates searchingDates){
+        List<BookingAvailability> unAvailable = availabilityService.fetchUnavailableVehicles(searchingDates);
+        return "home/Availability/availability";
+    }*/
 
     public boolean isDate (String startDate, String endDate) {
         boolean dates = true;
