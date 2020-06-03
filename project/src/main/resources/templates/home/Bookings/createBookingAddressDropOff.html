@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>DropOff Address</title>
 </head>
+    <!---------------------------------------------------
+        @Ástþór Arnar
+        Page displays empty input fields with labels for user to input a drop off address for booking being created.
+        th:action being used references a PostMapping method in BookingController, which takes bookingNo as PathVariable
+    ---------------------------------------------------->
 <body>
 <form th:action="@{|/createBookingAddressDropOff/${booking.bookingNo}|}" method="post">
 

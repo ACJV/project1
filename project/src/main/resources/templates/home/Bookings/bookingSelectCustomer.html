@@ -4,15 +4,25 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+    <!---------------------------------------------------
+        @Ástþór Arnar
+        Page displays all customers registered in the database and
+        allows user to select customer for booking being created.
+    ---------------------------------------------------->
+
 <body>
 
-<!--
+<!---------------------------------------------------
+    Form has been tested in customer.html and works as intended
+    but due to time constraints it has not yet reached testing for this page
+
 <form th:action="@{/customer}" method="get">
     <input id="Search" type="text" name="keyword" placeholder="Search">
     <button type="submit">Go</button>
 </form>
--->
-<table style="font-size: small">
+
+---------------------------------------------------->
+<table >
     <thead >
     <tr>
         <th>No</th>
@@ -34,6 +44,10 @@
         <td th:text="${customer.email}"/>
         <td th:text="${customer.addressId}"/>
         <td>
+            <!---------------------------------------------------
+            Takes customerId for customer being selected and booking number for the booking being created.
+            Href references a GetMapping method that can be found in AvailabilityController.
+            ---------------------------------------------------->
             <a th:href="@{/selectCustomerForBooking/{bookingNo}/customer/{customerId}(bookingNo = ${booking.bookingNo}, customerId = ${customer.customerId})}">
                 <button>
                     Select and Continue to booking

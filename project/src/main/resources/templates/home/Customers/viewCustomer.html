@@ -6,7 +6,11 @@
 </head>
 <body>
     <h1>Customer Details</h1>
-
+    <!---------------------------------------------------
+        @Ástþór Arnar
+        Action uses postMapping method to save customer in system.
+        Html page displays input fields where user can update customer information or delete customer using href.
+    ---------------------------------------------------->
     <form action="/saveCustomer" method="post">
         <div>
             <strong>
@@ -33,24 +37,7 @@
             <label for="address">AddressId: </label>
             <input type="text" name="addressId" th:value="${customer.addressId}" id="address"><br><br>
         </fieldset>
-        <!--
-        <fieldset>
-            <legend>Driver Licence Number:</legend>
-            <input type="text" name="driverLicNo" th:value="${customer.driverLicNo}">
-        </fieldset>
-        <fieldset>
-            <legend>Date Of Birth:</legend>
-            <input type="date" name="dob" th:value="${customer.dob}">
-        </fieldset>
-        <fieldset>
-            <legend>Phone Number</legend>
-            <input type="text" name="phoneNo" th:value="${customer.phoneNo}">
-        </fieldset>
-        <fieldset>
-            <legend>Email:</legend>
-            <input type="text" name="email" th:value="${customer.email}">
-        </fieldset>
-        -->
+
         <input type="submit" value="Save Changes">
     </form>
     <a th:href="@{'/deleteCustomer/'+${customer.customerId}}">
@@ -61,22 +48,3 @@
 
 </body>
 </html>
-
-<!--
-<span th:text="${customer.customerID}"/>
-<span th:text="${customer.fullName}"/>
-<span th:text="${customer.driverLicNo}"/>
-<span th:text="${customer.dob}"/>
-<span th:text="${customer.phoneNo}"/>
-<span th:text="${customer.email}"/>
--->
-        <!--
-        <fieldset>
-            <legend></legend>
-        </fieldset>
-        <input type="text" name="fullName" th:value="${customer.fullName}">
-        <input type="text" name="driverLicNo" th:value="${customer.driverLicNo}">
-        <input type="date" name="dob" th:value="${customer.dob}">
-        <input type="text" name="phoneNo" th:value="${customer.phoneNo}">
-        <input type="text" name="email" th:value="${customer.email}">
-        -->

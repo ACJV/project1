@@ -10,7 +10,13 @@
 <div th:insert="home/style :: style"></div>
 <div th:insert="home/Index/staff :: header"></div>
 
+<!---------------------------------------------------
+    @Ástþór Arnar
+    Displays all customers and allows user to input a keyword which checks the database for any names that include
+    the keyword inserted. The list narrows down after pressing "Go" button.
+    href links to viewCustomer page where user can update customer information or delete the customer.
 
+---------------------------------------------------->
 <h1>Customer list</h1>
 <a href="/createAddressAndCustomer">
     <button>
@@ -44,14 +50,9 @@
         <td th:text="${customer.phoneNo}"/>
         <td th:text="${customer.email}"/>
         <td th:text="${customer.addressId}"/>
-        <!--<td>
-        <a th:href="@{'/updateCustomer/'+${customer.customerId}}">
-            <button>UPDATE</button>
-        </a>
-        </td>-->
         <td>
-            <a th:href="@{'/deleteCustomer/'+${customer.customerId}}">
-                <button>DELETE</button>
+            <a th:href="@{'/viewCustomer/'+${customer.customerId}}">
+                <button>View Customer</button>
             </a>
         </td>
 
