@@ -94,12 +94,13 @@
 
     <div>
         <h3>PickUp Address: </h3>
-        <label for="createPickUpId">Create New PickUp address and assign to this booking: </label>
+
         <a th:href="@{'/createBookingAddressPickUp/'+${booking.bookingNo}}" id="createPickUpId">
             <button>
                 Create PickUp Address
             </button>
         </a>
+        <label for="createPickUpId"><i> - Create New PickUp address and assign to this booking</i></label>
         <table>
             <thead>
             <tr>

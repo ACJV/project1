@@ -17,7 +17,7 @@ import java.util.List;
 
 
 /* @Author: Ástþór Arnar Bragason
-* @Author2: Justé (Methods marked especially)
+* @Author2: Justé
 *
 * Availability Controller's main purpose is to receive date input by user and to utilize the Availability Repository
 * to check which vehicles are available and unavailable for the selected period.
@@ -39,11 +39,17 @@ public class AvailabilityController {
     @Autowired
     DataManipulation dataManipulation;
 
+//----------------------------------------------------------------------------------------------------------------------
+    //@Ástþór Arnar
+//----------------------------------------------------------------------------------------------------------------------
+
     // Availability:
-    // Gets
     @GetMapping("/availability")
     public String availability(Model model, String startDate, String endDate){
+        // Juste
         model.addAttribute("today", dataManipulation.getTodaysDate());
+        // Ástþór:
+        // Checks if there is startDate and endDate have been selected by
         if(startDate != null && endDate != null) {
             if(isDate(startDate, endDate)) {
                 model.addAttribute("AvailableVehicles", availabilityService.fetchAvailabilityVehicles(startDate, endDate, "Available"));
@@ -85,9 +91,9 @@ public class AvailabilityController {
     }
 
 
-    /*
-        // Justé:
-     */
+//----------------------------------------------------------------------------------------------------------------------
+    //@Juste
+//----------------------------------------------------------------------------------------------------------------------
 
 
     public boolean isDate (String startDate, String endDate) {
