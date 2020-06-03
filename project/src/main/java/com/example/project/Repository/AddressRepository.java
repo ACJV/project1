@@ -17,8 +17,12 @@ public class AddressRepository {
     JdbcTemplate template;
 
     public List<Address> fetchAll() {
+
+        //select all rows from address table
         String sql = "SELECT * FROM address";
+        //create rowmapper object
         RowMapper<Address> rowMapper = new BeanPropertyRowMapper<>(Address.class);
+        //use the template.query function to return a list of addresses
         return template.query(sql, rowMapper);
     }
 
