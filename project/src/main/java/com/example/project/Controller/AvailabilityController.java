@@ -1,7 +1,4 @@
 package com.example.project.Controller;
-
-
-
 import com.example.project.Data.DataManipulation;
 import com.example.project.Model.Booking;
 import com.example.project.Model.Vehicle;
@@ -18,6 +15,17 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/* @Author: Ástþór Arnar Bragason
+* @Author2: Justé (Methods marked especially)
+*
+* Availability Controller's main purpose is to receive date input by user and to utilize the Availability Repository
+* to check which vehicles are available and unavailable for the selected period.
+* After retrieving lists of available and unavailable vehicles, the controller displays html file for the user to select
+* a vehicle. User selects vehicle and controller instantiates a booking with dates, regNumber and price set,
+* and adds to database.
+* */
+
 @Controller
 public class AvailabilityController {
     @Autowired
@@ -31,9 +39,10 @@ public class AvailabilityController {
     @Autowired
     DataManipulation dataManipulation;
 
-    // Availability -
+    // Availability:
+    // Gets
     @GetMapping("/availability")
-    public String availability(Model model, Model model1, String startDate, String endDate){
+    public String availability(Model model, String startDate, String endDate){
         model.addAttribute("today", dataManipulation.getTodaysDate());
         if(startDate != null && endDate != null) {
             if(isDate(startDate, endDate)) {
@@ -76,19 +85,10 @@ public class AvailabilityController {
     }
 
 
-
     /*
-    @GetMapping("/availablilty/{regNumber}")
-    public String selectedRegNumber(@PathVariable("regNumber") String regNumber, Model model){
+        // Justé:
+     */
 
-    }
-
-    /*
-    @GetMapping("/getAvailability")
-    public String getAvailability(Model model, @ModelAttribute SearchingDates searchingDates){
-        List<BookingAvailability> unAvailable = availabilityService.fetchUnavailableVehicles(searchingDates);
-        return "home/Availability/availability";
-    }*/
 
     public boolean isDate (String startDate, String endDate) {
         boolean dates = true;
