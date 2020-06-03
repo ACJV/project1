@@ -68,6 +68,7 @@ public class AddressRepository {
 
     public List<Address> findByKeyword(@Param("keyword") String keyword)
     {
+        // find values that have keyword in any position
         String sql = "SELECT * FROM address WHERE address LIKE '%' ? '%'";
         RowMapper<Address> rowMapper = new BeanPropertyRowMapper<>(Address.class);
         return template.query(sql, rowMapper, keyword);
