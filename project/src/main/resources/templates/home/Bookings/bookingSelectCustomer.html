@@ -2,20 +2,39 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Select customer</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            alignment: center;
+        }
+    </style>
 </head>
-<body>
+    <!---------------------------------------------------
+        @Ástþór Arnar
+        Page displays all customers registered in the database and
+        allows user to select customer for booking being created.
+    ---------------------------------------------------->
 
-<!--
+<body>
+<h1 style="text-align: center">Customers</h1>
+<!---------------------------------------------------
+    Form has been tested in customer.html and works as intended
+    but due to time constraints it has not yet reached testing for this page
+
 <form th:action="@{/customer}" method="get">
     <input id="Search" type="text" name="keyword" placeholder="Search">
     <button type="submit">Go</button>
 </form>
--->
-<table style="font-size: small">
+---------------------------------------------------->
+<table style="font-size: small;margin-left:auto;margin-right:auto; margin-top: auto">
+
+
+<table >
     <thead >
     <tr>
-        <th>No</th>
+        <th>ID</th>
         <th>Name</th>
         <th>Driver Licence Number</th>
         <th>Date Of Birth</th>
@@ -34,6 +53,10 @@
         <td th:text="${customer.email}"/>
         <td th:text="${customer.addressId}"/>
         <td>
+            <!---------------------------------------------------
+            Takes customerId for customer being selected and booking number for the booking being created.
+            Href references a GetMapping method that can be found in AvailabilityController.
+            ---------------------------------------------------->
             <a th:href="@{/selectCustomerForBooking/{bookingNo}/customer/{customerId}(bookingNo = ${booking.bookingNo}, customerId = ${customer.customerId})}">
                 <button>
                     Select and Continue to booking

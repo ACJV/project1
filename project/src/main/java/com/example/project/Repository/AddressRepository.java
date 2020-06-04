@@ -17,8 +17,12 @@ public class AddressRepository {
     JdbcTemplate template;
 
     public List<Address> fetchAll() {
+
+        //select all rows from address table
         String sql = "SELECT * FROM address";
+        //create rowmapper object
         RowMapper<Address> rowMapper = new BeanPropertyRowMapper<>(Address.class);
+        //use the template.query function to return a list of addresses
         return template.query(sql, rowMapper);
     }
 
@@ -64,6 +68,7 @@ public class AddressRepository {
 
     public List<Address> findByKeyword(@Param("keyword") String keyword)
     {
+        // find values that have keyword in any position
         String sql = "SELECT * FROM address WHERE address LIKE '%' ? '%'";
         RowMapper<Address> rowMapper = new BeanPropertyRowMapper<>(Address.class);
         return template.query(sql, rowMapper, keyword);

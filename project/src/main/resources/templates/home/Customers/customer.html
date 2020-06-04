@@ -10,24 +10,31 @@
 <div th:insert="home/style :: style"></div>
 <div th:insert="home/Index/staff :: header"></div>
 
+<!---------------------------------------------------
+    @Ástþór Arnar
+    Displays all customers and allows user to input a keyword which checks the database for any names that include
+    the keyword inserted. The list narrows down after pressing "Go" button.
+    href links to viewCustomer page where user can update customer information or delete the customer.
+---------------------------------------------------->
+<h1 style="text-align: center">Customer list</h1>
 
 <h1>Customer list</h1>
 <a href="/createAddressAndCustomer">
-    <button>
+    <button style="text-align: center";>
         Create New Customer
     </button>
 </a>
 
-<form th:action="@{/customer}" method="get">
-    <input id="Search" type="text" name="keyword" placeholder="Search">
+<form style="text-align: center"; th:action="@{/customer}" method="get">
+    <input id="Search" type="text" name="keyword" placeholder="Search Customer">
     <button type="submit">Go</button>
 </form>
 
-<table style="font-size: small">
+<table style="margin-left:auto;margin-right:auto; margin-top: auto">
     <thead >
     <tr>
-        <th>No</th>
-        <th>Name</th>
+        <th>ID</th>
+        <th>Full Name</th>
         <th>Driver Licence Number</th>
         <th>Date Of Birth</th>
         <th>Phone Number</th>
@@ -44,14 +51,10 @@
         <td th:text="${customer.phoneNo}"/>
         <td th:text="${customer.email}"/>
         <td th:text="${customer.addressId}"/>
-        <!--<td>
-        <a th:href="@{'/updateCustomer/'+${customer.customerId}}">
-            <button>UPDATE</button>
-        </a>
-        </td>-->
         <td>
-            <a th:href="@{'/deleteCustomer/'+${customer.customerId}}">
-                <button>DELETE</button>
+
+            <a th:href="@{'/viewCustomer/'+${customer.customerId}}">
+                <button>View Customer</button>
             </a>
         </td>
 

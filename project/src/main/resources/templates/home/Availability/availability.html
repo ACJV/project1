@@ -9,7 +9,14 @@
 <div th:insert="home/style :: style"></div>
 <div th:insert="home/Index/staff :: header"></div>
 <div th:insert="home/Index/staff :: footer"></div>
-
+<!---------------------------------------------------
+    @Ástþór Arnar
+    User is presented with selecting dates option, after selecting dates and pressing search button.
+    Availability controller will get a list of available and unavailable vehicles and display them only if the lists
+    are not empty.
+    Allowing user to select an available vehicle to for the dates being searched with the href below, displayed for each vehicle.
+    The href will link to another method in AvailabilityController
+---------------------------------------------------->
     <h1>Check Availability</h1><br>
     Select Dates
 
@@ -68,18 +75,14 @@
                 <td>
 
                 <div th:each="booking: ${datesL}">
-
-                    <!--
-                    Selects Vehicle in
-
-                    -->
                     <a th:href="@{/dates/start/{startDate}/end/{endDate}/reg/{regNumber}(startDate = ${booking.pickUpDate}, endDate = ${booking.dropOffDate}, regNumber = ${vehicle.regNumber})}">
                         <button>
                             Select and Continue
                         </button>
                     </a>
                 </div>
-                    <!--<a th:href="@{/deleteItem/{listId}/{itemId}(listId=${list.id},itemId=${item.id})}"></a>
+                    <!--
+                    First attempt that didn't work:
                     <a th:href="@{'/dates/'+${booking.pickUpDate}+${booking.dropOffDate}+${vehicle.regNumber}}">
                         <button>
                             Select and Continue

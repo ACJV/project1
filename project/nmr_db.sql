@@ -1,4 +1,4 @@
-CREATE DATABASE nmr_db;
+/*CREATE DATABASE nmr_db;*/
 
 USE nmr_db;
 

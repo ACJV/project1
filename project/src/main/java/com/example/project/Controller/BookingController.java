@@ -44,10 +44,14 @@ public class BookingController {
 
     @GetMapping("/booking")
     public String display(Model model) {
+        // Fetches all bookings from database through BookingRepository
         List<Booking> bookingList = bookingService.fetchAll();
+        // Model to display bookingList
         model.addAttribute("bookingL", bookingList);
+        //Return html file booking.html
         return "home/Bookings/booking";
     }
+
 
     @GetMapping("/createBooking")
     public String createBooking(){
@@ -117,39 +121,58 @@ public class BookingController {
 //----------------------------------------------------------------------------------------------------------------------
     //@Ástþór
 //----------------------------------------------------------------------------------------------------------------------
+    // General methods not being used by gui in current version
+        // Kept here as they are to be used in future iterations after a few changes for better functionality
 
-    // WiewBooking includes updating and deleting booking
+    // WiewBooking includes updating and deleting booking - Currently mapped with GUI, but confirmed tested and works
     @GetMapping("/viewBooking/{bookingNo}")
     public String viewBooking(@PathVariable("bookingNo") int bookingNo, Model model){
         model.addAttribute("booking", bookingService.findBooking(bookingNo));
         return "home/Bookings/viewBooking";
     }
-    //Deletes the booking from the database
+    //Deletes the booking from the database - Currently not mapped with GUI, but confirmed tested and works
     @GetMapping("deleteBooking/{bookingNo}")
     public String deleteBooking(@PathVariable("bookingNo") int bookingNo){
         boolean deleted = bookingService.deleteBooking(bookingNo);
         return "redirect:/booking";
     }
-    //Saves Booking in database
+
+    //------------------------------------------------------------------------------------------------------------------
+    // Method below is used to save booking - Last step for creating new booking.
+
+    //Saves Booking in database - called by newBooking.
     @PostMapping("/saveBooking")
-    public String saveBooking(@ModelAttribute Booking booking){
+    public String saveBooking(@ModelAttribute Booking booking){ // Instantiates Booking with ModelAttribute
+        //Sets booking price by calling dataManipulation to calculate
         booking.setTotalPrice(dataManipulation.calculateTotalPriceConfirmed(booking));
+        // Updates booking through BookingService to BookingRepository
         bookingService.updateBooking(booking);
+        // Redirects to Booking Page
         return "redirect:/booking";
     }
 
-    //------------------------------------------------------------------------------------------------------------------
 
+    //------------------------------------------------------------------------------------------------------------------
+    // Methods below are used to finding and selecting customer for the booking.
+        // Future iterations would allow for creating new customer using same methodology as create PickUp
+        // and DropOff addresses.
 
     // From Availability
     // Displays all customers and possibility to select existing customer for the booking.
+    // Method that calls this one is in AvailabilityController and passes on the BookingNumber after instantiating
+    // booking by using @PathVariable
     @GetMapping("/findCustomerForBooking/{bookingNo}")
     public String findCustomerForBooking(@PathVariable("bookingNo") int bookingNo, Model model, Model model2){
-        // find and get booking from database
+        // Using PathVariable to find and get booking from database with booking number
         Booking booking = bookingService.findBooking(bookingNo);
         // Model used so href in html can use bookingNo as pathVariable
+            // Could be further optimized by skipping "findBooking" and using bookingNo PathVariable
+            // directly as booking is not needed.
         model.addAttribute("booking", booking);
         // List of Customers to be displayed and to offer selection
+            // Future iterations could and would include:
+            // Could be further optimized to include search in this method as is in regular customer page
+            // + Filtering out customers who are already assigned to a confirmed booking.
         List<Customer> customerList = customerService.fetchAll();
         // Model used to display customers using thymeleaf
         model2.addAttribute("customers", customerList);
@@ -161,7 +184,7 @@ public class BookingController {
     @GetMapping("selectCustomerForBooking/{bookingNo}/customer/{customerId}")
     public String selectCustomerForRouting(@PathVariable("bookingNo") int bookingNo,
                                         @PathVariable("customerId") int customerId, Model model, Model model2){
-        // Find and Get booking
+        // Find and Get booking using PathVariable bookingNo
         Booking booking = bookingService.findBooking(bookingNo);
         // Set booking customerId for selected customer
         booking.setCustomerId(customerId);
@@ -182,12 +205,10 @@ public class BookingController {
         // Find and Get Customer
         Customer customer = customerService.findCustomer(booking.getCustomerId());
         Address addressCustomer = addressService.findAddress(customer.getAddressId());
-        // Use array of 2 addresses, one for pickUp and one for dropOff:
+        //  Fetch pickUp and dropOff address to display (Default is Office address, ID = 1)
+            // In html file user is offered to change pickUp and dropOff address.
         Address addressPickUp = addressService.findAddress(booking.getPickUpId());
         Address addressDropOff = addressService.findAddress(booking.getDropOffId());
-        //Address[] addressArray = new Address[2];
-        //addressArray[0] = addressService.findAddress(booking.getPickUpId());
-        //addressArray[1] = addressService.findAddress(booking.getDropOffId());
 
         // Use model to display booking, customer and address information and options to update
         model.addAttribute("booking", booking);
@@ -201,24 +222,39 @@ public class BookingController {
 
     //------------------------------------------------------------------------------------------------------------------
     // Following section is for creating new pickUp and dropOff address for booking being created or updated
+        // Future iterations would include similar methodology to create new customer for booking.
+
+    // Using PathVariable to pass on Booking Number, to be used in PostMapping Method below
     @GetMapping("/createBookingAddressPickUp/{bookingNo}")
     public String createBookingAddressPickUp(@PathVariable("bookingNo") int bookingNo, Model model){
+        // Fetching Booking info to pass on booking numeber
+            // Future iterations would improve upon this by either utilizing booking information
+            // or to take the find booking method out use model for bookingNo only.
         Booking booking = bookingService.findBooking(bookingNo);
         model.addAttribute("booking", booking);
+        // Returns createBookingAddressPickUp as GUI
         return "home/Bookings/createBookingAddressPickUp";
     }
+    // Using PostMapping to instantiate an address object and PathVariable for Booking Number to link with Booking.
     @PostMapping("/createBookingAddressPickUp/{bookingNo}")
     public String createBookingAddressPickUp(@PathVariable("bookingNo") int bookingNo, @ModelAttribute Address address){
+        // Add address to database
         addressService.addAddress(address);
+        // Instantiate another address with the addressId generated by mysql (auto_increment)
         Address a = addressService.findAddressId(address);
+        // Instantiate a booking using findBooking to get booking information from database
         Booking booking = bookingService.findBooking(bookingNo);
+        // Set pickUp Id fetched from database above
         booking.setPickUpId(a.getAddressId());
+        // Setting totalPrice generated within DataManipulation class.
         booking.setTotalPrice(dataManipulation.calculateTotalPriceConfirmed(booking));
+        // Updating booking in database after setting changing above mentioned attributes.
         bookingService.updateBooking(booking);
+        // Redirect back to newBooking with booking number as PathVariable.
         return "redirect:/newBooking/"+bookingNo;
     }
 
-
+    // Copy paste of methods above except for DropOff location and attribute instead of PickUp.
     @GetMapping("/createBookingAddressDropOff/{bookingNo}")
     public String createBookingAddressDropOff(@PathVariable("bookingNo") int bookingNo, Model model) {
         Booking booking = bookingService.findBooking(bookingNo);
@@ -237,14 +273,6 @@ public class BookingController {
         return "redirect:/newBooking/"+bookingNo;
     }
     //------------------------------------------------------------------------------------------------------------------
-
-    @PostMapping("/createBooking")
-    public String createBooking(@ModelAttribute Booking b) {
-        bookingService.addBooking(b);
-        return "redirect:/booking";
-    }
-
-
 
 
 }

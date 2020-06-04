@@ -31,17 +31,30 @@ public class AvailabilityRepository {
     @Autowired
     VehicleService vehicleService;
 
-
+//----------------------------------------------------------------------------------------------------------------------
+    //@Ástþór
+//----------------------------------------------------------------------------------------------------------------------
+    // Fetches bookings that match dates selected by user as @Param values and String sort to check return either
+    // an array of available or unavailable vehicles.
     public List<Vehicle> fetchAvailabilityVehicles (@Param("startDate") String startDate, @Param("endDate") String endDate, String sort){
+        // String checks if either of the dates are equal to or in between dates registered for bookings in database
+        // or booking pickup and dropOff date is in between the startDate and endDate.
+        // Sql query returns all bookings that would contain a vehicle that is unavailable.
         String sql = "SELECT * FROM booking WHERE ? between pick_up_date and drop_off_date " +
                                             "or ? between pick_up_date and drop_off_date " +
                                             "or ? <= pick_up_date and drop_off_date <= ? " +
                                             "or pick_up_date = ? or drop_off_date = ? " +
                                             "or pick_up_date = ? or drop_off_date = ?";
+        // RowMapper used as a type of "ResultSet"
         RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
+        // List of Bookings to receive bookings found.
         List<Booking> bookingsFound = template.query(sql, rowMapper, startDate, endDate, startDate, endDate, startDate, endDate, endDate, startDate);
+        // Fetches all vehicles in the database
         List<Vehicle> allVehicles = vehicleService.fetchAll();
+        // Array of ArrayList made, one arrayList for available vehicles and another for unavailable vehicles.
+        // Using method below named sortVehicles to sort them as available or unavailable.
         ArrayList[] array = sortVehicles(bookingsFound, allVehicles);
+        // Depending on the method called intended to fetch unavailable of available vehicles, will return separate lists.
         if(sort.equalsIgnoreCase("Unavailable")){
             return array[0];
         } else {
@@ -49,6 +62,7 @@ public class AvailabilityRepository {
         }
     }
 
+    // Method that check's whether the vehicles are unavailable or available, returns array of arrayList.
     public static ArrayList[] sortVehicles (List<Booking> bookingsFound, List<Vehicle> allVehicles){
         // Crete an arrayList to get vehicles with matching regNumbers in bookingsFound - Marked as unavailable
         ArrayList<Vehicle> unavailableVehicles = new ArrayList<Vehicle>();
@@ -75,10 +89,9 @@ public class AvailabilityRepository {
         array[1] = availableVehicles;
         return array;
     }
-    //public static List<Vehicle> fetchUnavailableVehicles(){
 
-    //}
-
+    // Method to be used in future iterations, checking if booking is confirmed to see if vehicles are available due to
+    // a cancelled booking
     public static boolean isConfirmed (Booking booking) {
         return booking.getBookingStatus().equalsIgnoreCase("confirmed");
     }

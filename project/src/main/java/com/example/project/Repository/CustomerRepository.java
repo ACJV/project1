@@ -16,6 +16,10 @@ public class CustomerRepository {
     @Autowired
     JdbcTemplate template;
 
+//----------------------------------------------------------------------------------------------------------------------
+    //@Ástþór
+//----------------------------------------------------------------------------------------------------------------------
+
     public List<Customer> fetchAll(){
         String sql = "SELECT * FROM customer";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
@@ -44,9 +48,12 @@ public class CustomerRepository {
         return null;
     }
 
+    // Using @Param to get keyword input by user to check if keyword matches any characters within customers name.
     public List<Customer> findByKeyword(@Param("keyword") String keyword){
-        //@Query(value = "select * from customer c where c.fullName like %:keyword%", nativeQuery = true);
-
+        // Following a video on youtube, where this method was used but as it did not work for me, the methodology was
+            //@Query(value = "select * from customer c where c.fullName like %:keyword%", nativeQuery = true);
+        // implemented with the methods that have been working for me so far
+        // gets all information from customer where full name has characters in keyword anywhere within the full name.
         String sql = "SELECT * FROM customer WHERE full_name LIKE '%' ? '%'";
         RowMapper<Customer> rowMapper = new BeanPropertyRowMapper<>(Customer.class);
         return template.query(sql, rowMapper, keyword);
