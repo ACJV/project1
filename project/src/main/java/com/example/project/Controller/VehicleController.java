@@ -32,19 +32,22 @@ public class VehicleController
     @GetMapping("/vehicle")
     public String vehicle(Model model, String keyword)
     {
+        //fetches all vehicles from db using vehicle.repo
         List<Vehicle> vehicleList = vehicleService.fetchAll();
         if (keyword != null)
         {
+            //model showing vehicles found by keyword (based on reg_number)
             model.addAttribute("vehicles", vehicleService.findByKeyword(keyword));
         } else
             {
+                // model that shows vehiclelist
             model.addAttribute("vehicles", vehicleList);
             }
-
+        // returns to the vehicle.html
         return "home/Vehicle/vehicle";
     }
 
-
+    //creates vehicle page, that opens for the category and vehicles list
     @GetMapping("/createVehicle")
     public String createVehicle(Model model1, Model model2, Model model3)
     {
@@ -59,7 +62,7 @@ public class VehicleController
         return "home/Vehicle/createVehicle";
     }
 
-
+    // using model attributes from addvehicle in vehicle repo, to create a new vehicle with all the attributes. sets PK in db (reg_number) to UPPERCASE
     @PostMapping("/createVehicle")
     public String createVehicle(@ModelAttribute Vehicle vehicle)
     {
@@ -68,7 +71,7 @@ public class VehicleController
         return "redirect:/vehicle";
     }
 
-
+    // gets view vehicle page wtih pathvar reg_number to find vehicle in db
     @GetMapping("/viewVehicle/{regNumber}")
     public String viewVehicle(@PathVariable("regNumber") String regNumber, Model model)
     {
@@ -76,7 +79,7 @@ public class VehicleController
         return "home/Vehicle/viewVehicle";
     }
 
-
+    // deletes vehicle using regnumber as pathvar to find vehicle in db (reg_number = PK)
     @GetMapping("/deleteVehicle/{regNumber}")
     public String delete(@PathVariable("regNumber") String regNumber)
     {
@@ -88,7 +91,7 @@ public class VehicleController
         }
     }
 
-
+    //update vehicle page
     @GetMapping("/updateVehicle/{regNumber}")
     public String updateVehicle(@PathVariable("regNumber") String regNumber, Model model, Model model1, Model model2, Model model3)
     {
@@ -104,7 +107,7 @@ public class VehicleController
         return "home/Vehicle/updateVehicle";
     }
 
-
+    //saves vehicle ised in view vehicle page to update vehicle
     @PostMapping("/saveVehicle")
     public String saveVehicle(@ModelAttribute Vehicle vehicle)
     {
@@ -113,7 +116,7 @@ public class VehicleController
         return "redirect:/vehicle";
     }
 
-
+    //displays html with all vehicles and their caterogies
     @GetMapping("/vehicleFull")
     public String vehicleFull(Model model, Model model1)
     {
