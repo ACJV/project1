@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Update Vehicle</title>
 </head>
 <body>
 <!--<div onclick="location.href='vehicle';" class="pop-up-background">-->
@@ -11,6 +11,7 @@
 <div th:insert="home/style :: style"></div>
 
 <div class="pop-up">
+    <div onclick="location.href='vehicleFull';" class="close-pop-up">X</div>
     <form action="/saveVehicle" method="post">
         <h1>Update Vehicle</h1>
 

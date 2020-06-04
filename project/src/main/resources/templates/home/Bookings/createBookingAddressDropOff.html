@@ -10,17 +10,17 @@
         th:action being used references a PostMapping method in BookingController, which takes bookingNo as PathVariable
     ---------------------------------------------------->
 <body>
-<form th:action="@{|/createBookingAddressDropOff/${booking.bookingNo}|}" method="post">
+<form style="text-align: center"; th:action="@{|/createBookingAddressDropOff/${booking.bookingNo}|}" method="post">
 
     <div>
-        <h1>Booking Number:
+        <h1 style="text-align: center";>Booking Number:
         <span th:text="${booking.bookingNo}"/></h1>
-        <h2>New DropOff address</h2>
+        <h2 style="text-align: center";>New DropOff address</h2>
     </div>
 
 
 
-    <label>Address</label>
+    <label >Address</label>
     <input type="text" name="address"><br><br>
     <label>Zip</label>
     <input type="text" name="zip"><br><br>

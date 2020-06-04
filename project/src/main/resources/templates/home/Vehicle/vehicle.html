@@ -14,13 +14,13 @@
 <div class="to-back">
     <h1>Vehicle List</h1>
     <a href="/createVehicle">
-        <button class="button-create" style="color: blue" >
+        <button class="button-create" style="color: #0000ff"  >
             Add New Vehicle
         </button>
     </a>
 
     <form th:action="@{/vehicle}" method="get">
-        <input id="Search" type="text" name="keyword" placeholder="XX12345" style="margin-left: 300px">
+        <input id="Search" type="text" minlength="7" maxlength="7" name="keyword" placeholder="XX12345" style="margin-left: 300px">
         <button type="submit">Search</button>
     </form><br>
 

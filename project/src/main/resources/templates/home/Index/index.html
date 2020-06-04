@@ -8,15 +8,15 @@
 
 <div th:insert="home/style :: style"></div>
 
-<div class="pop-up">
-    <h1>Please select your position:</h1>
-    <form th:action="@{'/'}" method="get">
+<br class="pop-up">
+<h1 style="text-align: center">Please select your position:</h1><br></br>
+    <form style="text-align: center"; th:action="@{'/'}" method="get">
         <input type="radio" value="owner" name="position"/>
-        <label>Owner</label><br></br>
+        <label>Owner</label><br></br><br></br>
         <input type="radio" value="staff" name="position"/>
-        <label>Staff Member</label><br></br>
+        <label>Staff Member</label><br></br><br></br>
         <input type="radio" value="mechanic" name="position"/>
-        <label>Mechanic</label><br></br>
+        <label>Mechanic</label><br></br><br></br>
 
         <input type="submit" name="SUBMIT">
     </form>

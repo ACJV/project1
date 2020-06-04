@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Update Category</title>
 </head>
 <body>
 <!--<div onclick="location.href='vehicle';" class="pop-up-background">-->
@@ -11,21 +11,21 @@
 <div th:insert="home/style :: style"></div>
 
 <div class="pop-up">
-    <form action="/saveCategory" method="post">
-        <h1>Update Category</h1>
+    <form style="text-align: center"; action="/saveCategory" method="post">
+        <h1 style="text-align: center">Update Category</h1>
 
-        <label>Category ID</label><br><br>
-        <input type="number" name="catId" th:value="${category.catId}" class="readonly" readonly><br><br>
-        <label>Category Name</label><br><br>
-        <input type="text" name="catName" th:value="${category.catName}"><br><br>
-        <label>Model Name</label><br><br>
-        <input type="text" name="modelName" th:value="${category.modelName}"><br><br>
-        <label>Brand</label><br><br>
-        <input type="text" name="brand" th:value="${category.brand}"><br><br>
-        <label>Base Price (daily)</label><br><br>
-        <input min="0" maxlength="7" type="number" name="catPrice" th:value="${category.catPrice}"><span> kr.</span><br><br>
-        <label>Short Category Description</label><br><br>
-        <input type="text" name="catDescription" th:value="${category.catDescription}"><br><br>
+        <label>Category ID</label><br>
+        <input type="number" name="catId" th:value="${category.catId}" class="readonly" readonly><br>
+        <label>Category Name</label><br>
+        <input type="text" name="catName" th:value="${category.catName}"><br>
+        <label>Model Name</label><br>
+        <input type="text" name="modelName" th:value="${category.modelName}"><br>
+        <label>Brand</label><br>
+        <input type="text" name="brand" th:value="${category.brand}"><br>
+        <label>Base Price (daily)</label><br>
+        <input min="0" maxlength="7" type="number" name="catPrice" th:value="${category.catPrice}"><span> kr.</span><br>
+        <label>Short Category Description</label><br>
+        <input type="text" name="catDescription" th:value="${category.catDescription}"><br>
 
         <input type="submit" value="Save Changes">
     </form>

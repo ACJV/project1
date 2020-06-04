@@ -2,7 +2,14 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Select customer</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            alignment: center;
+        }
+    </style>
 </head>
     <!---------------------------------------------------
         @Ástþór Arnar
@@ -11,7 +18,7 @@
     ---------------------------------------------------->
 
 <body>
-
+<h1 style="text-align: center">Customers</h1>
 <!---------------------------------------------------
     Form has been tested in customer.html and works as intended
     but due to time constraints it has not yet reached testing for this page
@@ -23,9 +30,14 @@
 
 ---------------------------------------------------->
 <table >
+---------------------------------------------------->
+<table style="font-size: small;margin-left:auto;margin-right:auto; margin-top: auto">
+
+
+<table >
     <thead >
     <tr>
-        <th>No</th>
+        <th>ID</th>
         <th>Name</th>
         <th>Driver Licence Number</th>
         <th>Date Of Birth</th>
