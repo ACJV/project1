@@ -18,7 +18,7 @@ public class BookingRepository {
     // Ástþór & Justé
 //----------------------------------------------------------------------------------------------------------------------
 
-    // Fetches all available vehices from database
+    // Fetches all available bookings from database
     public List<Booking> fetchAll(){
         String sql = "SELECT * FROM booking";
         RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);

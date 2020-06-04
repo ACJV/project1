@@ -104,13 +104,19 @@ public class AddressRepository {
     // @Justé
 //----------------------------------------------------------------------------------------------------------------------
 
+    // Will return a distance from an address based on it's id
     public double getDistanceFromId (int id) {
+        // query used to retrieve the address distance from address table with the matching address_id
         String sql = "SELECT address.distance FROM address WHERE address.address_id = ?;";
+        // even though the quey will return only a single value, since we were new working with
+        // JdbcTemplate and RowMapper, we did not know how to store a retrieved value not in a list
         RowMapper<Address> rowMapper = new BeanPropertyRowMapper<>(Address.class);
+        // Thus we store the query's results in a list and just take the 1st (and the only one) value in it:
         List<Address> distanceL = template.query(sql, rowMapper, id);
-        System.out.println(distanceL.size());
         int distance = distanceL.get(0).getDistance();
+        // Converts it from int to double
         double distanceD = distance;
+        // And returns it back to the initial call of the method
         return distanceD;
     }
 

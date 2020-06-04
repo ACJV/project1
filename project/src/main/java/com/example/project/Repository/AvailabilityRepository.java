@@ -106,36 +106,59 @@ public class AvailabilityRepository {
     // Returns the list of Bookings which are confirmed and supposed to end today
     // (used for staff Home Page)
     public List<Booking> fetchBookingsEndingToday () {
+        // Calls a method in dataManipulation class which returns today's date as a String ("YYYY-MM-DD")
         String today = dataManipulation.getTodaysDate();
+        // A query is formed to return a List of all Confirmed bookings ending today
         String sql = "SELECT * FROM booking WHERE drop_off_date = ? AND booking_status = 'Confirmed';";
+        // RowMapper forms a Result Set of Booking Objects
         RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
+        // Query results from the database are being stored in the ResultSet
+        // which then gets returned as a List of Booking Objects
         return template.query(sql, rowMapper, today);
     }
+
 
     // Returns the list of Bookings which are cancelled and upcoming (start date is later or equals today)
     // (used for staff Home Page)
     public List<Booking> fetchCancelledBookings () {
+        // Calls a method in dataManipulation class which returns today's date as a String ("YYYY-MM-DD")
         String today = dataManipulation.getTodaysDate();
+        // A query is formed to return a List of all Cancelled bookings starting later or on the same day as today
         String sql = "SELECT * FROM booking WHERE pick_up_date >= ? AND booking_status = 'Cancelled';";
+        // RowMapper forms a Result Set of Booking Objects
         RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
+        // Query results from the database are being stored in the ResultSet
+        // which then gets returned as a List of Booking Objects
         return template.query(sql, rowMapper, today);
     }
+
 
     // Returns the list of Bookings which are confirmed and upcoming (start date is later or equals today)
     // (used for staff Home Page)
     public List<Booking> fetchConfirmedBookings () {
+        // Calls a method in dataManipulation class which returns today's date as a String ("YYYY-MM-DD")
         String today = dataManipulation.getTodaysDate();
+        // A query is formed to return a List of all Confirmed bookings starting later or on the same day as today
         String sql = "SELECT * FROM booking WHERE pick_up_date >= ? AND booking_status = 'Confirmed';";
+        // RowMapper forms a Result Set of Booking Objects
         RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
+        // Query results from the database are being stored in the ResultSet
+        // which then gets returned as a List of Booking Objects
         return template.query(sql, rowMapper, today);
     }
+
 
     // Returns the list of Bookings which are finished (end date will be later or equals today)
     // (used for staff Home Page)
     public List<Booking> fetchFinishedBookings () {
+        // Calls a method in dataManipulation class which returns today's date as a String ("YYYY-MM-DD")
         String today = dataManipulation.getTodaysDate();
+        // A query is formed to return a List of all Finished bookings which ended today
         String sql = "SELECT * FROM booking WHERE drop_off_date = ? AND booking_status = 'Finished';";
+        // RowMapper forms a Result Set of Booking Objects
         RowMapper<Booking> rowMapper = new BeanPropertyRowMapper<>(Booking.class);
+        // Query results from the database are being stored in the ResultSet
+        // which then gets returned as a List of Booking Objects
         return template.query(sql, rowMapper, today);
     }
 
@@ -143,40 +166,65 @@ public class AvailabilityRepository {
     // Returns the list of Vehicles which are supposed to be dropped off today
     // (used for the easier access to mechanic)
     public List<Vehicle> fetchVehiclesEndingToday () {
+        // Calls a method in dataManipulation class which returns today's date as a String ("YYYY-MM-DD")
         String today = dataManipulation.getTodaysDate();
+        // A query is formed to return a List of all vehicles which were supposed to be dropped off today
         String sql = "SELECT vehicle.reg_number, vehicle.cat_id, vehicle.year_stmp, vehicle.odometer, vehicle.transmission, vehicle.fuel_type, vehicle.operational, vehicle.o_comment " +
                      "FROM vehicle INNER JOIN booking ON vehicle.reg_number = booking.reg_number WHERE booking.drop_off_date = ?;";
+        // RowMapper forms a Result Set of Vehicle Objects
         RowMapper<Vehicle> rowMapper = new BeanPropertyRowMapper<>(Vehicle.class);
+        // Query results from the database are being stored in the ResultSet
+        // which then gets returned as a List of Vehicle Objects
         return template.query(sql, rowMapper, today);
     }
 
+
     // Returns the list of Vehicles which contains the rest of them (the ones which are not supposed to be dropped off today)
     public List<Vehicle> fetchVehiclesNotEndingToday () {
+        // Returns the list of Vehicles which are supposed to be dropped off today
         List<Vehicle> vehiclesToday = fetchVehiclesEndingToday();
+        // Returns the list of Vehicles of all Vehicles stored in the database
         List<Vehicle> vehiclesAll = vehicleService.fetchAll();
 
+        // for loop goes through the list of all Vehicles
         for (int i = 0; i < vehiclesAll.size(); i++) {
+            // another nested for loop goes through the list of Vehicles which are supposed to be dropped off today
             for (int j = 0; j < vehiclesToday.size(); j++) {
+                // checks if the Vehicles' registration numbers match in both list
                 if (vehiclesAll.get(i).getRegNumber().equals(vehiclesToday.get(j).getRegNumber())) {
+                    // if they do, the matching one (included in the list of vehicles dropped off today) gets removed from the list
+                    // containing all of them, leaving only the ones which are not supposed to be dropped off today
                     vehiclesAll.remove(vehiclesAll.get(i));
                 }
             }
         }
-
+        // returns the list of the Vehicles which are not supposed to be dropped off today
         return vehiclesAll;
     }
+
 
     // Returns percentage of booked vehicles on a specified day (expressed as a decimal)
     // Requires day as a String in a format of 'YYYY-MM-DD'
     public double percentBooked (String day) {
+        // A query is formed to return a List of registration numbers from booking table where the day specified is included
+        // in the booking's range (from pick up to drop off)
         String sql = "SELECT booking.reg_number FROM booking WHERE ? <= booking.drop_off_date AND ? >= booking.pick_up_date;";
+        // RowMapper forms a Result Set of Strings
         RowMapper<String> rowMapper = new BeanPropertyRowMapper<>(String.class);
+        // Query results from the database are being stored in the ResultSet
+        // and the size of that ResultSet is being defined as an int specifying amount of vehicles booked on that day
         int vehiclesBooked = template.query(sql, rowMapper, day, day).size();
 
+        // Another query is formed to return a List of all registration numbers from vehicle table
         String sql1 = "SELECT vehicle.reg_number FROM vehicle;";
+        // RowMapper forms a Result Set of Strings
         RowMapper<String> rowMapper1 = new BeanPropertyRowMapper<>(String.class);
+        // Query results from the database are being stored in the ResultSet
+        // and the size of that ResultSet is being defined as an int specifying amount of vehicles in total in the database
         int vehiclesTotal = template.query(sql1, rowMapper1).size();
 
+        // A difference between amount of booked and all vehicles on a specified day
+        // expressed as a decimal is being returned
         return vehiclesBooked/vehiclesTotal;
     }
 

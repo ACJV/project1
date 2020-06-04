@@ -17,12 +17,18 @@ public class CategoryRepository {
     @Autowired
     JdbcTemplate template;
 
+//----------------------------------------------------------------------------------------------------------------------
+    // Justé
+//----------------------------------------------------------------------------------------------------------------------
+
+    // Fetches all available Categories from the database
     public List<Category> fetchAll(){
         String sql = "SELECT * FROM category";
         RowMapper<Category> rowMapper = new BeanPropertyRowMapper<>(Category.class);
         return template.query(sql, rowMapper);
     }
 
+    // Adds new Category to the database
     public Category addCategory(Category c) {
         String sql = "INSERT INTO category (cat_price, cat_name, cat_description, model_name, brand) VALUES (?, ?, ?, ?, ?)";
         template.update(sql, c.getCatPrice(), c.getCatName(), c.getCatDescription(), c.getModelName(), c.getBrand());
