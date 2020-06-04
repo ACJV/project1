@@ -64,7 +64,6 @@ public class DataManipulation {
         LocalDate end = LocalDate.parse(endDate, dateFormat);
 
         List<String> daysBetween = new ArrayList<>();
-        System.out.println(daysBetween);
 
         while (!start.isAfter(end)) {
             daysBetween.add(start.toString());
@@ -96,27 +95,22 @@ public class DataManipulation {
         totalPrice += (b.getBedLinen() * 50.); // BED LINEN - if included, will add additional 50 kr. for every single one to the total price
 
         // DISTANCE FROM PICK UP / DROP OFF - adds the additional charge of 5 kr. / per km for the distances to pick up / drop off locations
-        System.out.println("TotalPrice in calcPriceConfirmed method - Before getting distance: " + totalPrice);
         totalPrice += (addressService.getDistanceFromId(b.getPickUpId()) + addressService.getDistanceFromId(b.getDropOffId())) * 5.;
-        System.out.println("TotalPrice in calcPriceConfirmed method - After getting distance: " + totalPrice);
         return totalPrice;
     }
 
 
+    // Will calculate the total price between the specified dates depending on each day's availability
     public double calculateTotalPriceForAvailability(String pickUpDate, String dropOffDate, String regNumber) {
 
         // Gets list of all dates within the selected range
         List<String> list = getDatesBetween(pickUpDate, dropOffDate);
-        for(int i = 0; i<list.size(); i++){
-            System.out.println("Testing getDates method = " + i + " >>>>> " + list.get(i));
-        }
+
         // Brings back the base daily price for the selected vehicle (base price of it's category)
         String sql = "SELECT * FROM category WHERE category.cat_id = (SELECT vehicle.cat_id FROM vehicle WHERE ? = vehicle.reg_number);";
         RowMapper<Category> rowMapper = new BeanPropertyRowMapper<>(Category.class);
         List<Category> categoryList = template.query(sql, rowMapper, regNumber);
         double price = categoryList.get(0).getCatPrice();
-        System.out.println("RegNumber being searched: " + regNumber);
-        System.out.println("price received " + price);
 
         double daysPrice = price;
 
@@ -126,7 +120,6 @@ public class DataManipulation {
         // and the extras added to the booking (if selected)
         for (int i = 0; i < list.size(); i++) {
             double availability = availabilityService.percentBooked(list.get(i));
-            System.out.println("Printing list of dates " + list.get(i));
             // Checks to which season the day belongs based on the percentage of vehicles booked that day:
 
             if (availability < 0.3) {           // LOW SEASON - if booked less than 30% of vehicles - base price applies
@@ -137,7 +130,6 @@ public class DataManipulation {
                 totalPrice += daysPrice * 1.6;
             }
         }
-        System.out.println("total Price " + totalPrice);
         return totalPrice;
     }
 

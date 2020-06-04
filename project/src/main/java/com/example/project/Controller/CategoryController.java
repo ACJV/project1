@@ -24,18 +24,28 @@ public class CategoryController {
     // @Juste
 //----------------------------------------------------------------------------------------------------------------------
 
+    // Gets all Categories and searches for keyword in category name if the keyword's field is not null
     @GetMapping("/category")
     public String category(Model model, String keyword) {
+        // Fetches a list of all Categories form the database
         List<Category> categoryList = categoryService.fetchAll();
+        // Checks whether the keyword (search field provided in UI) was filled or left empty
+        // If there was some input (keyword) in the search field
         if (keyword != null) {
+            // Then a list of Categories filtered by the entered keyword will be fetched and added to a model
             model.addAttribute("categories", categoryService.findByKeyword(keyword));
+        // If there was no input in the search field
         } else {
+            // Then a regular list of all existing Categories is being fetched from the database and added to a model
             model.addAttribute("categories", categoryList);
         }
+
+        // Will link you to category.html
         return "home/Category/category";
     }
 
 
+    // Fetches all Categories from the database, adds them to the model and links you to createCategory.html
     @GetMapping("/createCategory")
     public String createCategory(Model model) {
         List<Category> categoryList = categoryService.fetchAll();
@@ -44,6 +54,7 @@ public class CategoryController {
     }
 
 
+    // Adds a newly created Category object to a database table and redirects you to /category
     @PostMapping("/createCategory")
     public String createCategory(@ModelAttribute Category category) {
         categoryService.addCategory(category);
@@ -51,6 +62,7 @@ public class CategoryController {
     }
 
 
+    // Deletes a selected Category by it's catId from the database and redirects you to /category
     @GetMapping("/deleteCategory/{catId}")
     public String deleteCategory(@PathVariable("catId") int catId) {
         categoryService.deleteCategory(catId);
@@ -58,6 +70,8 @@ public class CategoryController {
     }
 
 
+    // Fetches all Categories from the database, as well as finds a specified category. Adds them both to two separate
+    // models and links you to updateCategory.html
     @GetMapping("/updateCategory/{catId}")
     public String updateCategory(@PathVariable("catId") int catId, Model model, Model model1)
     {
@@ -69,37 +83,11 @@ public class CategoryController {
     }
 
 
+    // Updates a selected Category in the database and redirects you to /category
     @PostMapping("/saveCategory")
     public String saveCategory(@ModelAttribute Category category) {
         categoryService.updateCategory(category);
         return "redirect:/category";
     }
-
-    /*
-
-    @GetMapping("/chooseCategory")
-    public String chooseCategory(@ModelAttribute Vehicle vehicle, Model model, Model model1, String keyword) {
-        model.addAttribute("vehicle", vehicle);
-
-        List<Category> categoryList = categoryService.fetchAll();
-        if (keyword != null) {
-            model1.addAttribute("categories", categoryService.findByKeyword(keyword));
-        } else {
-            model1.addAttribute("categories", categoryList);
-        }
-        return "home/Category/category";
-    }
-
-
-    @PostMapping("/chooseCategory/{catId}")
-    public String chooseCategory(@PathVariable("catId") int catId, @ModelAttribute Vehicle vehicle, Model model) {
-        vehicle.setCatId(catId);
-        vehicleService.addVehicle(vehicle);
-
-        model.addAttribute(vehicle);
-        return "redirect:/updateVehicle/" + vehicle.getRegNumber();
-    }
-
-     */
 
 }

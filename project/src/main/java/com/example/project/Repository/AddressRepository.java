@@ -16,6 +16,11 @@ public class AddressRepository {
     @Autowired
     JdbcTemplate template;
 
+//----------------------------------------------------------------------------------------------------------------------
+    // @Vytautas
+//----------------------------------------------------------------------------------------------------------------------
+
+
     public List<Address> fetchAll() {
 
         //select all rows from address table

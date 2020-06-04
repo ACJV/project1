@@ -21,10 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.ArrayList;
 import java.util.List;
-// Idea on commenting who did what
-//----------------------------------------------------------------------------------------------------------------------
-    // @Justé
-//----------------------------------------------------------------------------------------------------------------------
 
 @Controller
 public class BookingController {
@@ -41,79 +37,126 @@ public class BookingController {
     @Autowired
     DataManipulation dataManipulation;
 
+//----------------------------------------------------------------------------------------------------------------------
+    // @Juste
+//----------------------------------------------------------------------------------------------------------------------
 
+    // Will fetch the list of all bookings from the database and link you to bookings.html
     @GetMapping("/booking")
     public String display(Model model) {
         // Fetches all bookings from database through BookingRepository
         List<Booking> bookingList = bookingService.fetchAll();
-        // Model to display bookingList
+        // bookingList added as an attribute to a model
         model.addAttribute("bookingL", bookingList);
-        //Return html file booking.html
+        // Returns html file booking.html
         return "home/Bookings/booking";
     }
 
-
+    // Will link you to createBooking.html
     @GetMapping("/createBooking")
     public String createBooking(){
         return "home/Bookings/createBooking";
     }
 
 
+    // Will fetch lists of different category bookings, place them into models and lnk you to staff.html
     @GetMapping("/bookingHome")
     public String bookingHome(Model model, Model model1, Model model2, Model model3) {
+        // Fetches all Bookings ending today and places them in a List of Booking Objects
         List<Booking> bookingsEndingToday = availabilityService.fetchBookingsEndingToday();
+        // Adds the list to a model
         model.addAttribute("bookingsToday", bookingsEndingToday);
+        // Fetches all Confirmed Bookings and places them in a List of Booking Objects
         List<Booking> confirmedBookings = availabilityService.fetchConfirmedBookings();
+        // Adds the list to a model
         model1.addAttribute("confirmedBookings", confirmedBookings);
+        // Fetches all Cancelled Bookings and places them in a List of Booking Objects
         List<Booking> cancelledBookings = availabilityService.fetchCancelledBookings();
+        // Adds the list to a model
         model2.addAttribute("cancelledBookings", cancelledBookings);
+        // Fetches all Finshed Bookings and places them in a List of Booking Objects
         List<Booking> finishedBookings = availabilityService.fetchFinishedBookings();
+        // Adds the list to a model
         model3.addAttribute("finishedBookings", finishedBookings);
 
+        // Will link you to staff.html
         return "home/Index/staff";
     }
 
 
+    // Will fetch lists of different category bookings, place them into models and lnk you to bookingFinish.html
     @GetMapping("/bookingFinish/{bookingNo}")
     public String bookingFinish(@PathVariable("bookingNo") int bookingNo, Model model, Model model1, Model model2, Model model3, Model model4, Model model5){
+        // Fetches a booking found by its bookingNo
         Booking b = bookingService.findBooking(bookingNo);
+        // Adds the booking to a model
         model.addAttribute("booking", b);
+        // Fetches the odometer parameters and adds them to the model
         model1.addAttribute("oldOdometer", vehicleService.findVehicle(b.getRegNumber()).getOdometer());
 
+        // Fetches all Bookings ending today and places them in a List of Booking Objects
         List<Booking> bookingsEndingToday = availabilityService.fetchBookingsEndingToday();
+        // Adds the list to a model
         model2.addAttribute("bookingsToday", bookingsEndingToday);
+        // Fetches all Confirmed Bookings and places them in a List of Booking Objects
         List<Booking> confirmedBookings = availabilityService.fetchConfirmedBookings();
+        // Adds the list to a model
         model3.addAttribute("confirmedBookings", confirmedBookings);
+        // Fetches all Cancelled Bookings and places them in a List of Booking Objects
         List<Booking> cancelledBookings = availabilityService.fetchCancelledBookings();
+        // Adds the list to a model
         model4.addAttribute("cancelledBookings", cancelledBookings);
+        // Fetches all Finished Bookings and places them in a List of Booking Objects
         List<Booking> finishedBookings = availabilityService.fetchFinishedBookings();
+        // Adds the list to a model
         model5.addAttribute("finishedBookings", finishedBookings);
 
+        // Will link you to bookingFinish.html
         return "home/Bookings/bookingFinish";
     }
 
+
+    // Will update a Booking after its Cancellation and redirect you back to /bookingHome
     @GetMapping("/bookingCancelled/{bookingNo}")
     public String bookingCancelled(@PathVariable("bookingNo") int bookingNo){
+        // Fetched a booking found by its bookingNo
         Booking b = bookingService.findBooking(bookingNo);
+        // Calculates the total price after the applied cancellation fee and stores it as a double
         double newTotalPrice = dataManipulation.calculateTotalPriceCancelled(b);
+        // Updates Booking's total price to newly calculated one after the Cancellation fee has been applied
         b.setTotalPrice(newTotalPrice);
+        // Updates Booking's status to "Canceled"
         b.setBookingStatus("Cancelled");
+        // Updates Booking in the database
         bookingService.updateBookingStatus(b);
+
+        // Redirects you back to /bookingHome
         return "redirect:/bookingHome";
     }
 
+
+    // Will update a Booking after its been marked as Finished and redirect you back to /bookingHome
     @PostMapping("/bookingFinish")
     public String bookingFinish(@ModelAttribute Booking booking, @Param("odometer") int odometer, @Param("isLowTank") boolean isLowTank){
+        // Calculates the total price after marking the Booking as finished and providing additional information about new odometer parameters and whether the tank was less than 1/2 full
         double newTotalPrice = dataManipulation.calculateTotalPriceFinished(booking.getBookingNo(), isLowTank, odometer);
+        // Updates Booking's total price to newly calculated one after the additional fees based on odometer and fuel tank after drop off
         booking.setTotalPrice(newTotalPrice);
+        // Updates Booking's status to "Finished"
         booking.setBookingStatus("Finished");
+        // Updates Booking in the database
         bookingService.updateBookingStatus(booking);
+        // Fetches the dropped off Vehicle's Registration Number
         String regNumber = bookingService.findBooking(booking.getBookingNo()).getRegNumber();
 
+        // Finds the Vehicle based on it's Registration Number
         Vehicle v = vehicleService.findVehicle(regNumber);
+        // Sets Vehicle's odometer to the updated one after the drop off
         v.setOdometer(odometer);
+        // Updates Vehicle in the database
         vehicleService.updateVehicle(v);
 
+        // Redirects you back to /bookingHome
         return "redirect:/bookingHome";
     }
 

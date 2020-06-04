@@ -68,6 +68,8 @@ public class VehicleRepository {
     // @Justé
 //----------------------------------------------------------------------------------------------------------------------
 
+    // Updates a specified Vehicle in the database (used for mechanic, since he has the access to
+    // modifying and therefore updating only the operationality and oComments of the Vehicle
     public void updateVehicleMechanic(Vehicle vehicle) {
         String sql = "UPDATE vehicle SET operational = ?, o_comment = ? WHERE reg_number = ?";
         template.update(sql, vehicle.isOperational(), vehicle.getoComment(), vehicle.getRegNumber());
