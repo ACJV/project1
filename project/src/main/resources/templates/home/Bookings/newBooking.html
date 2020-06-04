@@ -16,7 +16,6 @@
 
 <body>
     <h1>New Booking</h1>
-
     <div>
         <h3>Booking: </h3>
         <table>
@@ -103,12 +102,13 @@
 
     <div>
         <h3>PickUp Address: </h3>
-        <label for="createPickUpId">Create New PickUp address and assign to this booking: </label>
+
         <a th:href="@{'/createBookingAddressPickUp/'+${booking.bookingNo}}" id="createPickUpId">
             <button>
                 Create PickUp Address
             </button>
         </a>
+        <label for="createPickUpId"><i> - Create New PickUp address and assign to this booking</i></label>
         <table>
             <thead>
             <tr>
@@ -168,7 +168,6 @@
     <br>
     <hr>
     <br>
-    <!--<div th:if="${variable.something} == null">-->
     <form action="/saveBooking" method="post">
         <div>
             <strong>
