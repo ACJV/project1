@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>View Customer Details</title>
 </head>
 <body>
-    <h1>Customer Details</h1>
+    <h1 style="text-align: center">Customer Details</h1>
 
-    <form action="/saveCustomer" method="post">
+    <form style="text-align: center"; action="/saveCustomer" method="post">
         <div>
             <strong>
             Customer ID:
@@ -51,10 +51,10 @@
             <input type="text" name="email" th:value="${customer.email}">
         </fieldset>
         -->
-        <input type="submit" value="Save Changes">
+        <input style="color: blue" type="submit" value="Save Changes">
     </form>
     <a th:href="@{'/deleteCustomer/'+${customer.customerId}}">
-        <button class="btn-deleteCustomer" , id="btn-deleteCustomer">
+        <button style="color: red" class="btn-deleteCustomer" , id="btn-deleteCustomer">
             Delete
         </button>
     </a>

@@ -11,23 +11,23 @@
 <div th:insert="home/Index/staff :: header"></div>
 
 
-<h1>Customer list</h1>
+<h1 style="text-align: center">Customer list</h1>
 <a href="/createAddressAndCustomer">
-    <button>
+    <button style="text-align: center";>
         Create New Customer
     </button>
 </a>
 
-<form th:action="@{/customer}" method="get">
-    <input id="Search" type="text" name="keyword" placeholder="Search">
+<form style="text-align: center"; th:action="@{/customer}" method="get">
+    <input id="Search" type="text" name="keyword" placeholder="Search Customer">
     <button type="submit">Go</button>
 </form>
 
-<table style="font-size: small">
+<table style="margin-left:auto;margin-right:auto; margin-top: auto">
     <thead >
     <tr>
-        <th>No</th>
-        <th>Name</th>
+        <th>ID</th>
+        <th>Full Name</th>
         <th>Driver Licence Number</th>
         <th>Date Of Birth</th>
         <th>Phone Number</th>
@@ -51,7 +51,7 @@
         </td>-->
         <td>
             <a th:href="@{'/deleteCustomer/'+${customer.customerId}}">
-                <button>DELETE</button>
+                <button style="color: red">DELETE</button>
             </a>
         </td>
 

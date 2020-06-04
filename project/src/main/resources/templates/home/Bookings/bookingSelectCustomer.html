@@ -2,20 +2,27 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Select customer</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            alignment: center;
+        }
+    </style>
 </head>
 <body>
-
+<h1 style="text-align: center">Customers</h1>
 <!--
 <form th:action="@{/customer}" method="get">
     <input id="Search" type="text" name="keyword" placeholder="Search">
     <button type="submit">Go</button>
 </form>
 -->
-<table style="font-size: small">
+<table style="font-size: small;margin-left:auto;margin-right:auto; margin-top: auto">
     <thead >
     <tr>
-        <th>No</th>
+        <th>ID</th>
         <th>Name</th>
         <th>Driver Licence Number</th>
         <th>Date Of Birth</th>

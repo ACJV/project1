@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create Category</title>
 </head>
 <body>
 <!--<div onclick="location.href='vehicle';" class="pop-up-background">-->
@@ -11,8 +11,8 @@
 <div th:insert="home/style :: style"></div>
 
 <div class="pop-up">
-    <form action="/createCategory" method="post">
-        <h1>Add New Category</h1>
+    <form style="text-align: center"; action="/createCategory" method="post">
+        <h1 style="text-align: center">Add New Category</h1>
 
         <label>Category Name</label><br><br>
         <input type="text" name="catName"><br><br>

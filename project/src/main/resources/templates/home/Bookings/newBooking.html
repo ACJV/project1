@@ -6,11 +6,11 @@
     <link rel="stylesheet" type="text/css" href="../../stylerA.css">
 </head>
 <body>
-    <h1>New Booking</h1>
+    <h1 style="text-align: center">New Booking</h1>
 
     <div>
-        <h3>Booking: </h3>
-        <table>
+        <h3 style="text-align: center">Booking: </h3>
+        <table style="margin-left:auto;margin-right:auto; margin-top: 70px">
             <thead>
             <tr>
                 <th>Booking Number</th>
@@ -44,8 +44,8 @@
     <br>
     <hr>
     <div>
-        <h3>Customer: </h3>
-        <table>
+        <h3 style="text-align: center">Customer: </h3>
+        <table style="margin-left:auto;margin-right:auto; margin-top: 70px">
             <thead >
             <tr>
                 <th>No</th>
@@ -69,7 +69,7 @@
         </table>
     </div>
     <br>
-    <table>
+    <table style="margin-left:auto;margin-right:auto; margin-top: 70px">
         <thead>
         <tr>
             <th>Address Id:</th>
@@ -93,14 +93,14 @@
     <hr>
 
     <div>
-        <h3>PickUp Address: </h3>
-        <label for="createPickUpId">Create New PickUp address and assign to this booking: </label>
+        <h3 style="text-align: center">PickUp Address: </h3><br>
+        <label for="createPickUpId" style="font-size: small"><i>Create a new pickup address assigned this booking: </i></label>
         <a th:href="@{'/createBookingAddressPickUp/'+${booking.bookingNo}}" id="createPickUpId">
-            <button>
+            <button >
                 Create PickUp Address
             </button>
         </a>
-        <table>
+        <table style="margin-left:auto;margin-right:auto; margin-top: 70px">
             <thead>
             <tr>
                 <th>Address Id:</th>
@@ -124,16 +124,16 @@
         </table>
     </div>
     <div>
-        <h3>DropOff Address: </h3>
+        <h3 style="text-align: center">DropOff Address: </h3><br>
 
-
+        <label for="createDropOffId" style="font-size: small"><i>Create new dropoff address assigned this booking</i> </label>
             <a th:href="@{'/createBookingAddressDropOff/'+${booking.bookingNo}}", id="createDropOffId">
                 <button>
                     Create DropOff Address
                 </button>
             </a>
-        <label for="createDropOffId" style="font-size: small"><i> - Create New DropOff address and assign to this booking</i> </label><br>
-        <table>
+
+        <table style="margin-left:auto;margin-right:auto; margin-top: 70px">
             <thead>
             <tr>
                 <th>Address Id:</th>
@@ -160,9 +160,9 @@
     <hr>
     <br>
     <!--<div th:if="${variable.something} == null">-->
-    <form action="/saveBooking" method="post">
+    <form style="text-align: center" action="/saveBooking" method="post">
         <div>
-            <strong>
+            <strong style="text-align: center">
                 Booking ID:
                 <input type="text" name="bookingNo" th:value="${booking.bookingNo}" readonly, style="border: none">
             </strong>

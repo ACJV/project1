@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Vehicle Page</title>
+    <title>Category List</title>
 </head>
 <body>
 
@@ -10,19 +10,19 @@
 <div th:insert="home/Index/owner :: header"></div>
 <div th:insert="home/Index/owner :: footer"></div>
 
-<h1>Category List</h1>
+<h1 style="text-align: center">Category List</h1>
 <a href="/createCategory">
-    <button class="button-create">
+    <button class="button-create" style="color: blue">
         Add New Category
     </button>
 </a>
 
 <form th:action="@{/category}" method="get">
-    <input id="Search" type="text" name="keyword" placeholder="Enter keyword to search for a category" style="margin-left: 300px">
+    <input id="Search" type="text" name="keyword" placeholder="Search for a category" style="margin-left: 300px">
     <button type="submit">Search</button>
 </form><br>
 
-<table>
+<table style="margin-left:auto;margin-right:auto; margin-top: auto">
     <thead >
     <tr>
         <th>Category ID</th>
@@ -44,12 +44,12 @@
         <td th:text="${category.catDescription}"/>
         <td>
             <a th:href="@{'/updateCategory/'+${category.catId}}">
-                <button>UPDATE</button>
+                <button style="color: limegreen">UPDATE</button>
             </a>
         </td>
         <td>
             <a th:href="@{'/deleteCategory/'+${category.catId}}">
-                <button>DELETE</button>
+                <button style="color: red">DELETE</button>
             </a>
         </td>
     </tr>

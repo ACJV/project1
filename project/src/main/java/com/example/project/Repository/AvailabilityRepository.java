@@ -56,7 +56,11 @@ public class AvailabilityRepository {
         for(int i = 0; i < bookingsFound.size(); i++){
             // If unavailableVehicles doesn't contain this regNumber already, add it to the list
             if(!unavailableVehicles.contains(bookingsFound.get(i).getRegNumber())){
-                unavailableVehicles.add(allVehicles.get(i));
+                if(bookingsFound.get(i).getBookingStatus().equals("Confirmed"))
+                {
+                    //if booking is confirmed, vehicle will be  displayed as unavailable
+                    unavailableVehicles.add(allVehicles.get(i));
+                }
             }
         }
         // Create an arrayList to get vehicles not listed in unavailableVehicles
@@ -65,7 +69,14 @@ public class AvailabilityRepository {
         for(int i = 0; i < allVehicles.size(); i++){
             // If unavailableVehicles doesn't contain this vehicle, list it as available
             if(!unavailableVehicles.contains(allVehicles.get(i))){
-                availableVehicles.add(allVehicles.get(i));
+                if(!availableVehicles.get(i).isOperational())
+                {
+                    //unless operational not displayed
+                    availableVehicles.add(allVehicles.get(i));
+                }
+                else {
+                    unavailableVehicles.add(allVehicles.get(i));
+                }
             }
         }
         // Create an array to hold both arrayLists
